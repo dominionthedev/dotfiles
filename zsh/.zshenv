@@ -12,9 +12,6 @@ export GOPATH="$HOME/go"
 export GOBIN=$HOME/go/bin
 export GOTOOLCHAIN=local
 
-# name
-export NAME=DominionDev
-
 # terminal
 export COLORTERM=truecolor
 export TERM=xterm-256color

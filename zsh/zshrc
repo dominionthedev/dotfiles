@@ -132,16 +132,16 @@ alias vi='nvim'
 alias vim='nvim'
 alias nv='nvim'
 
-cd() { 
-    z "$@"
-    if [ -d ".git" ]; then
-        clear
-        gum style --foreground 212 --border double --padding "0 2" " Git Repository Detected"
-        # Small physics-style delay
-        gum spin --spinner monkey --title "Checking status..." -- sleep 0.1
-        eza --icons --git --long --all --header
-    fi
-}
+# cd() { 
+#    z "$@"
+#    if [ -d ".git" ]; then
+#        clear
+#        gum style --foreground 212 --border double --padding "0 2" " Git Repository Detected"
+#        # Small physics-style delay
+#        gum spin --spinner monkey --title "Checking status..." -- sleep 0.1
+#        eza --icons --git --long --all --header
+#    fi
+# }
 
 alias reload='source ~/.zshrc'
 alias path='echo $PATH | tr ":" "\n"'
