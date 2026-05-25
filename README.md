@@ -1,4 +1,4 @@
-# Dotfile
+# My `.files`
 
 > 🏡 $HOME/.config/
 
