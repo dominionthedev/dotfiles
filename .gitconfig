@@ -1,0 +1,67 @@
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    light = false
+    side-by-side = true
+    line-numbers = true
+    syntax-theme     = Catppuccin-mocha
+    file-style       = bold yellow ul
+    hunk-header-style = file line-number syntax
+    # Catppuccin Mocha Colors
+    minus-style                   = syntax "#312229"
+    minus-non-emph-style          = syntax "#312229"
+    minus-emph-style              = syntax "#522e33"
+    minus-empty-line-marker-style = syntax "#312229"
+    line-numbers-minus-style      = "#f38ba8"
+    plus-style                    = syntax "#253332"
+    plus-non-emph-style           = syntax "#253332"
+    plus-emph-style               = syntax "#394b46"
+    plus-empty-line-marker-style  = syntax "#253332"
+    line-numbers-plus-style       = "#a6e3a1"
+    line-numbers-zero-style       = "#6c7086"
+    inline-hint-style             = syntax
+    map-styles = \
+        bold purple => syntax "#494060", \
+        bold cyan => syntax "#384d51", \
+        bold yellow => syntax "#544f4e"
+
+[core]
+    editor       = nvim
+    excludesfile = ~/.gitignore_global
+    pager = delta -- --theme="Catppuccin-Mocha"
+    autocrlf     = input
+	fsmonitor = true
+
+[interactive]
+  diffFilter = delta --color-only --theme="Catppuccin-Mocha"
+
+
+[color]
+    ui = auto
+
+[alias]
+    s    = status -sb
+    co   = checkout
+    cob  = checkout -b
+    cm   = commit -m
+    ca   = commit --amend
+    cane = commit --amend --no-edit
+    p    = push
+    pf   = push --force-with-lease
+    pl   = pull
+    lg   = log --oneline --graph --decorate -20
+    lga  = log --oneline --graph --decorate --all
+    d    = diff
+    ds   = diff --staged
+    fp   = fetch --prune
+    sw   = switch
+    swc  = switch -c
+    undo = reset --soft HEAD~1
+    who  = shortlog -sn --no-merges
+[feature]
+	manyFiles = true
