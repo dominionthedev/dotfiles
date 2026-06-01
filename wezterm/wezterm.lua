@@ -5,22 +5,32 @@ local config = {}
 
 -- ── Font ─────────────────────────────────────────────────────────────────────
 config.font = wezterm.font("FiraCode Nerd Font")
-config.font_size = 11
-config.line_height = 1.08
+config.font_size = 8
+
 config.harfbuzz_features = { "calt=1", "liga=1", "clig=1" }
 
--- ── Color ─────────────────────────────────────────────────────────────────────
+-- ── Color ────────────────────────────────────────────────────────────────────
 config.color_scheme = "Catppuccin Mocha"
 
--- ── Window ────────────────────────────────────────────────────────────────────
-config.window_background_opacity = 0.6
-config.macos_window_background_blur = 9
+-- ── Window ───────────────────────────────────────────────────────────────────
+config.window_background_opacity = 0.3
+config.macos_window_background_blur = 3
 
-config.window_padding = { left = 10, right = 10, top = 10, bottom = 10 }
+-- Open maximized
+config.initial_cols = 220
+config.initial_rows = 60
+
+config.window_padding = {
+    left = 3,
+    right = 3,
+    top = 5,
+    bottom = 3,
+}
+
 config.window_decorations = "RESIZE"
 config.window_close_confirmation = "NeverPrompt"
 
-config.scrollback_lines = 10000
+config.scrollback_lines = 1000
 config.default_cwd = wezterm.home_dir .. "/Developer"
 
 -- ── Cursor ───────────────────────────────────────────────────────────────────
@@ -29,17 +39,16 @@ config.cursor_blink_rate = 500
 config.cursor_blink_ease_in = "Constant"
 config.cursor_blink_ease_out = "Constant"
 
--- ── Tab bar (minimal) ─────────────────────────────────────────────────────────
--- Tab bar is off — tmux handles all windowing
+-- ── Tab bar ──────────────────────────────────────────────────────────────────
 config.enable_tab_bar = false
 
--- ── Performance ───────────────────────────────────────────────────────────────
+-- ── Performance ──────────────────────────────────────────────────────────────
 config.front_end = "WebGpu"
 config.max_fps = 120
 config.animation_fps = 60
 config.term = "xterm-256color"
 
--- ── Alt key (macOS option key) ────────────────────────────────────────────────
+-- ── Alt key (macOS option key) ───────────────────────────────────────────────
 config.send_composed_key_when_left_alt_is_pressed = true
 config.send_composed_key_when_right_alt_is_pressed = true
 
@@ -47,7 +56,11 @@ config.send_composed_key_when_right_alt_is_pressed = true
 config.automatically_reload_config = true
 
 -- ── Leader ───────────────────────────────────────────────────────────────────
-config.leader = { key = "b", mods = "CMD", timeout_milliseconds = 1000 }
+config.leader = {
+    key = "b",
+    mods = "CMD",
+    timeout_milliseconds = 1000,
+}
 
 -- ── Key bindings ─────────────────────────────────────────────────────────────
 config.keys = {
@@ -73,10 +86,24 @@ config.keys = {
     { key = "0",          mods = "CMD",       action = act.ResetFontSize },
 
     -- Search
-    { key = "f",          mods = "CMD",       action = act.Search({ CaseInSensitiveString = "" }) },
+    {
+        key = "f",
+        mods = "CMD",
+        action = act.Search({ CaseInSensitiveString = "" }),
+    },
 
     -- Clear scrollback
-    { key = "k",          mods = "CMD",       action = act.ClearScrollback("ScrollbackAndViewport") },
+    {
+        key = "k",
+        mods = "CMD",
+        action = act.ClearScrollback("ScrollbackAndViewport"),
+    },
 }
+
+-- Start maximized on launch
+wezterm.on("gui-startup", function(cmd)
+    local _, _, window = wezterm.mux.spawn_window(cmd or {})
+    window:gui_window():maximize()
+end)
 
 return config

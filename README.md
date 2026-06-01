@@ -9,8 +9,8 @@ My config files
 - zsh configs
 - starship
 - wezterm
-- alacritty - not in use
-- nvim
+- alacritty - not used anymore
+- nvim - v0.11+
 - tmux - with scripts and custom modules
 - termbox - early access version
 - mise
@@ -23,7 +23,7 @@ My config files
 ## Requires(Deps):
 
 - zinit - for zsh config
-- nvim and lazy.nvim
+- nvim(v0.11+) and lazy.nvim
 - tmux
 - wezterm or alacritty
 - delta
