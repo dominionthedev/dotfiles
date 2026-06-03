@@ -30,7 +30,7 @@ config.window_padding = {
 config.window_decorations = "RESIZE"
 config.window_close_confirmation = "NeverPrompt"
 
-config.scrollback_lines = 1000
+config.scrollback_lines = 5000
 config.default_cwd = wezterm.home_dir .. "/Developer"
 
 -- ── Cursor ───────────────────────────────────────────────────────────────────
@@ -46,7 +46,7 @@ config.enable_tab_bar = false
 config.front_end = "WebGpu"
 config.max_fps = 120
 config.animation_fps = 60
-config.term = "xterm-256color"
+config.term = "wezterm"
 
 -- ── Alt key (macOS option key) ───────────────────────────────────────────────
 config.send_composed_key_when_left_alt_is_pressed = true

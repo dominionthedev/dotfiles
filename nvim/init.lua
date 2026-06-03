@@ -14,8 +14,8 @@ vim.opt.rtp:prepend(lazypath)
 -- ============================================================================
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-
 vim.opt.mouse = "a"
+vim.opt.mousemoveevent = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -23,9 +23,9 @@ vim.opt.undofile = true
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
 vim.opt.completeopt = "menuone,noselect"
-
+vim.opt.smoothscroll = true
+vim.opt.splitkeep = "screen"
 vim.opt.number = true
-vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
 vim.opt.cursorline = true
 vim.opt.scrolloff = 8
@@ -35,26 +35,47 @@ vim.opt.termguicolors = true
 vim.opt.showmode = false
 vim.opt.cmdheight = 0
 vim.opt.pumheight = 10
-
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = true
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldmethod = "expr"
+vim.opt.fillchars = {
+    fold = " ",
+    foldopen = "",
+    foldclose = "",
+    foldsep = " ",
+}
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.smartindent = true
 vim.opt.breakindent = true
-
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
-
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 
 -- ============================================================================
 -- Plugin Configuration
 -- ============================================================================
-
 require("lazy").setup({
+    performance = {
+        rtp = {
+            disabled_plugins = {
+                "gzip",
+                "matchit",
+                "matchparen",
+                "netrwPlugin",
+                "tarPlugin",
+                "tohtml",
+                "tutor",
+                "zipPlugin",
+            },
+        },
+    },
 
     {
         "catppuccin/nvim",
@@ -68,16 +89,21 @@ require("lazy").setup({
                 integrations = {
                     cmp = true,
                     gitsigns = true,
-                    nvimtree = true,
                     treesitter = true,
                     bufferline = true,
-                    indent_blankline = { enabled = true },
-                    native_lsp = { enabled = true },
-                    dap = true,
-                    neotest = true,
+                    which_key = true,
                     snacks = true,
-                    mini = { enabled = true },
                     noice = true,
+                    native_lsp = {
+                        enabled = true,
+                        virtual_text = {
+                            errors = { "italic" },
+                            warnings = { "italic" },
+                            hints = { "italic" },
+                            information = { "italic" },
+                        },
+                    },
+                    mini = { enabled = true },
                 },
             })
             vim.cmd.colorscheme("catppuccin")
@@ -96,7 +122,6 @@ require("lazy").setup({
         lazy = false,
         opts = {
             bigfile = { enabled = true },
-            notifier = { enabled = true, timeout = 3000 },
             quickfile = { enabled = true },
             statuscolumn = { enabled = true },
             dashboard = {
@@ -111,20 +136,33 @@ require("lazy").setup({
  ▒▒▓  ▒ ░ ▒░▒░▒░ ░ ▒░   ░  ░░▓  ░ ▒░   ▒ ▒ ░▓  ░ ▒░▒░▒░ ░ ▒░   ▒ ▒  ▒▒▓  ▒ ░░ ▒░ ░  ░ ▐░
  ░ ░  ░ ░ ░ ░ ▒  ░      ░    ▒ ░   ░   ░ ░  ▒ ░░ ░ ░ ▒     ░   ░ ░  ░ ░  ░    ░       ░░
    ░        ░ ░         ░    ░           ░  ░      ░ ░           ░    ░       ░  ░     ░
-                              🔥 Nvim Power Mode 🔥
-          ]],
+                    ]],
                 },
             },
-            picker = { enabled = true },
-            scroll = { enabled = true },
+            picker = {
+                enabled = true,
+                layout = { preset = "ivy" },
+                sources = { explorer = { hidden = true } }
+            },
+            gh = { enabled = true },
+            scratch = { enabled = true },
+            explorer = {
+                enabled = true,
+                replace_netrw = true,
+                follow_file = true,
+                auto_close = false,
+            },
+            input = { enabled = true },
+            scope = { enabled = true },
+            indent = { enabled = true },
             words = { enabled = true },
+            scroll = { enabled = true },
             animate = { enabled = true },
             terminal = { enabled = true },
-            rename = { enabled = true },
             lazygit = { enabled = true },
+            rename = { enabled = true },
             image = { enabled = true },
-            gh = { enabled = true },
-            zen = { enabled = true }
+            zen = { enabled = true },
         },
     },
 
@@ -136,8 +174,27 @@ require("lazy").setup({
             cmdline = { enabled = true },
             messages = { enabled = true },
             popupmenu = { enabled = true },
-            lsp = { progress = { enabled = true } },
+            lsp = {
+                progress = { enabled = true, view = "mini" },
+                hover = { enabled = true },
+                signature = { enabled = true },
+            },
+            presets = {
+                long_message_to_split = true,
+                lsp_doc_border = true,
+                inc_rename = true
+            },
         },
+    },
+
+    {
+        "rcarriga/nvim-notify",
+        config = function()
+            require("notify").setup({
+                background_colour = "#000000",
+            })
+            vim.notify = require("notify")
+        end
     },
 
     {
@@ -151,15 +208,22 @@ require("lazy").setup({
                     section_separators = { left = "", right = "" },
                     icons_enabled = true,
                     globalstatus = true,
+                    disabled_filetypes = {
+                        statusline = { "snacks_dashboard" },
+                    },
                 },
                 sections = {
-                    lualine_a = { "mode" },
-                    lualine_b = { "branch", "diff", "diagnostics" },
+                    lualine_a = { { "mode", icons_enabled = true, } },
+                    lualine_b = {
+                        { "branch", icon = "󰘬" },
+                        "diff",
+                        "diagnostics",
+                    },
                     lualine_c = { { "filename", path = 1 } },
-                    lualine_x = { "lsp_progress", "encoding", "fileformat", "filetype" },
+                    lualine_x = { "encoding", "fileformat", "filetype" },
                     lualine_y = { "progress" },
                     lualine_z = { "location" },
-                },
+                }
             })
         end,
     },
@@ -174,33 +238,12 @@ require("lazy").setup({
                     separator_style = "slant",
                     diagnostics = "nvim_lsp",
                     always_show_bufferline = true,
+                    hover = {
+                        enabled = true,
+                        delay = 200,
+                        reveal = { 'close' }
+                    },
                 },
-            })
-        end,
-    },
-
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        main = "ibl",
-        config = function()
-            require("ibl").setup({
-                indent = { char = "│" },
-                scope = { enabled = true },
-            })
-        end,
-    },
-
-    {
-        "nvim-tree/nvim-tree.lua",
-        dependencies = "nvim-tree/nvim-web-devicons",
-        config = function()
-            require("nvim-tree").setup({
-                view = { width = 35, side = "left" },
-                renderer = {
-                    group_empty = true,
-                    icons = { show = { file = true, folder = true, folder_arrow = true, git = true } },
-                },
-                filters = { dotfiles = false },
             })
         end,
     },
@@ -223,7 +266,7 @@ require("lazy").setup({
             incremental_selection = { enable = true },
         },
         config = function(_, opts)
-            require("nvim-treesitter").setup(opts) -- DO NOT Change, mind your business, Nosy brat!
+            require("nvim-treesitter").setup(opts)
         end,
     },
 
@@ -235,11 +278,12 @@ require("lazy").setup({
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
+            "windwp/nvim-autopairs"
         },
         config = function()
             -- ====================== CMP ======================
             local cmp = require("cmp")
-
+            local cmp_autopairs = require("nvim-autopairs.completion.cmp")
             cmp.setup({
                 mapping = cmp.mapping.preset.insert({
                     ["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -253,11 +297,52 @@ require("lazy").setup({
                     { name = "buffer" },
                     { name = "path" },
                 },
+                sorting = { priority_weight = 2 },
+                window = {
+                    completion = cmp.config.window.bordered(),
+                    documentation = cmp.config.window.bordered(),
+                },
                 experimental = { ghost_text = true },
+                formatting = {
+                    format = function(_, vim_item)
+                        local icons = {
+                            Text          = "󰉿",
+                            Method        = "󰆧",
+                            Function      = "󰊕",
+                            Constructor   = "",
+                            Field         = "󰜢",
+                            Variable      = "󰀫",
+                            Class         = "󰠱",
+                            Interface     = "",
+                            Module        = "󰏗",
+                            Property      = "󰜢",
+                            Unit          = "󰑭",
+                            Value         = "󰎠",
+                            Enum          = "",
+                            Keyword       = "󰌋",
+                            Snippet       = "",
+                            Color         = "󰏘",
+                            File          = "󰈙",
+                            Reference     = "󰈇",
+                            Folder        = "󰉋",
+                            EnumMember    = "",
+                            Constant      = "󰏿",
+                            Struct        = "󰙅",
+                            Event         = "",
+                            Operator      = "󰆕",
+                            TypeParameter = "󰊄",
+                        }
+                        vim_item.kind = (icons[vim_item.kind] or "") .. " " .. vim_item.kind
+                        return vim_item
+                    end,
+                },
             })
+            cmp.event:on(
+                "confirm_done",
+                cmp_autopairs.on_confirm_done()
+            )
 
             -- ====================== Capabilities & on_attach ======================
-
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
             local function on_attach(client, bufnr)
@@ -270,13 +355,9 @@ require("lazy").setup({
                 end
 
                 -- ====================== LSP navigation ======================
-                map("n", "gd", vim.lsp.buf.definition, "Go to definition")
                 map("n", "gD", vim.lsp.buf.declaration, "Go to declaration")
-                map("n", "gi", vim.lsp.buf.implementation, "Go to implementation")
-                map("n", "gt", vim.lsp.buf.type_definition, "Go to type definition")
-                map("n", "gr", vim.lsp.buf.references, "References")
                 map("n", "K", vim.lsp.buf.hover, "Hover docs")
-                map("n", "<C-k>", vim.lsp.buf.signature_help, "Signature help")
+                map("n", "<leader>k", vim.lsp.buf.signature_help, "Signature help")
 
                 -- ====================== Actions ======================
                 map("n", "<leader>rn", vim.lsp.buf.rename, "Rename")
@@ -300,18 +381,14 @@ require("lazy").setup({
                 -- ====================== Semantic tokens control ======================
                 if client.server_capabilities.semanticTokensProvider then
                     local ft = vim.bo[bufnr].filetype
-
-                    -- keep semantic tokens for these; Treesitter handles the rest
                     local keep = { "rust", "go" }
                     local allowed = false
-
                     for _, v in ipairs(keep) do
                         if v == ft then
                             allowed = true
                             break
                         end
                     end
-
                     if not allowed then
                         client.server_capabilities.semanticTokensProvider = nil
                     end
@@ -319,8 +396,7 @@ require("lazy").setup({
             end
 
             -- ====================== LSP Configurations ======================
-
-            -- Python: ty (fast) + ruff (linting/formatting)
+            -- Python: ty (definitions/types) + ruff (linting/formatting)
             vim.lsp.config("ty", {
                 cmd = { "ty", "server" },
                 filetypes = { "python" },
@@ -350,6 +426,16 @@ require("lazy").setup({
                 cmd = { "lua-language-server" },
                 capabilities = capabilities,
                 on_attach = on_attach,
+                settings = {
+                    Lua = {
+                        completion = {
+                            callSnippet = "Replace",
+                        },
+                        diagnostics = {
+                            globals = { "vim" },
+                        },
+                    },
+                }
             })
             vim.lsp.enable("lua_ls")
 
@@ -382,11 +468,11 @@ require("lazy").setup({
             vim.lsp.enable("gopls")
 
             -- Zig
-            vim.lsp.config("zls", {
-                capabilities = capabilities,
-                on_attach = on_attach,
-            })
-            vim.lsp.enable('zls')
+            -- vim.lsp.config("zls", {
+            --    capabilities = capabilities,
+            --    on_attach = on_attach,
+            --})
+            --vim.lsp.enable('zls')
 
             -- Toml
             vim.lsp.config("taplo", {
@@ -420,54 +506,71 @@ require("lazy").setup({
     },
 
     {
+        "windwp/nvim-autopairs",
+        event = "InsertEnter",
+        config = true,
+    },
+
+    {
         "lewis6991/gitsigns.nvim",
         config = function()
             require("gitsigns").setup({
                 signs = {
                     add          = { text = "▎" },
                     change       = { text = "▎" },
-                    delete       = { text = "" },
-                    topdelete    = { text = "" },
+                    delete       = { text = "-" },
+                    topdelete    = { text = "-" },
                     changedelete = { text = "▎" },
                 },
-
                 on_attach = function(bufnr)
                     local gs = package.loaded.gitsigns
-
                     local map = function(mode, l, r, desc)
                         vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
                     end
-
                     map("n", "]h", gs.next_hunk, "Next hunk")
                     map("n", "[h", gs.prev_hunk, "Prev hunk")
-
                     map("n", "<leader>hp", gs.preview_hunk, "Preview hunk")
                     map("n", "<leader>hr", gs.reset_hunk, "Reset hunk")
                     map("n", "<leader>hb", function()
                         gs.blame_line({ full = true })
                     end, "Blame line")
-
                     map("n", "<leader>hd", gs.diffthis, "Diff this")
                 end,
             })
         end,
     },
 
-    { "lewis6991/gitsigns.nvim", config = true },
-    { "windwp/nvim-autopairs",   config = true },
-    { "numToStr/Comment.nvim",   config = true },
-    { "kylechui/nvim-surround",  config = true },
-    { "folke/which-key.nvim",    config = true },
+    {
+        "folke/which-key.nvim",
+        opts = { preset = "modern" },
+    },
 
-}, { checker = { enabled = false } })
+    { "numToStr/Comment.nvim",  config = true },
+    { "kylechui/nvim-surround", config = true },
+
+}, { checker = { enabled = true, notify = true } })
 
 -- ============================================================================
 -- Diagnostics & Final Setup
 -- ============================================================================
 vim.diagnostic.config({
-    virtual_text = { prefix = "●", spacing = 2 },
     severity_sort = true,
-    float = { border = "rounded", source = true },
+    virtual_text = {
+        spacing = 4,
+        prefix = "",
+    },
+    float = {
+        border = "rounded",
+        source = "if_many",
+    },
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = " ",
+            [vim.diagnostic.severity.WARN]  = " ",
+            [vim.diagnostic.severity.INFO]  = " ",
+            [vim.diagnostic.severity.HINT]  = "󰌵 ",
+        },
+    },
     underline = true,
 })
 
@@ -484,9 +587,7 @@ keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
 -- File tree
-keymap("n", "<leader>e", function()
-    require("nvim-tree.api").tree.toggle({ focus = true })
-end)
+keymap("n", "<leader>e", function() Snacks.explorer() end, opts)
 
 -- Snacks pickers
 keymap("n", "<leader>ff", function() Snacks.picker.files() end)
@@ -498,12 +599,28 @@ keymap("n", "<leader>p", function() Snacks.picker.commands() end)
 keymap("n", "<leader>z", function() Snacks.zen() end, opts)
 keymap("n", "<leader>gl", function() Snacks.lazygit() end, opts)
 keymap("n", "<leader>gb", function() Snacks.git.blame_line() end, opts)
-keymap("n", "<leader>un", function() Snacks.notifier.hide() end, opts)
+keymap("n", "<leader>fr", function() Snacks.picker.recent() end)
+keymap("n", "<leader>.", function() Snacks.scratch() end, opts)
+keymap("n", "<leader>fk", function() Snacks.picker.keymaps() end)
+keymap("n", "<leader>fh", function() Snacks.picker.help() end)
+keymap("n", "<leader>fd", function() Snacks.picker.diagnostics() end)
+keymap("n", "<leader>fs", function() Snacks.picker.lsp_symbols() end)
+keymap("n", "<leader>fS", function() Snacks.picker.workspace_symbols() end)
+keymap("n", "<leader>gc", function() Snacks.picker.git_log() end)
+keymap("n", "<leader>gs", function() Snacks.picker.git_status() end)
+keymap("n", "<leader>fo", function() Snacks.picker.oldfiles() end)
+keymap("n", "<leader>fm", function() Snacks.picker.marks() end)
+keymap("n", "<leader>gbc", function() Snacks.picker.git_branches() end)
+keymap("n", "<leader>gf", function() Snacks.picker.git_files() end)
+keymap("n", "gr", function() Snacks.picker.lsp_references() end)
+keymap("n", "gd", function() Snacks.picker.lsp_definitions() end)
+keymap("n", "gi", function() Snacks.picker.lsp_implementations() end)
+keymap("n", "gt", function() Snacks.picker.lsp_type_definitions() end)
 
 -- Dashboard
 keymap("n", "<leader>H", function()
     vim.cmd("enew")
-    require("snacks.dashboard").open()
+    Snacks.dashboard.open()
 end)
 
 -- Which-key
@@ -526,19 +643,6 @@ keymap("n", "<C-u>", "<C-u>zz", opts)
 keymap("n", "n", "nzzzv", opts)
 keymap("n", "N", "Nzzzv", opts)
 
--- LSP buffer keymaps (fallback layer)
-vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(args)
-        local bufopts = { buffer = args.buf }
-
-        keymap("n", "gd", vim.lsp.buf.definition, bufopts)
-        keymap("n", "gr", vim.lsp.buf.references, bufopts)
-        keymap("n", "K", vim.lsp.buf.hover, bufopts)
-        keymap("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
-        keymap("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
-    end,
-})
-
 -- File operations
 keymap("n", "<leader>w", "<cmd>w<cr>", opts)
 keymap("n", "<leader>q", "<cmd>q<cr>", opts)
@@ -548,7 +652,7 @@ keymap("n", "<leader>x", "<cmd>x<cr>", opts)
 -- Buffer navigation
 keymap("n", "<S-h>", "<cmd>bprevious<cr>", opts)
 keymap("n", "<S-l>", "<cmd>bnext<cr>", opts)
-keymap("n", "<leader>bd", "<cmd>bdelete<cr>", opts)
+keymap("n", "<leader>bd", "<cmd>BufferLinePickClose<cr>", opts)
 
 -- Search
 keymap("n", "<esc>", "<cmd>nohlsearch<cr>", opts)
