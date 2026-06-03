@@ -1,7 +1,0 @@
-[tools]
-usage = "latest"
-zig = "0.16"
-zls = "0.16.0"
-
-[settings]
-activate_aggressive = false
