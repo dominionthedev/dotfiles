@@ -145,6 +145,8 @@ require("lazy").setup({
                 sources = { explorer = { hidden = true } }
             },
             gh = { enabled = true },
+            git = { enabled = true },
+            debug = { enabled = true },
             scratch = { enabled = true },
             explorer = {
                 enabled = true,
@@ -580,27 +582,22 @@ vim.diagnostic.config({
 local keymap = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
--- Window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
-
--- File tree
 keymap("n", "<leader>e", function() Snacks.explorer() end, opts)
-
--- Snacks pickers
 keymap("n", "<leader>ff", function() Snacks.picker.files() end)
 keymap("n", "<leader>fg", function() Snacks.picker.grep() end)
 keymap("n", "<leader>fb", function() Snacks.picker.buffers() end, opts)
 keymap("n", "<leader>p", function() Snacks.picker.commands() end)
-
--- Snacks extras
 keymap("n", "<leader>z", function() Snacks.zen() end, opts)
 keymap("n", "<leader>gl", function() Snacks.lazygit() end, opts)
 keymap("n", "<leader>gb", function() Snacks.git.blame_line() end, opts)
 keymap("n", "<leader>fr", function() Snacks.picker.recent() end)
-keymap("n", "<leader>.", function() Snacks.scratch() end, opts)
+keymap("n", "<leader>..", function() Snacks.scratch() end, opts)
+keymap("n", "<leader>.l", function() Snacks.scratch.list() end, opts)
+keymap("n", "<leader>.s", function() Snacks.scratch.select() end, opts)
 keymap("n", "<leader>fk", function() Snacks.picker.keymaps() end)
 keymap("n", "<leader>fh", function() Snacks.picker.help() end)
 keymap("n", "<leader>fd", function() Snacks.picker.diagnostics() end)
@@ -616,59 +613,44 @@ keymap("n", "gr", function() Snacks.picker.lsp_references() end)
 keymap("n", "gd", function() Snacks.picker.lsp_definitions() end)
 keymap("n", "gi", function() Snacks.picker.lsp_implementations() end)
 keymap("n", "gt", function() Snacks.picker.lsp_type_definitions() end)
-
--- Dashboard
+keymap("n", "<leader>ghi", function() Snacks.gh.issues() end, opts)
+keymap("n", "<leader>ghp", function() Snacks.gh.pull_requests() end, opts)
+keymap("n", "<leader>ghc", function() Snacks.gh.checkout() end, opts)
+keymap("n", "<leader>ghb", function() Snacks.gh.branches() end, opts)
+keymap("n", "<leader>ghs", function() Snacks.gh.search() end, opts)
 keymap("n", "<leader>H", function()
     vim.cmd("enew")
     Snacks.dashboard.open()
 end)
-
--- Which-key
-keymap("n", "?", function()
-    require("which-key").show({ global = true })
-end)
-
-keymap("n", "g?", function()
-    require("which-key").show({ global = false })
-end)
-
--- Diagnostics navigation
+keymap("n", "?", function() require("which-key").show({ global = true }) end)
+keymap("n", "g?", function() require("which-key").show({ global = false }) end)
 keymap("n", "[d", vim.diagnostic.goto_prev)
 keymap("n", "]d", vim.diagnostic.goto_next)
 keymap("n", "<leader>vd", vim.diagnostic.open_float)
-
--- Centered scrolling behavior
 keymap("n", "<C-d>", "<C-d>zz", opts)
 keymap("n", "<C-u>", "<C-u>zz", opts)
 keymap("n", "n", "nzzzv", opts)
 keymap("n", "N", "Nzzzv", opts)
-
--- File operations
 keymap("n", "<leader>w", "<cmd>w<cr>", opts)
 keymap("n", "<leader>q", "<cmd>q<cr>", opts)
 keymap("n", "<leader>Q", "<cmd>qa<cr>", opts)
 keymap("n", "<leader>x", "<cmd>x<cr>", opts)
-
--- Buffer navigation
 keymap("n", "<S-h>", "<cmd>bprevious<cr>", opts)
 keymap("n", "<S-l>", "<cmd>bnext<cr>", opts)
 keymap("n", "<leader>bd", "<cmd>BufferLinePickClose<cr>", opts)
-
--- Search
+keymap("n", "<leader>ba", "<cmd>BufferLineCloseOthers<cr>", opts)
+keymap("n", "<leader>bg", "<cmd>BufferLinePick<cr>", opts)
+keymap("n", "<leader>bp", "<cmd>BufferLineMoveNext<cr>", opts)
+keymap("n", "<leader>bn", "<cmd>BufferLineMovePrev<cr>", opts)
+keymap("n", "<leader>bi", "<cmd>BufferLineTogglePin<cr>", opts)
 keymap("n", "<esc>", "<cmd>nohlsearch<cr>", opts)
-
--- Terminal
 keymap("n", "<leader>tt", function() Snacks.terminal() end, opts)
 keymap("t", "<esc>", [[<C-\><C-n>]], opts)
-
--- Editing helpers
 keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
-
--- Move lines
 keymap("n", "<A-j>", "<cmd>m .+1<cr>==", opts)
 keymap("n", "<A-k>", "<cmd>m .-2<cr>==", opts)
 keymap("v", "<A-j>", ":m '>+1<cr>gv=gv", opts)
 keymap("v", "<A-k>", ":m '<-2<cr>gv=gv", opts)
 
-print("🔥 DominionDev NeoVim OS MODE")
+vim.notify("🔥 NeoVim OS MODE Activated")

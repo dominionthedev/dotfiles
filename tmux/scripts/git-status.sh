@@ -33,4 +33,4 @@ if [ "$staged" -eq 0 ] && [ "$modified" -eq 0 ] && [ "$untracked" -eq 0 ]; then
     out="${out} #[fg=#a6e3a1]✓"
 fi
 
-echo "#[fg=#89dceb]${out}#[default]"
+echo "#[fg=#89dceb]${out} #[default]"
