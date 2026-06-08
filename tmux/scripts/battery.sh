@@ -6,7 +6,7 @@ get_battery_macos() {
   local info pct charging
   info=$(pmset -g batt 2>/dev/null)
   pct=$(echo "$info" | grep -o '[0-9]*%' | head -1 | tr -d '%')
-  charging=$(echo "$info" | grep -q 'AC Power\|charging' && echo "yes" || echo "no")
+  charging=$(echo "$info" | grep -q 'AC Power' && echo "yes" || echo "no")
   echo "$pct $charging"
 }
 
