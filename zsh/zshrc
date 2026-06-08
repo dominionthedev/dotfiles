@@ -1,16 +1,5 @@
 # zmodload zsh/zprof
 
-# ── XDG ──────────────────────────────────────────────────────────────────────
-export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
-export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
-export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
-
-# ── Editor ───────────────────────────────────────────────────────────────────
-export EDITOR="${EDITOR:-nvim}"
-export VISUAL="${VISUAL:-nvim}"
-export PAGER="${PAGER:-bat}"
-export MANPAGER="bat -l man -p"
-
 # ── Zinit ──────────────────────────────────────────────────────────
 ZINIT_HOME="${XDG_DATA_HOME}/zinit/zinit.git"
 if [[ ! -d "$ZINIT_HOME" ]]; then
@@ -19,7 +8,6 @@ if [[ ! -d "$ZINIT_HOME" ]]; then
 fi
 source "${ZINIT_HOME}/zinit.zsh"
 
-# plugins
 zinit ice wait"1" lucid atload"_zsh_autosuggest_start"
 zinit light zsh-users/zsh-autosuggestions
 zinit ice wait"1" lucid
@@ -37,7 +25,6 @@ HISTFILE="${XDG_DATA_HOME}/zsh/history"
 setopt EXTENDED_HISTORY HIST_EXPIRE_DUPS_FIRST HIST_IGNORE_DUPS HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS HIST_IGNORE_SPACE HIST_SAVE_NO_DUPS SHARE_HISTORY
 
-# ── Options ──────────────────────────────────────────────────────────────────
 setopt AUTO_CD AUTO_PUSHD PUSHD_IGNORE_DUPS PUSHD_SILENT
 setopt CORRECT INTERACTIVE_COMMENTS NO_BEEP PROMPT_SUBST
 
@@ -83,19 +70,29 @@ zstyle ':fzf-tab:*' fzf-flags \
   --layout=reverse \
   --border
 
-
 # ── Tool integrations ────────────────────────────────────────────────────────
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
-eval "$(runbox completion zsh)"
-eval "$(mushmellow completion zsh)"
-eval "$(splash completion zsh)"
 
-# carapace
-export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
-source <(carapace _carapace)
+# ── Hooks ───────────────────────────────────────────────────────────────────
+autoload -Uz add-zsh-hook
+
+function list_files() { 
+    clear
+    eza --icons --git --long --all --header
+}
+add-zsh-hook chpwd list_files
+
+function git_status() {
+    if [ -d ".git" ]; then
+        clear
+        git status
+    fi
+}
+add-zsh-hook chpwd git_status
 
 # ── Aliases ──────────────────────────────────────────────────────────────────
+alias cd="z"
 alias ls='eza --icons --group-directories-first'
 alias lsdir="eza --only-dirs"
 alias ll="eza --all -ll"
@@ -103,11 +100,8 @@ alias la="eza --long --header --icons --all --git --group-directories-first"
 alias tree='eza --icons --tree'
 alias grep='rg'
 alias find='fd'
-alias top='htop'
-alias ps='procs'
 alias du='dust'
 alias cat='bat --theme="Catppuccin-mocha"'
-
 alias g='git'
 alias gs='git status'
 alias ga='git add'
@@ -117,44 +111,19 @@ alias gl='git log --oneline --graph --decorate'
 alias gd='git diff'
 alias gco='git checkout'
 alias gb='git branch'
-
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ~='cd ~'
 alias -- -='cd -'
-
 alias t='tmux'
 alias ta='tmux attach-session -t'
 alias tk='tmux kill-server'
-
 alias v='nvim'
 alias vi='nvim'
 alias vim='nvim'
 alias nv='nvim'
-
-# cd() { 
-#    z "$@"
-#    if [ -d ".git" ]; then
-#        clear
-#        gum style --foreground 212 --border double --padding "0 2" " Git Repository Detected"
-#        # Small physics-style delay
-#        gum spin --spinner monkey --title "Checking status..." -- sleep 0.1
-#        eza --icons --git --long --all --header
-#    fi
-# }
-
 alias reload='source ~/.zshrc'
 alias path='echo $PATH | tr ":" "\n"'
 alias myip='curl -s https://api.ipify.org && echo'
-# alias python="python3"
-# alias ollama="ollacloud"
 
-# ── Splash Screen ─────────────────────────────────────────────────────────────
-# if [[ -z "$TMUX" ]] && [[ "$SHLVL" -eq 1 ]] && [[ "${TERMBOX_SHOW_SCREEN:-true}" == "true" ]]; then
-#    command -v termbox &>/dev/null && termbox splash show 2>/dev/null
-# fi
-# (only works on my laptop)
-
-# typeset -U path PATH
 # zprof
-
