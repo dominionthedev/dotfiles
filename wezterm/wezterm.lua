@@ -13,8 +13,8 @@ config.harfbuzz_features = { "calt=1", "liga=1", "clig=1" }
 config.color_scheme = "Catppuccin Mocha"
 
 -- ── Window ───────────────────────────────────────────────────────────────────
-config.window_background_opacity = 0.3
-config.macos_window_background_blur = 3
+config.window_background_opacity = 0.1
+config.macos_window_background_blur = 1
 
 -- Open maximized
 config.initial_cols = 220
