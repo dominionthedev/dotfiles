@@ -73,23 +73,32 @@ zstyle ':fzf-tab:*' fzf-flags \
 # ── Tool integrations ────────────────────────────────────────────────────────
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
+eval "$(fzf --zsh)"
 
 # ── Hooks ───────────────────────────────────────────────────────────────────
 autoload -Uz add-zsh-hook
 
 function list_files() { 
     clear
-    eza --icons --git --long --all --header
+    eza --icons --long --all --header
 }
 add-zsh-hook chpwd list_files
 
 function git_status() {
     if [ -d ".git" ]; then
+        # don't list files, so clear list_files output
         clear
         git status
     fi
 }
 add-zsh-hook chpwd git_status
+
+function activate_box() {
+    if [ -d ".runbox" ]; then
+        runbox shell
+    fi
+}
+add-zsh-hook chpwd activate_box
 
 # ── Aliases ──────────────────────────────────────────────────────────────────
 alias cd="z"

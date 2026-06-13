@@ -546,10 +546,6 @@ require("lazy").setup({
         "folke/which-key.nvim",
         opts = { preset = "modern" },
     },
-
-    { "numToStr/Comment.nvim",  config = true },
-    { "kylechui/nvim-surround", config = true },
-
 }, { checker = { enabled = true, notify = true } })
 
 -- ============================================================================
