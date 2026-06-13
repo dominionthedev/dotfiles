@@ -46,11 +46,11 @@ else
   icon="󰁺"
 fi
 
-# Reactive colour — red when ≤ 20%, yellow when ≤ 40%
-if [ "$pct" -le 20 ] && [ "$charging" != "yes" ]; then
-  echo "#[fg=#f38ba8,bold]${icon} ${pct}%#[default]"
-elif [ "$pct" -le 40 ] && [ "$charging" != "yes" ]; then
-  echo "#[fg=#f9e2af]${icon} ${pct}%#[default]"
+# Reactive colour — red when ≤ 10%, yellow when ≤ 50%
+if [ "$pct" -le 10 ] && [ "$charging" != "yes" ]; then
+  echo "#[fg=#{@red},bold]${icon} ${pct}%"
+elif [ "$pct" -le 50 ] && [ "$charging" != "yes" ]; then
+  echo "#[fg=#{@yellow}]${icon} ${pct}%"
 else
-  echo "#[fg=#a6e3a1]${icon} ${pct}%#[default]"
+  echo "#[fg=#{@sapphire}]${icon} ${pct}%"
 fi

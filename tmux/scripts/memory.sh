@@ -23,9 +23,9 @@ TOTAL_GB=$(echo "scale=0; $TOTAL_MEM/1024/1024/1024" | bc)
 PCT=$(echo "scale=0; ($USED_BYTES*100)/$TOTAL_MEM" | bc)
 
 if [ "$PCT" -ge 80 ]; then
-  echo "#[fg=#f38ba8,bold]󰋊 ${PCT}%"
+  echo "#[fg=#{@red},bold]󰋊 ${PCT}%"
 elif [ "$PCT" -ge 70 ]; then
-  echo "#[fg=#f9e2af]󰋊 ${PCT}%"
+  echo "#[fg=#{@yellow}]󰋊 ${PCT}%"
 else
-  echo "󰋊 ${PCT}%"
+  echo "#[fg=#{@blue}]󰋊 ${PCT}%"
 fi
