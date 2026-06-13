@@ -18,9 +18,9 @@ pct=${pct:-0}
 pct=${pct%%.*}
 
 if [ "$pct" -ge 90 ]; then
-  echo "#[fg=#f38ba8,bold]${pct}"
+  echo "#[fg=#{@red},bold]󰻠 ${pct}%"
 elif [ "$pct" -ge 70 ]; then
-  echo "#[fg=#f9e2af]${pct}"
+  echo "#[fg=#{@yellow}]󰻠 ${pct}%"
 else
-  echo "#[fg=#a6e3a1]${pct}"
+  echo "#[fg=#{@green}]󰻠 ${pct}%"
 fi
