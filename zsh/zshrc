@@ -78,27 +78,19 @@ eval "$(fzf --zsh)"
 # ── Hooks ───────────────────────────────────────────────────────────────────
 autoload -Uz add-zsh-hook
 
-function list_files() { 
+function dir_enter() {
     clear
-    eza --icons --long --all --header
-}
-add-zsh-hook chpwd list_files
 
-function git_status() {
-    if [ -d ".git" ]; then
-        # don't list files, so clear list_files output
-        clear
+    if [[ -d .git ]]; then
         git status
+    else
+        eza --icons --long --all --header
     fi
-}
-add-zsh-hook chpwd git_status
 
-function activate_box() {
-    if [ -d ".runbox" ]; then
-        runbox shell
-    fi
+    [[ -d .runbox ]] && runbox shell
 }
-add-zsh-hook chpwd activate_box
+
+add-zsh-hook chpwd dir_enter
 
 # ── Aliases ──────────────────────────────────────────────────────────────────
 alias cd="z"
