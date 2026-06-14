@@ -37,7 +37,7 @@ bindkey '^P' up-line-or-search
 bindkey '^N' down-line-or-search
 bindkey '^A' beginning-of-line
 bindkey '^E' end-of-line
-bindkey '^K' kill-line
+bindkey '^K' insert-last-word
 bindkey '^U' backward-kill-line
 bindkey '^W' backward-kill-word
 bindkey '^Y' yank
@@ -91,6 +91,54 @@ function dir_enter() {
 }
 
 add-zsh-hook chpwd dir_enter
+
+# ── Widgets ─────────────────────────────────────────────────────────────────── 
+# edit target
+edit-target() {
+    local target="$BUFFER"
+
+    [[ -z "$target" ]] && target="."
+
+    if [[ -f "$target" || -d "$target" ]]; then
+        BUFFER="nvim ${(q)target}"
+        CURSOR=${#BUFFER}
+        zle .accept-line
+    else
+        zle beep
+    fi
+}
+
+zle -N edit-target
+bindkey '^O' edit-target
+
+# prepend/remove sudo from buffer
+sudo-command() {
+    if [[ "$BUFFER" == sudo\ * ]]; then
+        BUFFER="${BUFFER#sudo }"
+    else
+        BUFFER="sudo $BUFFER"
+    fi
+
+    CURSOR=${#BUFFER}
+}
+
+zle -N sudo-command
+bindkey '^F' sudo-command
+
+# clear buffer
+clear-buffer() {
+    BUFFER=""
+    CURSOR=0
+}
+
+zle -N clear-buffer
+bindkey '^X' clear-buffer
+
+# edit buffer
+autoload -Uz edit-command-line
+zle -N edit-command-line
+
+bindkey '^V' edit-command-line
 
 # ── Aliases ──────────────────────────────────────────────────────────────────
 alias cd="z"
