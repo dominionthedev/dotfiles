@@ -2,31 +2,9 @@
 # battery.sh — reactive battery indicator for tmux status bar
 # Shows icon + percentage, turns red when ≤ 20%
 
-get_battery_macos() {
-  local info pct charging
-  info=$(pmset -g batt 2>/dev/null)
-  pct=$(echo "$info" | grep -o '[0-9]*%' | head -1 | tr -d '%')
-  charging=$(echo "$info" | grep -q 'AC Power' && echo "yes" || echo "no")
-  echo "$pct $charging"
-}
-
-get_battery_linux() {
-  local bat_dir pct status
-  bat_dir=$(ls /sys/class/power_supply/BAT* 2>/dev/null | head -1)
-  if [ -n "$bat_dir" ]; then
-    pct=$(cat "$bat_dir/capacity" 2>/dev/null)
-    status=$(cat "$bat_dir/status" 2>/dev/null)
-    charging=$([ "$status" = "Charging" ] && echo "yes" || echo "no")
-    echo "$pct $charging"
-  fi
-}
-
-# Get battery info
-if [[ "$(uname)" == "Darwin" ]]; then
-  read pct charging <<< $(get_battery_macos)
-else
-  read pct charging <<< $(get_battery_linux)
-fi
+info=$(pmset -g batt 2>/dev/null)
+pct=$(echo "$info" | grep -o '[0-9]*%' | head -1 | tr -d '%')
+charging=$(echo "$info" | grep -q 'AC Power' && echo "yes" || echo "no")
 
 # No battery (desktop) — show nothing
 [ -z "$pct" ] && exit 0
@@ -48,9 +26,9 @@ fi
 
 # Reactive colour — red when ≤ 10%, yellow when ≤ 50%
 if [ "$pct" -le 10 ] && [ "$charging" != "yes" ]; then
-  echo "#[fg=#{@red},bold]${icon} ${pct}%#[default]"
+  echo "#[fg=#{@red}]#[bg=#{@red},fg=#{@base}]${icon} #[fg=#{@red},bg=#{@surface0},bold] ${pct}%#[default]"
 elif [ "$pct" -le 50 ] && [ "$charging" != "yes" ]; then
-  echo "#[fg=#{@yellow}]${icon} ${pct}%"
+  echo "#[fg=#{@yellow}]#[bg=#{@yellow},fg=#{@base}]${icon} #[fg=#{@yellow},bg=#{@surface0}] ${pct}%"
 else
-  echo "#[fg=#{@sapphire}]${icon} ${pct}%"
+  echo "#[fg=#{@sapphire}]#[bg=#{@sapphire},fg=#{@base}]${icon} #[fg=#{@sapphire},bg=#{@surface0}] ${pct}%"
 fi
