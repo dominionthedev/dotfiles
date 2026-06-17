@@ -48,7 +48,7 @@ fi
 
 # Reactive colour — red when ≤ 10%, yellow when ≤ 50%
 if [ "$pct" -le 10 ] && [ "$charging" != "yes" ]; then
-  echo "#[fg=#{@red},bold]${icon} ${pct}%"
+  echo "#[fg=#{@red},bold]${icon} ${pct}%#[default]"
 elif [ "$pct" -le 50 ] && [ "$charging" != "yes" ]; then
   echo "#[fg=#{@yellow}]${icon} ${pct}%"
 else
