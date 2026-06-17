@@ -10,7 +10,7 @@ gitdir() {
 }
 
 gitdir rev-parse --is-inside-work-tree >/dev/null || {
-    echo "#[fg=#6c7086] no git"
+    echo "#[fg=#{@dim}]no git"
     exit 0
 }
 
@@ -31,16 +31,16 @@ if [ -n "$upstream" ]; then
     behind=$(gitdir rev-list HEAD..@{u} | wc -l | tr -d ' ')
 fi
 
-out="  ${branch}"
+out=" ${branch}"
 
-[ "$staged" -gt 0 ]    && out="${out} #[fg=#a6e3a1]+${staged}"
-[ "$modified" -gt 0 ]  && out="${out} #[fg=#f9e2af]!${modified}"
-[ "$untracked" -gt 0 ] && out="${out} #[fg=#89b4fa]?${untracked}"
-[ "$ahead" -gt 0 ]     && out="${out} #[fg=#cba6f7]⇡${ahead}"
-[ "$behind" -gt 0 ]    && out="${out} #[fg=#f38ba8]⇣${behind}"
+[ "$staged" -gt 0 ]    && out="${out} #[fg=#{@green}]+${staged}"
+[ "$modified" -gt 0 ]  && out="${out} #[fg=#{@yellow}]!${modified}"
+[ "$untracked" -gt 0 ] && out="${out} #[fg=#{@blue}]?${untracked}"
+[ "$ahead" -gt 0 ]     && out="${out} #[fg=#{@peach}]⇡${ahead}"
+[ "$behind" -gt 0 ]    && out="${out} #[fg=#{@red}]⇣${behind}"
 
 if [ "$staged" -eq 0 ] && [ "$modified" -eq 0 ] && [ "$untracked" -eq 0 ]; then
-    out="${out} #[fg=#a6e3a1]✓"
+    out="${out} #[fg=#{@teal}]✓"
 fi
 
-echo "#[fg=#89dceb]${out}"
+echo "#[fg=#{@sky}]${out}"
