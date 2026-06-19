@@ -546,6 +546,7 @@ require("lazy").setup({
         "folke/which-key.nvim",
         opts = { preset = "modern" },
     },
+
 }, { checker = { enabled = true, notify = true } })
 
 -- ============================================================================
@@ -649,4 +650,4 @@ keymap("n", "<A-k>", "<cmd>m .-2<cr>==", opts)
 keymap("v", "<A-j>", ":m '>+1<cr>gv=gv", opts)
 keymap("v", "<A-k>", ":m '<-2<cr>gv=gv", opts)
 
-vim.notify("🔥 NeoVim OS MODE Activated")
+vim.notify("🔥 Neovim OS MODE Activated")

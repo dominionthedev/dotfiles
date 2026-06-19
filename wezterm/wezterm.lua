@@ -13,18 +13,18 @@ config.harfbuzz_features = { "calt=1", "liga=1", "clig=1" }
 config.color_scheme = "Catppuccin Mocha"
 
 -- ── Window ───────────────────────────────────────────────────────────────────
-config.window_background_opacity = 0.1
-config.macos_window_background_blur = 1
+config.window_background_opacity = 0.5
+config.macos_window_background_blur = 5
 
 -- Open maximized
 config.initial_cols = 220
 config.initial_rows = 60
 
 config.window_padding = {
-    left = 3,
-    right = 3,
-    top = 5,
-    bottom = 3,
+    left = 2,
+    right = 2,
+    top = 3,
+    bottom = 1,
 }
 
 config.window_decorations = "RESIZE"
