@@ -13,5 +13,5 @@ if [ "$pct" -ge 90 ]; then
 elif [ "$pct" -ge 70 ]; then
   echo "#[fg=#{@yellow}]#[bg=#{@yellow},fg=#{@base}]󰻠 #[bg=#{@surface0},fg=#{@yellow}] ${pct}%"
 else
-  echo "#[fg=#{@teal}]#[bg=#{@teal},fg=#{@base}]󰻠 #[bg=#{@surface0},fg=#{@teal}] ${pct}%"
+  echo "#[fg=#{@sky}]#[bg=#{@sky},fg=#{@base}]󰻠 #[bg=#{@surface0},fg=#{@sky}] ${pct}%"
 fi

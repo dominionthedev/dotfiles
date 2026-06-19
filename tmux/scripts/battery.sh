@@ -11,7 +11,7 @@ charging=$(echo "$info" | grep -q 'AC Power' && echo "yes" || echo "no")
 
 # Choose icon
 if [ "$charging" = "yes" ]; then
-  icon="#[fg=#{@text}]󰂄"
+  icon="󰂄"
 elif [ "$pct" -ge 90 ]; then
   icon="󰁹"
 elif [ "$pct" -ge 75 ]; then
@@ -30,5 +30,5 @@ if [ "$pct" -le 10 ] && [ "$charging" != "yes" ]; then
 elif [ "$pct" -le 50 ] && [ "$charging" != "yes" ]; then
   echo "#[fg=#{@yellow}]#[bg=#{@yellow},fg=#{@base}]${icon} #[fg=#{@yellow},bg=#{@surface0}] ${pct}%"
 else
-  echo "#[fg=#{@cyan}]#[bg=#{@cyan},fg=#{@base}]${icon} #[fg=#{@cyan},bg=#{@surface0}] ${pct}%"
+  echo "#[fg=#{@teal}]#[bg=#{@teal},fg=#{@base}]${icon} #[fg=#{@teal},bg=#{@surface0}] ${pct}%"
 fi

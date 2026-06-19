@@ -5,6 +5,7 @@
 raw=$(temp 2>/dev/null)
 # Extract the integer part for bash comparisons (e.g., "63" from "63.0°C")
 t_int=$(echo "$raw" | grep -Eo '[0-9]+' | head -1)
+raw="${t_int}°C"
 
 # No temp data — show nothing
 [ -z "$t_int" ] && exit 0
@@ -28,5 +29,5 @@ if [ "$t_int" -ge 80 ]; then
 elif [ "$t_int" -ge 60 ]; then
   echo "#[fg=#{@yellow}]#[bg=#{@yellow},fg=#{@base}]${icon} #[fg=#{@yellow},bg=#{@surface0}] ${raw}"
 else
-  echo "#[fg=#{@sapphire}]#[bg=#{@sapphire},fg=#{@base}]${icon} #[fg=#{@sapphire},bg=#{@surface0}] ${raw}"
+  echo "#[fg=#{@cyan}]#[bg=#{@cyan},fg=#{@base}]${icon} #[fg=#{@cyan},bg=#{@surface0}] ${raw}"
 fi
