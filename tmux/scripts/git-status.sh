@@ -9,9 +9,7 @@ gitdir() {
     git -C "$pane_path" "$@" 2>/dev/null
 }
 
-gitdir rev-parse --is-inside-work-tree >/dev/null || {
-    exit 0
-}
+gitdir rev-parse --is-inside-work-tree >/dev/null || exit 0
 
 branch=$(gitdir rev-parse --abbrev-ref HEAD)
 [ -z "$branch" ] && exit 0
@@ -36,10 +34,10 @@ out=" ${branch}"
 [ "$modified" -gt 0 ]  && out="${out} #[fg=#{@orange}]!${modified}"
 [ "$untracked" -gt 0 ] && out="${out} #[fg=#{@dblue}]?${untracked}"
 [ "$ahead" -gt 0 ]     && out="${out} #[fg=#{@peach}]⇡${ahead}"
-[ "$behind" -gt 0 ]    && out="${out} #[fg=#{@moss}]⇣${behind}"
+[ "$behind" -gt 0 ]    && out="${out} #[fg=#{@starlight}]⇣${behind}"
 
-if [ "$staged" -eq 0 ]; then
+if [ "$staged" -eq 0 ] && [ "$ahead" -eq 0 ] && [ "$behind" -eq 0 ]; then
     out="${out} #[fg=#{@unix}]✓"
 fi
 
-echo "#[fg=#{@starlight},bg=#{@surface0}]#[bg=#{@starlight},fg=#{@base}] #[bg=#{@surface0},fg=#{@starlight}] ${out}  "
+echo "#[fg=#{@moss},bg=#{@surface0}]#[bg=#{@moss},fg=#{@base}] #[bg=#{@surface0},fg=#{@moss}] ${out} "
