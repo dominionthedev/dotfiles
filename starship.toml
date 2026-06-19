@@ -148,13 +148,6 @@ number_threshold = 1
 symbol = " "
 
 # ── Custom modules ────────────────────────────────────
-# Local AI / ShellAI ready
-[custom.ai_ready]
-command = "echo ' AI'"
-when = "nc -z -w 1 localhost 11434 >/dev/null 2>&1"
-format = "[$output]($style) "
-style = "bold #a6e3a1"
-
 # Active tmux session name in prompt
 [custom.tmux]
 command = "tmux display-message -p '#S' 2>/dev/null || echo ''"
@@ -169,9 +162,3 @@ when = "[ -n \"$VIRTUAL_ENV\" ]"
 format = "[$output ]($style)"
 style = "bold #94e2d5"
 
-# ── Memory (shown when high) ──────────────────────────────────────────────────
-[memory_usage]
-disabled = false
-threshold = 75
-format = "[󰍛 $ram_pct]($style) "
-style = "bold #f38ba8"

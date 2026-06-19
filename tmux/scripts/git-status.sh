@@ -10,7 +10,7 @@ gitdir() {
 }
 
 gitdir rev-parse --is-inside-work-tree >/dev/null || {
-    echo "#[fg=#{@sky},bg=#{@base}]#[bg=#{@sky},fg=#{@base}] #[bg=#{@surface0},fg=#{@dim}] no git"
+    echo "#[fg=#{@sky},bg=#{@surface0}]#[bg=#{@sky},fg=#{@base}] #[bg=#{@surface0},fg=#{@dim}] no git"
     exit 0
 }
 
@@ -43,4 +43,4 @@ if [ "$staged" -eq 0 ] && [ "$modified" -eq 0 ] && [ "$untracked" -eq 0 ]; then
     out="${out} #[fg=#{@teal}]✓"
 fi
 
-echo "#[fg=#{@sky},bg=#{@base}]#[bg=#{@sky},fg=#{@base}] #[bg=#{@surface0},fg=#{@sky}] ${out}"
+echo "#[fg=#{@sky},bg=#{@surface0}]#[bg=#{@sky},fg=#{@base}] #[bg=#{@surface0},fg=#{@sky}] ${out}"

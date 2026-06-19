@@ -1,26 +1,26 @@
 splash:
-  enabled: true
-  file: /Users/appleplay/.local/share/termbox/screens/dominiondev.screen
-  design: gradient
+    enabled: true
+    file: /Users/appleplay/.local/share/termbox/screens/dominiondev.screen
+    design: gradient
 shell:
-  type: zsh
-  rc_file: ""
-  env_file: ""
+    type: zsh
+    rc_file: ""
+    env_file: ""
 theme:
-  active: catppuccin_mocha
-  auto_apply: true
+    active: catppuccin_mocha
+    auto_apply: true
 workspace:
-  dev_folder: /Users/appleplay/Developer
-  notes_folder: /Users/appleplay/Developer/notes
-  notes_extension: ".md"
-  notes_editor: "nvim"
+    dev_folder: /Users/appleplay/Developer
+    notes_folder: /Users/appleplay/Developer/notes
+    notes_extension: .md
+    notes_editor: nvim
 display:
-  color: true
-  icons: true
-  pager: true
+    color: true
+    icons: true
+    pager: true
 powerup:
-  active: ""
-  auto_detect: true
+    active: ""
+    auto_detect: true
 build:
-  output_dir: "/Users/appleplay/.local/bin"
-  go_flags: ""
+    output_dir: /Users/appleplay/.local/bin
+    go_flags: ""

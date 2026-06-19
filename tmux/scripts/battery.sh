@@ -11,7 +11,7 @@ charging=$(echo "$info" | grep -q 'AC Power' && echo "yes" || echo "no")
 
 # Choose icon
 if [ "$charging" = "yes" ]; then
-  icon="󰂄"
+  icon="#[fg=#{@text}]󰂄"
 elif [ "$pct" -ge 90 ]; then
   icon="󰁹"
 elif [ "$pct" -ge 75 ]; then
@@ -26,7 +26,7 @@ fi
 
 # Reactive colour — red when ≤ 10%, yellow when ≤ 50%
 if [ "$pct" -le 10 ] && [ "$charging" != "yes" ]; then
-  echo "#[fg=#{@red}]#[bg=#{@red},fg=#{@base}]${icon} #[fg=#{@red},bg=#{@surface0},bold] ${pct}%#[default]"
+  echo "#[fg=#{@red}]#[bg=#{@red},fg=#{@base}]${icon} #[fg=#{@red},bg=#{@surface0},bold] ${pct}%"
 elif [ "$pct" -le 50 ] && [ "$charging" != "yes" ]; then
   echo "#[fg=#{@yellow}]#[bg=#{@yellow},fg=#{@base}]${icon} #[fg=#{@yellow},bg=#{@surface0}] ${pct}%"
 else
