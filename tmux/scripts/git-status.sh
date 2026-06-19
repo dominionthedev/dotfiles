@@ -10,7 +10,6 @@ gitdir() {
 }
 
 gitdir rev-parse --is-inside-work-tree >/dev/null || {
-    echo "#[fg=#{@sky},bg=#{@surface0}]#[bg=#{@sky},fg=#{@base}] #[bg=#{@surface0},fg=#{@dim}] no git"
     exit 0
 }
 
@@ -34,13 +33,13 @@ fi
 out=" ${branch}"
 
 [ "$staged" -gt 0 ]    && out="${out} #[fg=#{@green}]+${staged}"
-[ "$modified" -gt 0 ]  && out="${out} #[fg=#{@yellow}]!${modified}"
-[ "$untracked" -gt 0 ] && out="${out} #[fg=#{@blue}]?${untracked}"
+[ "$modified" -gt 0 ]  && out="${out} #[fg=#{@orange}]!${modified}"
+[ "$untracked" -gt 0 ] && out="${out} #[fg=#{@dblue}]?${untracked}"
 [ "$ahead" -gt 0 ]     && out="${out} #[fg=#{@peach}]⇡${ahead}"
-[ "$behind" -gt 0 ]    && out="${out} #[fg=#{@red}]⇣${behind}"
+[ "$behind" -gt 0 ]    && out="${out} #[fg=#{@moss}]⇣${behind}"
 
-if [ "$staged" -eq 0 ] && [ "$modified" -eq 0 ] && [ "$untracked" -eq 0 ]; then
-    out="${out} #[fg=#{@teal}]✓"
+if [ "$staged" -eq 0 ]; then
+    out="${out} #[fg=#{@unix}]✓"
 fi
 
-echo "#[fg=#{@sky},bg=#{@surface0}]#[bg=#{@sky},fg=#{@base}] #[bg=#{@surface0},fg=#{@sky}] ${out}"
+echo "#[fg=#{@starlight},bg=#{@surface0}]#[bg=#{@starlight},fg=#{@base}] #[bg=#{@surface0},fg=#{@starlight}] ${out}  "

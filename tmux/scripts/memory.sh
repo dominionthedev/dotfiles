@@ -24,5 +24,5 @@ if [ "$PCT" -ge 80 ]; then
 elif [ "$PCT" -ge 70 ]; then
   echo "#[fg=#{@yellow}]#[bg=#{@yellow},fg=#{@base}]󰍛 #[bg=#{@surface0},fg=#{@yellow}] ${PCT}%"
 else
-  echo "#[fg=#{@blue}]#[bg=#{@blue},fg=#{@base}]󰍛 #[bg=#{@surface0},fg=#{@blue}] ${PCT}%"
+  echo "#[fg=#{@sky}]#[bg=#{@sky},fg=#{@base}]󰍛 #[bg=#{@surface0},fg=#{@sky}] ${PCT}%"
 fi
