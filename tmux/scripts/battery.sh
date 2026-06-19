@@ -30,5 +30,5 @@ if [ "$pct" -le 10 ] && [ "$charging" != "yes" ]; then
 elif [ "$pct" -le 50 ] && [ "$charging" != "yes" ]; then
   echo "#[fg=#{@yellow}]#[bg=#{@yellow},fg=#{@base}]${icon} #[fg=#{@yellow},bg=#{@surface0}] ${pct}%"
 else
-  echo "#[fg=#{@sapphire}]#[bg=#{@sapphire},fg=#{@base}]${icon} #[fg=#{@sapphire},bg=#{@surface0}] ${pct}%"
+  echo "#[fg=#{@cyan}]#[bg=#{@cyan},fg=#{@base}]${icon} #[fg=#{@cyan},bg=#{@surface0}] ${pct}%"
 fi
