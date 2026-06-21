@@ -33,11 +33,11 @@ out=" ${branch}"
 [ "$staged" -gt 0 ]    && out="${out} #[fg=#{@green}]+${staged}"
 [ "$modified" -gt 0 ]  && out="${out} #[fg=#{@orange}]!${modified}"
 [ "$untracked" -gt 0 ] && out="${out} #[fg=#{@dblue}]?${untracked}"
-[ "$ahead" -gt 0 ]     && out="${out} #[fg=#{@peach}]⇡${ahead}"
-[ "$behind" -gt 0 ]    && out="${out} #[fg=#{@starlight}]⇣${behind}"
+[ "$ahead" -gt 0 ]     && out="${out} #[fg=#{@starlight}]⇡${ahead}"
+[ "$behind" -gt 0 ]    && out="${out} #[fg=#{@crimson}]⇣${behind}"
 
-if [ "$staged" -eq 0 ] && [ "$ahead" -eq 0 ] && [ "$behind" -eq 0 ]; then
+if [ "$modified" -eq 0 ] && [ "$staged" -eq 0 ] && [ "$ahead" -eq 0 ] && [ "$behind" -eq 0 ]; then
     out="${out} #[fg=#{@unix}]✓"
 fi
 
-echo "#[fg=#{@moss},bg=#{@surface0}]#[bg=#{@moss},fg=#{@base}] #[bg=#{@surface0},fg=#{@moss}] ${out} "
+echo "#[fg=#{@moss},bg=#{@surface0}]#[bg=#{@moss},fg=#{@base}] #[bg=#{@surface0},fg=#{@moss}] ${out}  "

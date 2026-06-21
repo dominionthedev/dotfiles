@@ -1,5 +1,5 @@
 #!/bin/bash
-# temp_tmux.sh — reactive temperature indicator for tmux status bar
+# temp.sh — reactive temperature indicator for tmux status bar
 # Shows icon + temp, turns red when ≥ 80°C, yellow when ≥ 60°C
 
 raw=$(temp 2>/dev/null)
