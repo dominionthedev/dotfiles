@@ -2,49 +2,48 @@ return {
     {
         "nvim-treesitter/nvim-treesitter",
 
+        lazy = false,
         version = false,
         build = ":TSUpdate",
 
-        lazy = vim.fn.argc(-1) == 0,
+        config = function()
+            local ts = require("nvim-treesitter")
 
-        opts = {
-            ensure_installed = {
+            ts.setup({
+                install_dir = vim.fn.stdpath("data") .. "/site",
+            })
+
+            ts.install({
                 "lua",
                 "vim",
                 "vimdoc",
 
+                "bash",
                 "python",
                 "go",
-                "bash",
 
                 "rust",
-                "zig",
 
                 "javascript",
                 "typescript",
+
                 "html",
                 "css",
 
                 "json",
                 "yaml",
+
                 "markdown",
-            },
+                "markdown_inline",
 
-            highlight = {
-                enable = true,
-            },
+                "regex",
+            })
 
-            indent = {
-                enable = true,
-            },
-
-            incremental_selection = {
-                enable = true,
-            },
-        },
-
-        config = function(_, opts)
-            require("nvim-treesitter").setup(opts)
+            vim.api.nvim_create_autocmd("FileType", {
+                callback = function(args)
+                    pcall(vim.treesitter.start, args.buf)
+                end,
+            })
         end,
     },
 }
