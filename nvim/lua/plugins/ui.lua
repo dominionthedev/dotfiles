@@ -42,6 +42,22 @@ return {
     },
 
     {
+        "NvChad/nvim-colorizer.lua",
+        event = { "BufReadPre", "BufNewFile" },
+        config = function()
+            require("colorizer").setup()
+        end,
+    },
+
+    {
+        "folke/todo-comments.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        config = true,
+    },
+
+    {
         "folke/which-key.nvim",
         opts = {
             preset = "modern",
