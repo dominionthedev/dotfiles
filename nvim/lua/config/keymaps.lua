@@ -1,6 +1,5 @@
 -- Keymaps
 
-local dap = require("dap")
 local keymap = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
@@ -50,16 +49,6 @@ keymap("n", "<leader>cf", function()
         lsp_fallback = true,
     })
 end)
-keymap("n", "<F5>", dap.continue)
-keymap("n", "<F10>", dap.step_over)
-keymap("n", "<F11>", dap.step_into)
-keymap("n", "<F12>", dap.step_out)
-keymap("n", "<leader>db", dap.toggle_breakpoint)
-keymap("n", "<leader>dr", dap.repl.open)
-keymap("n", "<leader>tr", function() require("neotest").run.run() end)
-keymap("n", "<leader>tf", function() require("neotest").run.run(vim.fn.expand("%")) end)
-keymap("n", "<leader>to", function() require("neotest").output.open() end)
-keymap("n", "<leader>ts", function() require("neotest").summary.toggle() end)
 keymap("n", "?", function() require("which-key").show({ global = true }) end)
 keymap("n", "g?", function() require("which-key").show({ global = false }) end)
 keymap("n", "[d", vim.diagnostic.goto_prev)
