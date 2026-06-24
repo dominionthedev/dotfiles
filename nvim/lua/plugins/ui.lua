@@ -51,6 +51,7 @@ return {
 
     {
         "folke/todo-comments.nvim",
+        event = "BufReadPre",
         dependencies = {
             "nvim-lua/plenary.nvim",
         },
@@ -59,6 +60,7 @@ return {
 
     {
         "folke/which-key.nvim",
+        event = "VeryLazy",
         opts = {
             preset = "modern",
         },

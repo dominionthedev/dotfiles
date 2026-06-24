@@ -1,7 +1,6 @@
 return {
     {
         "nvim-lualine/lualine.nvim",
-
         dependencies = {
             "nvim-tree/nvim-web-devicons",
         },
@@ -75,7 +74,7 @@ return {
 
     {
         "akinsho/bufferline.nvim",
-
+        event = "BufReadPre",
         dependencies = {
             "nvim-tree/nvim-web-devicons",
         },
@@ -87,7 +86,6 @@ return {
                     separator_style = "slant",
                     diagnostics = "nvim_lsp",
                     always_show_bufferline = true,
-
                     hover = {
                         enabled = true,
                         delay = 200,
