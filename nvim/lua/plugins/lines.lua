@@ -1,6 +1,7 @@
 return {
     {
         "nvim-lualine/lualine.nvim",
+        event = "VeryLazy",
         dependencies = {
             "nvim-tree/nvim-web-devicons",
         },
@@ -74,7 +75,7 @@ return {
 
     {
         "akinsho/bufferline.nvim",
-        event = "BufReadPre",
+        event = "VeryLazy",
         dependencies = {
             "nvim-tree/nvim-web-devicons",
         },

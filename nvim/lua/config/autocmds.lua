@@ -2,9 +2,9 @@ local augroup = vim.api.nvim_create_augroup("autocmds", {
     clear = true,
 })
 
--- Restore cursor position when reopening files
 vim.api.nvim_create_autocmd("BufReadPost", {
     group = augroup,
+    desc = "Restore cursor position",
     callback = function()
         local mark = vim.api.nvim_buf_get_mark(0, '"')[1]
 
@@ -14,9 +14,9 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end,
 })
 
--- Highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
     group = augroup,
+    desc = "Highlight yanked text",
     callback = function()
         vim.highlight.on_yank({
             timeout = 150,
@@ -24,12 +24,17 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end,
 })
 
--- Automatically create parent directories before writing
 vim.api.nvim_create_autocmd("BufWritePre", {
     group = augroup,
+    desc = "Create parent directories on save",
     callback = function(event)
-        local file = vim.loop.fs_realpath(event.match) or event.match
+        if event.match:match("^%w+://") then
+            return
+        end
+
+        local file = vim.uv.fs_realpath(event.match) or event.match
         local dir = vim.fn.fnamemodify(file, ":p:h")
+
         vim.fn.mkdir(dir, "p")
     end,
 })

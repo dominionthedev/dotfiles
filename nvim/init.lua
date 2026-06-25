@@ -5,5 +5,3 @@ require("core.lazy")
 require("config.diagnostics")
 require("config.keymaps")
 require("config.autocmds")
-
-vim.notify("Neovim OS MODE Activated 🔥")
