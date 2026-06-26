@@ -31,7 +31,7 @@ return {
             picker = {
                 enabled = true,
                 layout = {
-                    preset = "ivy",
+                    preset = "default",
                     cycle = false,
                 },
 
@@ -105,31 +105,31 @@ return {
                     },
 
                     buffers = {
-                        layout = "ivy",
+                        layout = "default",
                     },
 
                     diagnostics = {
-                        layout = "ivy",
+                        layout = "default",
                     },
 
                     lsp_symbols = {
-                        layout = "ivy",
+                        layout = "default",
                     },
 
                     workspace_symbols = {
-                        layout = "ivy",
+                        layout = "default",
                     },
 
                     git_status = {
-                        layout = "ivy",
+                        layout = "default",
                     },
 
                     command_history = {
-                        layout = "ivy",
+                        layout = "default",
                     },
 
                     search_history = {
-                        layout = "ivy",
+                        layout = "default",
                     },
                 },
             },
@@ -174,8 +174,11 @@ return {
             animate = { enabled = true },
             terminal = {
                 enabled = true,
+
                 win = {
-                    style = "terminal_float",
+                    style = "terminal",
+                    border = "rounded",
+                    height = 0.35,
                 },
             },
             lazygit = { enabled = true },
@@ -225,14 +228,14 @@ return {
                 },
 
                 lazygit = {
-                    relative = "editor",
+                    position = "right",
                     border = "rounded",
-                    width = 0.95,
-                    height = 0.95,
-                    row = 0.025,
-                    col = 0.025,
+                    width = 0.30,
                     title = " Lazygit ",
                     title_pos = "center",
+                    wo = {
+                        winbar = "",
+                    },
                 },
 
                 scratch = {

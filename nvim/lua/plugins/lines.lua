@@ -201,14 +201,15 @@ return {
 
             require("bufferline").setup({
                 options = {
+
                     mode = "buffers",
                     separator_style = "slant",
                     always_show_bufferline = true,
                     diagnostics = "nvim_lsp",
                     diagnostics_update_in_insert = false,
                     show_close_icon = false,
-                    show_buffer_close_icons = false,
                     color_icons = true,
+                    right_mouse_command = "vertical sbuffer %d",
 
                     hover = {
                         enabled = true,
@@ -219,7 +220,7 @@ return {
                     offsets = {
                         {
                             filetype = "snacks_layout_box",
-                            text = "Explorer",
+                            text = "File Explorer",
                             text_align = "left",
                             separator = true,
                         },
@@ -229,13 +230,13 @@ return {
                         local ret = {}
 
                         if diag.error and diag.error > 0 then
-                            table.insert(ret, " " .. diag.error)
+                            table.insert(ret, "  " .. diag.error)
                         end
                         if diag.warning and diag.warning > 0 then
-                            table.insert(ret, " " .. diag.warning)
+                            table.insert(ret, "  " .. diag.warning)
                         end
                         if diag.info and diag.info > 0 then
-                            table.insert(ret, " " .. diag.info)
+                            table.insert(ret, "  " .. diag.info)
                         end
 
                         return table.concat(ret, " ")
@@ -307,7 +308,7 @@ return {
                     },
 
                     diagnostic_selected = {
-                        bg = mocha.mantle,
+                        bg = mocha.surface0,
                     },
 
                     hint = {
@@ -386,6 +387,21 @@ return {
                         fg = mocha.mauve,
                         bg = mocha.surface0,
                         italic = true,
+                    },
+
+                    close_button = {
+                        fg = mocha.overlay1,
+                        bg = mocha.mantle,
+                    },
+
+                    close_button_visible = {
+                        fg = mocha.overlay1,
+                        bg = mocha.mantle,
+                    },
+
+                    close_button_selected = {
+                        fg = mocha.overlay1,
+                        bg = mocha.surface0,
                     },
                 },
             })
