@@ -5,8 +5,10 @@ return {
             "nvim-neotest/nvim-nio",
             "nvim-lua/plenary.nvim",
             "antoinemadec/FixCursorHold.nvim",
+
             "nvim-neotest/neotest-python",
             "nvim-neotest/neotest-go",
+
             -- "rouge8/neotest-rust",
             -- "alfaix/neotest-zig",
         },
@@ -15,9 +17,9 @@ return {
             {
                 "<leader>tr",
                 function()
-                    require("neotest").run.run()
+                    require("neotest").run.run(vim.fn.getcwd())
                 end,
-                desc = "Run nearest test",
+                desc = "Run all tests",
             },
             {
                 "<leader>tf",
@@ -47,7 +49,6 @@ return {
                 end,
                 desc = "Debug test",
             },
-
             {
                 "<leader>ta",
                 function()
@@ -55,7 +56,6 @@ return {
                 end,
                 desc = "Attach",
             },
-
             {
                 "<leader>tp",
                 function()
@@ -63,7 +63,6 @@ return {
                 end,
                 desc = "Output panel",
             },
-
             {
                 "<leader>tw",
                 function()
@@ -71,7 +70,6 @@ return {
                 end,
                 desc = "Watch",
             },
-
             {
                 "<leader>tS",
                 function()
@@ -85,7 +83,11 @@ return {
             require("neotest").setup({
                 adapters = {
                     require("neotest-python"),
+
                     require("neotest-go"),
+
+                    -- require("neotest-rust"),
+                    -- require("neotest-zig"),
                 },
 
                 discovery = {

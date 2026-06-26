@@ -1,6 +1,5 @@
 local M = {}
 
--- Change this value.
 M.transparent = true
 
 function M.is_transparent()
@@ -36,6 +35,14 @@ function M.toggle()
                 enabled = true,
             },
         },
+        custom_highlights = function(colors)
+            return {
+                NoiceMini = { bg = colors.mantle },
+                NoiceMiniIcon = { bg = colors.mantle },
+                NoiceMiniTitle = { bg = colors.mantle },
+                NoiceMiniProgress = { bg = colors.mantle },
+            }
+        end,
     })
 
     vim.cmd.colorscheme("catppuccin")
