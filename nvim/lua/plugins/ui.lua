@@ -6,13 +6,14 @@ return {
         config = function()
             require("catppuccin").setup({
                 flavour = "mocha",
-                transparent_background = true,
+                transparent_background = require("config.theme").is_transparent(),
                 term_colors = true,
                 integrations = {
                     cmp = true,
                     gitsigns = true,
                     treesitter = true,
                     bufferline = true,
+                    lualine = true,
                     which_key = true,
                     snacks = true,
                     noice = true,
@@ -47,15 +48,6 @@ return {
         config = function()
             require("colorizer").setup()
         end,
-    },
-
-    {
-        "folke/todo-comments.nvim",
-        event = "BufReadPre",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
-        config = true,
     },
 
     {

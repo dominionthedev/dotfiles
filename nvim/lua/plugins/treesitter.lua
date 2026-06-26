@@ -1,7 +1,6 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-
         lazy = false,
         version = false,
         build = ":TSUpdate",
@@ -17,31 +16,66 @@ return {
                 "lua",
                 "vim",
                 "vimdoc",
-
                 "bash",
                 "python",
                 "go",
-
                 "rust",
-
                 "javascript",
                 "typescript",
-
                 "html",
                 "css",
-
                 "json",
                 "yaml",
-
+                "toml",
                 "markdown",
                 "markdown_inline",
-
                 "regex",
             })
 
+            local highlight_fts = {
+                lua = true,
+                vim = true,
+                vimdoc = true,
+                bash = true,
+                python = true,
+                go = true,
+                rust = true,
+                javascript = true,
+                typescript = true,
+                html = true,
+                css = true,
+                json = true,
+                yaml = true,
+                toml = true,
+                markdown = true,
+            }
+
+            local indent_fts = {
+                lua = true,
+                python = true,
+                go = true,
+                rust = true,
+                javascript = true,
+                typescript = true,
+                html = true,
+                css = true,
+                json = true,
+                yaml = true,
+                toml = true,
+            }
+
             vim.api.nvim_create_autocmd("FileType", {
+                group = vim.api.nvim_create_augroup("dominion_treesitter", { clear = true }),
                 callback = function(args)
-                    pcall(vim.treesitter.start, args.buf)
+                    local ft = vim.bo[args.buf].filetype
+
+                    if highlight_fts[ft] then
+                        pcall(vim.treesitter.start, args.buf)
+                    end
+
+                    if indent_fts[ft] then
+                        vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                    end
                 end,
             })
         end,

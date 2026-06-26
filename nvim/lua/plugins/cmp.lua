@@ -26,7 +26,23 @@ return {
                     ["<C-Space>"] = cmp.mapping.complete(),
                     ["<C-j>"] = cmp.mapping.select_next_item(),
                     ["<C-k>"] = cmp.mapping.select_prev_item(),
-                    ["<Tab>"] = cmp.mapping.confirm({ select = true }),
+                    ["<Tab>"] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            cmp.confirm({ select = true })
+                        elseif require("luasnip").expand_or_locally_jumpable() then
+                            require("luasnip").expand_or_jump()
+                        else
+                            fallback()
+                        end
+                    end, { "i", "s" }),
+
+                    ["<S-Tab>"] = cmp.mapping(function(fallback)
+                        if require("luasnip").locally_jumpable(-1) then
+                            require("luasnip").jump(-1)
+                        else
+                            fallback()
+                        end
+                    end, { "i", "s" }),
                     ["<C-c>"] = cmp.mapping.abort(),
                     ["<Esc>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
@@ -43,12 +59,13 @@ return {
                     end,
                 },
 
-                sources = {
-                    { name = "nvim_lsp" },
-                    { name = "luasnip" },
-                    { name = "buffer" },
-                    { name = "path" },
-                },
+                sources = cmp.config.sources({
+                    { name = "nvim_lsp", priority = 1000 },
+                    { name = "luasnip",  priority = 750 },
+                    { name = "path",     priority = 500 },
+                }, {
+                    { name = "buffer", priority = 250 },
+                }),
 
                 sorting = { priority_weight = 2 },
                 window = {
@@ -56,7 +73,11 @@ return {
                     documentation = cmp.config.window.bordered(),
                 },
 
-                experimental = { ghost_text = true },
+                experimental = {
+                    ghost_text = {
+                        hl_group = "Comment",
+                    },
+                },
                 preselect = cmp.PreselectMode.None,
 
                 formatting = {
