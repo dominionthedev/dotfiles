@@ -1,5 +1,3 @@
--- ==================== LSP CONFIG ====================
-
 return {
     {
         "neovim/nvim-lspconfig",
@@ -7,60 +5,97 @@ return {
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
         },
+
         config = function()
-            -- ====================== Capabilities =====================
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-            -- ====================== on_attach ======================
-            local function on_attach(client, bufnr)
-                local map = function(mode, lhs, rhs, desc)
-                    vim.keymap.set(mode, lhs, rhs, {
-                        buffer = bufnr,
-                        silent = true,
-                        desc = desc,
-                    })
+            local function buf_map(bufnr, mode, lhs, rhs, desc)
+                vim.keymap.set(mode, lhs, rhs, {
+                    buffer = bufnr,
+                    silent = true,
+                    desc = desc,
+                })
+            end
+
+            local function supports(client, method)
+                return client:supports_method(method)
+            end
+
+            local semantic_keep = {
+                rust = true,
+                go = true,
+            }
+
+            local function setup_document_highlight(client, bufnr)
+                if not supports(client, vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+                    return
                 end
 
-                -- navigation
-                map("n", "gD", vim.lsp.buf.declaration, "Go to declaration")
-                map("n", "K", vim.lsp.buf.hover, "Hover docs")
-                map("n", "<leader>k", vim.lsp.buf.signature_help, "Signature help")
+                local group = vim.api.nvim_create_augroup("dominion_lsp_highlight_" .. bufnr, { clear = true })
 
-                -- actions
-                map("n", "<leader>rn", vim.lsp.buf.rename, "Rename")
-                map("n", "<leader>ca", vim.lsp.buf.code_action, "Code action")
+                vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+                    group = group,
+                    buffer = bufnr,
+                    callback = vim.lsp.buf.document_highlight,
+                })
 
-                -- workspace
-                map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, "Add workspace folder")
-                map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, "Remove workspace folder")
-                map("n", "<leader>wl", function()
-                    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-                end, "List workspace folders")
+                vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI", "BufLeave" }, {
+                    group = group,
+                    buffer = bufnr,
+                    callback = vim.lsp.buf.clear_references,
+                })
+            end
 
-                -- semantic tokens control
-                if client.server_capabilities.semanticTokensProvider then
-                    local ft = vim.bo[bufnr].filetype
-                    local keep = { "rust", "go" }
-
-                    local allowed = false
-                    for _, v in ipairs(keep) do
-                        if v == ft then
-                            allowed = true
-                            break
-                        end
-                    end
-
-                    if not allowed then
-                        client.server_capabilities.semanticTokensProvider = nil
-                    end
+            local function setup_inlay_hints(client, bufnr)
+                if supports(client, vim.lsp.protocol.Methods.textDocument_inlayHint) then
+                    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
                 end
             end
 
-            -- ====================== LSP Servers ======================
+            local function maybe_disable_semantic_tokens(client, bufnr)
+                if not client.server_capabilities.semanticTokensProvider then
+                    return
+                end
+
+                local ft = vim.bo[bufnr].filetype
+                if not semantic_keep[ft] then
+                    client.server_capabilities.semanticTokensProvider = nil
+                end
+            end
+
+            local function on_attach(client, bufnr)
+                maybe_disable_semantic_tokens(client, bufnr)
+                setup_document_highlight(client, bufnr)
+                setup_inlay_hints(client, bufnr)
+
+                if client.name == "ruff" then
+                    client.server_capabilities.hoverProvider = false
+                end
+
+                buf_map(bufnr, "n", "gD", vim.lsp.buf.declaration, "Go to declaration")
+                buf_map(bufnr, "n", "K", vim.lsp.buf.hover, "Hover docs")
+                buf_map(bufnr, "n", "<leader>k", vim.lsp.buf.signature_help, "Signature help")
+
+                buf_map(bufnr, "n", "<leader>rn", vim.lsp.buf.rename, "Rename")
+                buf_map(bufnr, "n", "<leader>ca", vim.lsp.buf.code_action, "Code action")
+                buf_map(bufnr, "v", "<leader>ca", vim.lsp.buf.code_action, "Code action")
+
+                if supports(client, vim.lsp.protocol.Methods.textDocument_inlayHint) then
+                    buf_map(bufnr, "n", "<leader>uh", function()
+                        local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+                        vim.lsp.inlay_hint.enable(not enabled, { bufnr = bufnr })
+                    end, "Toggle inlay hints")
+                end
+            end
+
+            vim.diagnostic.config({
+                severity_sort = true,
+            })
+
             vim.lsp.config("ty", {
                 cmd = { "ty", "server" },
                 filetypes = { "python" },
-                root_markers = { "pyproject.toml", "uv.lock", ".git" },
+                root_markers = { "pyproject.toml", "uv.lock", "ruff.toml", ".git" },
                 single_file_support = true,
                 capabilities = capabilities,
                 on_attach = on_attach,
@@ -69,10 +104,7 @@ return {
 
             vim.lsp.config("ruff", {
                 capabilities = capabilities,
-                on_attach = function(client, bufnr)
-                    client.server_capabilities.hoverProvider = false
-                    on_attach(client, bufnr)
-                end,
+                on_attach = on_attach,
                 init_options = {
                     settings = {
                         lineLength = 100,
@@ -87,21 +119,40 @@ return {
                 on_attach = on_attach,
                 settings = {
                     Lua = {
+                        runtime = {
+                            version = "LuaJIT",
+                        },
                         completion = {
                             callSnippet = "Replace",
                         },
                         diagnostics = {
                             globals = { "vim" },
                         },
+                        workspace = {
+                            checkThirdParty = false,
+                            library = vim.api.nvim_get_runtime_file("", true),
+                        },
+                        hint = {
+                            enable = true,
+                        },
                     },
-                }
+                },
             })
             vim.lsp.enable("lua_ls")
 
             vim.lsp.config("ts_ls", {
                 cmd = { "typescript-language-server", "--stdio" },
+                filetypes = {
+                    "javascript",
+                    "javascriptreact",
+                    "javascript.jsx",
+                    "typescript",
+                    "typescriptreact",
+                    "typescript.tsx",
+                },
                 capabilities = capabilities,
                 on_attach = on_attach,
+                single_file_support = true,
             })
             vim.lsp.enable("ts_ls")
 
@@ -110,7 +161,26 @@ return {
                 on_attach = on_attach,
                 settings = {
                     ["rust-analyzer"] = {
-                        checkOnSave = { command = "clippy" },
+                        checkOnSave = true,
+                        check = {
+                            command = "clippy",
+                        },
+                        cargo = {
+                            allFeatures = true,
+                        },
+                        procMacro = {
+                            enable = true,
+                        },
+                        inlayHints = {
+                            bindingModeHints = { enable = true },
+                            closureReturnTypeHints = { enable = "always" },
+                            discriminantHints = { enable = "fieldless" },
+                            lifetimeElisionHints = {
+                                enable = "skip_trivial",
+                                useParameterNames = true,
+                            },
+                            typeHints = { enable = true },
+                        },
                     },
                 },
             })
@@ -119,6 +189,22 @@ return {
             vim.lsp.config("gopls", {
                 capabilities = capabilities,
                 on_attach = on_attach,
+                settings = {
+                    gopls = {
+                        gofumpt = true,
+                        usePlaceholders = true,
+                        staticcheck = true,
+                        hints = {
+                            assignVariableTypes = true,
+                            compositeLiteralFields = true,
+                            compositeLiteralTypes = true,
+                            constantValues = true,
+                            functionTypeParameters = true,
+                            parameterNames = true,
+                            rangeVariableTypes = true,
+                        },
+                    },
+                },
             })
             vim.lsp.enable("gopls")
 
@@ -135,7 +221,13 @@ return {
                 settings = {
                     yaml = {
                         validate = true,
-                        schemaStore = { enable = true },
+                        hover = true,
+                        completion = true,
+                        format = { enable = true },
+                        schemaStore = {
+                            enable = true,
+                        },
+                        keyOrdering = false,
                     },
                 },
             })
