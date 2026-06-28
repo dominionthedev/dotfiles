@@ -1,6 +1,36 @@
 local augroup = vim.api.nvim_create_augroup("dominion_autocmds", { clear = true })
 
--- Restore cursor position
+-- "Did you know..." startup tip
+-- Shows one random tip from config/startup_tips.lua via vim.notify
+-- (routed through nvim-notify, same as everything else in this
+-- config). Deferred slightly past VimEnter so it doesn't compete with
+-- the dashboard/lazy-sync notifications that also fire on startup —
+-- showing all of them at once just becomes noise instead of a tip.
+vim.api.nvim_create_autocmd("VimEnter", {
+    group = augroup,
+    desc = "Show a random startup tip",
+    callback = function()
+        -- skip if nvim was opened to actually do something specific
+        -- (a file path, stdin, etc.) rather than just launched bare —
+        -- the tip is for the "just opened nvim casually" case, where
+        -- the dashboard is what's on screen.
+        if vim.fn.argc() > 0 then
+            return
+        end
+
+        vim.defer_fn(function()
+            local tips = require("config.startup_tips")
+            if #tips == 0 then
+                return
+            end
+
+            local tip = tips[math.random(#tips)]
+            vim.notify(tip, vim.log.levels.INFO, { title = "Did you know?" })
+        end, 300)
+    end,
+})
+
+
 vim.api.nvim_create_autocmd("BufReadPost", {
     group = augroup,
     desc = "Restore cursor position",
@@ -71,6 +101,12 @@ vim.api.nvim_create_autocmd("FileType", {
         "neotest-summary",
         "dbout",
         "gitsigns-blame",
+        "dap-repl",
+        "dapui_scopes",
+        "dapui_stacks",
+        "dapui_breakpoints",
+        "dapui_watches",
+        "dapui_console",
     },
     callback = function(event)
         vim.bo[event.buf].buflisted = false
@@ -181,6 +217,27 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = { "qf" },
     callback = function()
         vim.opt_local.wrap = false
+    end,
+})
+
+-- Strip visual clutter inside dapui's own inspector panels (scopes, stacks,
+-- breakpoints, watches). These are dense, narrow side panels; line numbers
+-- and cursorline just add noise.
+vim.api.nvim_create_autocmd("FileType", {
+    group = augroup,
+    desc = "Declutter dapui panels",
+    pattern = {
+        "dapui_scopes",
+        "dapui_stacks",
+        "dapui_breakpoints",
+        "dapui_watches",
+    },
+    callback = function()
+        vim.opt_local.number = false
+        vim.opt_local.relativenumber = false
+        vim.opt_local.signcolumn = "no"
+        vim.opt_local.statuscolumn = ""
+        vim.opt_local.cursorline = false
     end,
 })
 

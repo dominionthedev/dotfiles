@@ -8,6 +8,7 @@ return {
             "hrsh7th/cmp-path",
             "saadparwaiz1/cmp_luasnip",
             "windwp/nvim-autopairs",
+            "milanglacier/minuet-ai.nvim",
         },
         config = function()
             local cmp = require("cmp")
@@ -62,9 +63,9 @@ return {
                 sources = cmp.config.sources({
                     { name = "nvim_lsp", priority = 1000 },
                     { name = "luasnip",  priority = 750 },
-                    { name = "path",     priority = 500 },
-                }, {
-                    { name = "buffer", priority = 250 },
+                    { name = "minuet",   priority = 400 },
+                    { name = "buffer",   priority = 250 },
+                    { name = "path",     priority = 200 },
                 }),
 
                 sorting = { priority_weight = 2 },

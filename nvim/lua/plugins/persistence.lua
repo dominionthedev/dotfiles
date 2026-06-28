@@ -1,7 +1,7 @@
 return {
     {
         "folke/persistence.nvim",
-        lazy = false,
+        event = "BufReadPre",
         opts = {
             dir = vim.fn.expand(vim.fn.stdpath("state") .. "/sessions/"),
             need = 1,

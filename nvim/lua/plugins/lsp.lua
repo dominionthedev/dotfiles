@@ -88,9 +88,8 @@ return {
                 end
             end
 
-            vim.diagnostic.config({
-                severity_sort = true,
-            })
+            -- Diagnostic display config lives in config/diagnostics.lua,
+            -- loaded before this plugin. No need to re-call it here.
 
             vim.lsp.config("ty", {
                 cmd = { "ty", "server" },
