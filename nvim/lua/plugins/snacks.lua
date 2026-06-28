@@ -76,22 +76,6 @@ return {
                             preset = "sidebar",
                             preview = false,
                         },
-                        win = {
-                            list = {
-                                keys = {
-                                    ["l"] = "confirm",
-                                    ["h"] = "explorer_up",
-                                    ["a"] = "explorer_add",
-                                    ["d"] = "explorer_del",
-                                    ["r"] = "explorer_rename",
-                                    ["c"] = "explorer_copy",
-                                    ["m"] = "explorer_move",
-                                    ["."] = "explorer_focus",
-                                    ["P"] = "toggle_preview",
-                                    ["y"] = { "explorer_yank", mode = { "n" } },
-                                },
-                            },
-                        },
                     },
 
                     files = {

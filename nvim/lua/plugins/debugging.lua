@@ -160,4 +160,87 @@ return {
             end
         end,
     },
+
+    -- Go debugging via delve. Requires `dlv` on $PATH (go install
+    -- github.com/go-delve/delve/cmd/dlv@latest). leoluz/nvim-dap-go
+    -- wires the delve adapter and standard launch/test configs for us.
+    {
+        "leoluz/nvim-dap-go",
+        ft = "go",
+        dependencies = { "mfussenegger/nvim-dap" },
+        opts = {},
+        keys = {
+            {
+                "<leader>dgt",
+                function()
+                    require("dap-go").debug_test()
+                end,
+                desc = "Debug nearest Go test",
+                ft = "go",
+            },
+            {
+                "<leader>dgl",
+                function()
+                    require("dap-go").debug_last_test()
+                end,
+                desc = "Debug last Go test",
+                ft = "go",
+            },
+        },
+    },
+
+    -- Python debugging via debugpy. Requires debugpy installed somewhere
+    -- nvim-dap-python can find: a project-local venv/.venv, or
+    -- $VIRTUAL_ENV, or fall back to whatever `python3` resolves to.
+    -- Since tooling here is managed manually (no Mason), debugpy must be
+    -- installed by hand, e.g.:
+    --   python3 -m pip install --user debugpy
+    -- or inside a project's own .venv:
+    --   .venv/bin/python -m pip install debugpy
+    {
+        "mfussenegger/nvim-dap-python",
+        ft = "python",
+        dependencies = { "mfussenegger/nvim-dap" },
+        config = function()
+            local function find_python()
+                local cwd = vim.fn.getcwd()
+                local candidates = {
+                    cwd .. "/.venv/bin/python",
+                    cwd .. "/venv/bin/python",
+                }
+
+                for _, path in ipairs(candidates) do
+                    if vim.fn.executable(path) == 1 then
+                        return path
+                    end
+                end
+
+                if vim.env.VIRTUAL_ENV then
+                    return vim.env.VIRTUAL_ENV .. "/bin/python"
+                end
+
+                return "python3"
+            end
+
+            require("dap-python").setup(find_python())
+        end,
+        keys = {
+            {
+                "<leader>dpt",
+                function()
+                    require("dap-python").test_method()
+                end,
+                desc = "Debug nearest Python test",
+                ft = "python",
+            },
+            {
+                "<leader>dpc",
+                function()
+                    require("dap-python").test_class()
+                end,
+                desc = "Debug Python test class",
+                ft = "python",
+            },
+        },
+    },
 }

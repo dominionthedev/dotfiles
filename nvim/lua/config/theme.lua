@@ -1,16 +1,15 @@
 local M = {}
 
-M.transparent = true
+M.transparent = false
+M.flavour = "mocha"
 
 function M.is_transparent()
     return M.transparent
 end
 
-function M.toggle()
-    M.transparent = not M.transparent
-
+local function apply(opts)
     require("catppuccin").setup({
-        flavour = "mocha",
+        flavour = M.flavour,
         transparent_background = M.transparent,
         term_colors = true,
         integrations = {
@@ -46,8 +45,18 @@ function M.toggle()
     })
 
     vim.cmd.colorscheme("catppuccin")
+end
 
+function M.toggle()
+    M.transparent = not M.transparent
+    apply()
     return M.transparent
+end
+
+---@param flavour string
+function M.set_flavour(flavour)
+    M.flavour = flavour
+    apply()
 end
 
 return M

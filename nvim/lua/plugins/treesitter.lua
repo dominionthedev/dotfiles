@@ -65,7 +65,7 @@ return {
             }
 
             vim.api.nvim_create_autocmd("FileType", {
-                group = vim.api.nvim_create_augroup("dominion_treesitter", { clear = true }),
+                group = vim.api.nvim_create_augroup("treesitter", { clear = true }),
                 callback = function(args)
                     local ft = vim.bo[args.buf].filetype
 

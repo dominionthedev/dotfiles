@@ -2,9 +2,6 @@ return {
     {
         "nvim-lualine/lualine.nvim",
         event = "VeryLazy",
-        dependencies = {
-            "nvim-tree/nvim-web-devicons",
-        },
 
         config = function()
             local mocha = require("catppuccin.palettes").get_palette("mocha")
@@ -26,11 +23,84 @@ return {
                     return ""
                 end
 
-                return " " .. table.concat(names, ", ")
+                return " " .. table.concat(names, ",")
             end
 
-            local function cwd()
-                return "󰉋 " .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+            local blame_cache = {}
+
+            local MAX_SUBJECT_LEN = 40
+
+            local function truncate(text, max_len)
+                if vim.fn.strdisplaywidth(text) <= max_len then
+                    return text
+                end
+
+                return vim.fn.strcharpart(text, 0, max_len - 1) .. "…"
+            end
+
+            local function refresh_blame(bufnr)
+                local path = vim.api.nvim_buf_get_name(bufnr)
+                if path == "" then
+                    blame_cache[bufnr] = ""
+                    return
+                end
+
+                local dir = vim.fn.fnamemodify(path, ":h")
+
+                vim.system(
+                    { "git", "-C", dir, "log", "-1", "--format=%an\t%s\t%cr", "--", path },
+                    { text = true },
+                    function(result)
+                        if result.code ~= 0 or not result.stdout then
+                            blame_cache[bufnr] = ""
+                            return
+                        end
+
+                        local first_line = result.stdout:match("^([^\n]*)")
+                        if not first_line or first_line == "" then
+                            blame_cache[bufnr] = ""
+                            return
+                        end
+
+                        local author, subject, relative_time =
+                            first_line:match("([^\t]*)\t([^\t]*)\t(.*)")
+
+                        if not author then
+                            blame_cache[bufnr] = ""
+                            return
+                        end
+
+                        vim.schedule(function()
+                            subject = truncate(subject, MAX_SUBJECT_LEN)
+
+                            blame_cache[bufnr] = string.format(
+                                "%s • %s • %s",
+                                author,
+                                subject,
+                                relative_time
+                            )
+
+                            if vim.api.nvim_buf_is_valid(bufnr) then
+                                require("lualine").refresh({ scope = "tabpage", place = { "statusline" } })
+                            end
+                        end)
+                    end
+                )
+            end
+
+            vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
+                group = vim.api.nvim_create_augroup("LualineGitBlame", { clear = true }),
+                callback = function(args)
+                    refresh_blame(args.buf)
+                end,
+            })
+
+            local function git_blame()
+                local bufnr = vim.api.nvim_get_current_buf()
+                if blame_cache[bufnr] == nil then
+                    refresh_blame(bufnr)
+                end
+                return blame_cache[bufnr] or ""
             end
 
             local theme = {
@@ -128,6 +198,13 @@ return {
 
                     lualine_x = {
                         {
+                            git_blame,
+                            color = { fg = mocha.overlay1, bg = mocha.mantle },
+                            cond = function()
+                                return git_blame() ~= ""
+                            end,
+                        },
+                        {
                             "diagnostics",
                             sources = { "nvim_diagnostic" },
                             sections = { "error", "warn", "info", "hint" },
@@ -192,9 +269,6 @@ return {
     {
         "akinsho/bufferline.nvim",
         event = "VeryLazy",
-        dependencies = {
-            "nvim-tree/nvim-web-devicons",
-        },
 
         config = function()
             local mocha = require("catppuccin.palettes").get_palette("mocha")
@@ -225,22 +299,6 @@ return {
                             separator = true,
                         },
                     },
-
-                    diagnostics_indicator = function(_, _, diag)
-                        local ret = {}
-
-                        if diag.error and diag.error > 0 then
-                            table.insert(ret, "  " .. diag.error)
-                        end
-                        if diag.warning and diag.warning > 0 then
-                            table.insert(ret, "  " .. diag.warning)
-                        end
-                        if diag.info and diag.info > 0 then
-                            table.insert(ret, "  " .. diag.info)
-                        end
-
-                        return table.concat(ret, " ")
-                    end,
 
                     custom_filter = function(buf_number)
                         return vim.bo[buf_number].filetype ~= "snacks_dashboard"

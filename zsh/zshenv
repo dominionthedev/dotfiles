@@ -20,5 +20,4 @@ export GOTOOLCHAIN=local
 
 # terminal
 export COLORTERM=truecolor
-export TERM=xterm-256color
 
