@@ -76,6 +76,23 @@ return {
                             preset = "sidebar",
                             preview = false,
                         },
+
+                        actions = {
+                            cwd_to_dir = function(_, item)
+                                if not item or not item.dir then
+                                    return
+                                end
+                                require("config.custom").set_cwd(item.file)
+                            end,
+                        },
+
+                        win = {
+                            list = {
+                                keys = {
+                                    ["."] = "cwd_to_dir",
+                                },
+                            },
+                        },
                     },
 
                     files = {
@@ -167,15 +184,6 @@ return {
             },
             lazygit = { enabled = true },
             rename = { enabled = true },
-            image = {
-                enabled = true,
-                doc = {
-                    inline = false,
-                    float = true,
-                    max_width = 80,
-                    max_height = 40,
-                },
-            },
             zen = {
                 enabled = true,
                 toggles = {

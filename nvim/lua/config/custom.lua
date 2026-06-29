@@ -2,6 +2,32 @@ local M = {}
 
 local active_workspace = nil
 
+local cwd_history = {}
+
+---@param path string
+function M.set_cwd(path)
+    local target = vim.fn.fnamemodify(path, ":p")
+    if vim.fn.isdirectory(target) == 0 then
+        vim.notify("Not a directory: " .. target, vim.log.levels.WARN)
+        return
+    end
+
+    table.insert(cwd_history, vim.fn.getcwd())
+    vim.cmd.cd(vim.fn.fnameescape(target))
+    vim.notify("cwd: " .. target)
+end
+
+function M.restore_cwd()
+    local previous = table.remove(cwd_history)
+    if not previous then
+        vim.notify("No previous cwd to restore", vim.log.levels.WARN)
+        return
+    end
+
+    vim.cmd.cd(vim.fn.fnameescape(previous))
+    vim.notify("cwd: " .. previous)
+end
+
 local function workspace_dir(choice)
     return choice == "Notes"
         and vim.fn.expand("~/Developer/notes")

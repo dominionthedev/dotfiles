@@ -79,6 +79,13 @@ return {
                 buf_map(bufnr, "n", "<leader>rn", vim.lsp.buf.rename, "Rename")
                 buf_map(bufnr, "n", "<leader>ca", vim.lsp.buf.code_action, "Code action")
                 buf_map(bufnr, "v", "<leader>ca", vim.lsp.buf.code_action, "Code action")
+                buf_map(bufnr, "n", "gT", vim.lsp.buf.type_definition, "Go to type definition")
+                buf_map(bufnr, "n", "<leader>ci", function()
+                    vim.lsp.buf.incoming_calls()
+                end, "Incoming calls")
+                buf_map(bufnr, "n", "<leader>co", function()
+                    vim.lsp.buf.outgoing_calls()
+                end, "Outgoing calls")
 
                 if supports(client, vim.lsp.protocol.Methods.textDocument_inlayHint) then
                     buf_map(bufnr, "n", "<leader>uh", function()
@@ -87,9 +94,6 @@ return {
                     end, "Toggle inlay hints")
                 end
             end
-
-            -- Diagnostic display config lives in config/diagnostics.lua,
-            -- loaded before this plugin. No need to re-call it here.
 
             vim.lsp.config("ty", {
                 cmd = { "ty", "server" },
