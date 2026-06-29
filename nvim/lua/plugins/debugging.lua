@@ -189,40 +189,36 @@ return {
         },
     },
 
-    -- Python debugging via debugpy. Requires debugpy installed somewhere
-    -- nvim-dap-python can find: a project-local venv/.venv, or
-    -- $VIRTUAL_ENV, or fall back to whatever `python3` resolves to.
-    -- Since tooling here is managed manually (no Mason), debugpy must be
-    -- installed by hand, e.g.:
-    --   python3 -m pip install --user debugpy
-    -- or inside a project's own .venv:
-    --   .venv/bin/python -m pip install debugpy
+
     {
         "mfussenegger/nvim-dap-python",
         ft = "python",
         dependencies = { "mfussenegger/nvim-dap" },
         config = function()
-            local function find_python()
-                local cwd = vim.fn.getcwd()
-                local candidates = {
-                    cwd .. "/.venv/bin/python",
-                    cwd .. "/venv/bin/python",
-                }
+            require("dap-python").setup("debugpy-adapter")
 
-                for _, path in ipairs(candidates) do
-                    if vim.fn.executable(path) == 1 then
-                        return path
-                    end
-                end
-
-                if vim.env.VIRTUAL_ENV then
-                    return vim.env.VIRTUAL_ENV .. "/bin/python"
-                end
-
-                return "python3"
-            end
-
-            require("dap-python").setup(find_python())
+            local dap = require("dap")
+            vim.list_extend(dap.configurations.python, {
+                {
+                    type = "python",
+                    request = "launch",
+                    name = "Current file (.venv)",
+                    program = "${file}",
+                    pythonPath = function()
+                        return vim.fn.getcwd() .. "/.venv/bin/python"
+                    end,
+                },
+                {
+                    type = "python",
+                    request = "launch",
+                    name = "Pytest current file (.venv)",
+                    module = "pytest",
+                    args = { "${file}" },
+                    pythonPath = function()
+                        return vim.fn.getcwd() .. "/.venv/bin/python"
+                    end,
+                },
+            })
         end,
         keys = {
             {

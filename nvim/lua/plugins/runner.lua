@@ -31,6 +31,12 @@ return {
                 max_height = 20,
                 default_detail = 1,
             },
+            templates = {
+                "builtin",
+                "user.go_run",
+                "user.go_test",
+                "user.go_build",
+            },
         },
     },
 }
