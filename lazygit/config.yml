@@ -43,13 +43,15 @@ git:
   fetchAll: true
   parseEmoji: true
   branchLogCmd: "git log --graph --color=always --abbrev-commit --decorate --date=relative --pretty=medium {{branchName}} --"
+  autoForwardBranches: "onlyMainBranches"
+  paging:
+    colorArg: always
 
 os:
   editPreset: "nvim-remote"
 
 refresher:
-  refreshInterval: 10
-  fetchInterval: 60
+  refreshInterval: 180
 
 update:
   method: "prompt"
