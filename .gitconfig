@@ -3,7 +3,11 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-
+[user]
+	name = DominionDev
+	email = dominionthedeveloper@gmail.com
+[init]
+	defaultBranch = main
 [delta]
     navigate = true    # use n and N to move between diff sections
     light = false

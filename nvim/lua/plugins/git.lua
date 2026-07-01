@@ -24,11 +24,11 @@ return {
             signcolumn = true,
             numhl = false,
             linehl = false,
-            word_diff = false,
+            word_diff = true,
 
             current_line_blame = false,
             current_line_blame_opts = {
-                delay = 500,
+                delay = 250,
                 ignore_whitespace = true,
                 virt_text_pos = "eol",
             },

@@ -95,6 +95,9 @@ return {
                 end
             end
 
+            -- Diagnostic display config lives in config/diagnostics.lua,
+            -- loaded before this plugin. No need to re-call it here.
+
             vim.lsp.config("ty", {
                 cmd = { "ty", "server" },
                 filetypes = { "python" },

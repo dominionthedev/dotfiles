@@ -39,5 +39,3 @@ alias gp='git push'
 alias gl='git log --oneline --graph'
 
 alias ollama="ollacloud"
-
-. "$HOME/.cargo/env"

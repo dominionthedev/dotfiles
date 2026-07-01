@@ -37,6 +37,7 @@ return {
                 "user.go_test",
                 "user.go_build",
             },
+            -- TODO: Add more useful templates...
         },
     },
 }

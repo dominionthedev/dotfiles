@@ -1,19 +1,9 @@
 local augroup = vim.api.nvim_create_augroup("dominion_autocmds", { clear = true })
 
--- "Did you know..." startup tip
--- Shows one random tip from config/startup_tips.lua via vim.notify
--- (routed through nvim-notify, same as everything else in this
--- config). Deferred slightly past VimEnter so it doesn't compete with
--- the dashboard/lazy-sync notifications that also fire on startup —
--- showing all of them at once just becomes noise instead of a tip.
 vim.api.nvim_create_autocmd("VimEnter", {
     group = augroup,
     desc = "Show a random startup tip",
     callback = function()
-        -- skip if nvim was opened to actually do something specific
-        -- (a file path, stdin, etc.) rather than just launched bare —
-        -- the tip is for the "just opened nvim casually" case, where
-        -- the dashboard is what's on screen.
         if vim.fn.argc() > 0 then
             return
         end

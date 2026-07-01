@@ -161,9 +161,6 @@ return {
         end,
     },
 
-    -- Go debugging via delve. Requires `dlv` on $PATH (go install
-    -- github.com/go-delve/delve/cmd/dlv@latest). leoluz/nvim-dap-go
-    -- wires the delve adapter and standard launch/test configs for us.
     {
         "leoluz/nvim-dap-go",
         ft = "go",
