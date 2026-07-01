@@ -115,6 +115,7 @@ map("t", "<esc>", [[<C-\><C-n>]], "Exit terminal mode")
 
 -- ── Markdown / notes (markview + custom workspace logic) ──────────
 map("n", "<leader>mp", "<cmd>Markview splitToggle<CR>", "Toggle markdown preview split")
+map("n", "<leader>mo", "<cmd>Markview<CR>", "Toggle markdown preview globally.")
 map("n", "<leader>mn", custom.new_note, "New note")
 map("n", "<leader>mf", custom.find_note, "Find note")
 map("n", "<leader>ms", custom.grep_notes, "Search notes")

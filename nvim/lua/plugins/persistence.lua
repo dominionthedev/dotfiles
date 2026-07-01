@@ -29,5 +29,7 @@ return {
                 desc = "Stop session saving",
             },
         },
+
+        -- TODO: Add Auto-Restore to automatically restore after a crash
     },
 }

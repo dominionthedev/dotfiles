@@ -1,0 +1,56 @@
+auto_sync = true
+sync_frequency = "0"
+
+[sync]
+records = true
+
+search_mode = "fuzzy"
+show_preview = true
+exit_mode = "return-query"
+
+style = "compact"
+inline_height = 20
+invert = false
+
+enter_accept = true
+show_help = true
+
+update_check = false
+
+# Automatically use the shell's keymap (vim/emacs)
+keymap_mode = "auto"
+
+# Complete after &&, || and |
+command_chaining = true
+
+history_filter = ["^ls$", "^cd$", "^pwd$"]
+
+[stats]
+common_subcommands = [
+  "cargo",
+  "git",
+  "go",
+  "npm",
+  "python",
+  "rustup",
+  "tmux",
+  "uv",
+  "zig",
+]
+
+common_prefix = ["sudo"]
+ignored_commands = ["cd", "ls", "pwd", "clear"]
+
+[tmux]
+enabled = true
+width = "85%"
+height = "70%"
+
+[ui]
+columns = ["duration", "time", "command"]
+
+[theme]
+name = "catppuccin-mocha-mauve"
+
+[ai]
+enabled = true

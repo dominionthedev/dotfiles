@@ -77,6 +77,15 @@ return {
                             preview = false,
                         },
 
+                        -- "." over a directory sets nvim's GLOBAL cwd to
+                        -- that directory (not the picker's own internal
+                        -- cwd via set_cwd, and not :lcd/:tcd — using a
+                        -- third cwd scope here would just create the
+                        -- exact global/tab/window precedence confusion
+                        -- documented in neovim/neovim#22129). The
+                        -- previous cwd is stashed in
+                        -- config.custom.cwd_history so <leader>ud (see
+                        -- keymaps.lua) can pop back to it.
                         actions = {
                             cwd_to_dir = function(_, item)
                                 if not item or not item.dir then
@@ -140,6 +149,7 @@ return {
             dim = { enabled = true },
             debug = { enabled = true },
             scratch = { enabled = true },
+            image = { enabled = true },
 
             explorer = {
                 enabled = true,
