@@ -11,7 +11,7 @@ config.harfbuzz_features = { "calt=1", "liga=1", "clig=1" }
 config.color_scheme = "Catppuccin Mocha"
 
 -- ── Window ───────────────────────────────────────────────────────────────────
-config.window_background_opacity = 0.5
+config.window_background_opacity = 0.7
 
 config.macos_window_background_blur = 5
 
@@ -45,6 +45,7 @@ config.front_end = "WebGpu"
 config.max_fps = 120
 config.animation_fps = 120
 config.term = "xterm-256color"
+config.enable_kitty_graphics = true
 
 -- ── Alt key (macOS option key) ───────────────────────────────────────────────
 config.send_composed_key_when_left_alt_is_pressed = true

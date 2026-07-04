@@ -6,7 +6,7 @@ sort_reverse = false
 sort_dir_first = true
 linemode = "none"
 
-ratio = [3, 3, 3]
+ratio = [3, 3, 5]
 
 scrolloff = 8
 mouse_events = ["click", "scroll"]
@@ -19,13 +19,8 @@ max_height = 1800
 cache_dir = ""
 
 [opener]
-
 edit = [{ run = 'nvim "$@"', block = true }]
-
 reveal = [{ run = 'open -R "$1"' }]
-
 play = [{ run = 'open "$@"', orphan = true }]
-
 extract = [{ run = 'ouch decompress "$@"', block = true }]
-
 compress = [{ run = 'ouch compress "$@"', block = true }]

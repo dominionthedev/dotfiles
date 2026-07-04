@@ -21,3 +21,7 @@ export GOTOOLCHAIN=local
 # terminal
 export COLORTERM=truecolor
 export EZA_CONFIG_DIR="$HOME/.config/eza"
+
+# database
+export PGDATA=/opt/local/var/db/postgresql18/defaultdb
+

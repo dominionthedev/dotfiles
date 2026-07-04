@@ -1,54 +1,46 @@
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+    process = git-lfs filter-process
+    required = true
+
 [user]
 	name = DominionDev
-	email = dominionthedeveloper@gmail.com
+    email = dominionthedeveloper@gmail.com
+
 [init]
-	defaultBranch = main
+    defaultBranch = main
+
+[include]
+    path = ~/.config/delta/themes/catppuccin.gitconfig
+
 [delta]
-    navigate = true    # use n and N to move between diff sections
-    light = false
+    features = catppuccin-mocha
+    navigate = true
     side-by-side = true
     line-numbers = true
-    syntax-theme     = Catppuccin-mocha
-    file-style       = bold yellow ul
-    hunk-header-style = file line-number syntax
-    # Catppuccin Mocha Colors
-    minus-style                   = syntax "#312229"
-    minus-non-emph-style          = syntax "#312229"
-    minus-emph-style              = syntax "#522e33"
-    minus-empty-line-marker-style = syntax "#312229"
-    line-numbers-minus-style      = "#f38ba8"
-    plus-style                    = syntax "#253332"
-    plus-non-emph-style           = syntax "#253332"
-    plus-emph-style               = syntax "#394b46"
-    plus-empty-line-marker-style  = syntax "#253332"
-    line-numbers-plus-style       = "#a6e3a1"
-    line-numbers-zero-style       = "#6c7086"
-    inline-hint-style             = syntax
-    map-styles = \
-        bold purple => syntax "#494060", \
-        bold cyan => syntax "#384d51", \
-        bold yellow => syntax "#544f4e"
+    merge-conflict-begin-symbol = "▼▼▼"
+    merge-conflict-end-symbol = "▲▲▲"
+    merge-conflict-ours-diff-header-style = bold green
+    merge-conflict-theirs-diff-header-style = bold red
 
 [core]
     editor       = nvim
     excludesfile = ~/.gitignore_global
-    pager = delta -- --theme="Catppuccin-Mocha"
+    pager = delta
     autocrlf     = input
 
 [interactive]
-  diffFilter = delta --color-only --theme="Catppuccin-Mocha"
-
+  diffFilter = delta --color-only
 
 [color]
     ui = auto
 
+[color "diff"]
+    trueColor = always
+
 [alias]
-    s    = status -sb
+    s = status
     co   = checkout
     cob  = checkout -b
     cm   = commit -m
@@ -59,6 +51,7 @@
     pl   = pull
     lg   = log --oneline --graph --decorate -20
     lga  = log --oneline --graph --decorate --all
+    last = log -1 HEAD
     d    = diff
     ds   = diff --staged
     fp   = fetch --prune
@@ -66,7 +59,17 @@
     swc  = switch -c
     undo = reset --soft HEAD~1
     who  = shortlog -sn --no-merges
+
 [feature]
-	manyFiles = true
+    manyFiles = true
+
 [maintenance]
-	auto = false
+    auto = false
+
+[credential "https://github.com"]
+	helper = 
+    helper = !/usr/local/bin/gh auth git-credential
+
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/local/bin/gh auth git-credential
