@@ -58,35 +58,25 @@ return {
                 map("n", "[h", gs.prev_hunk, "Previous Hunk")
 
                 -- Actions
-                map("n", "<leader>hs", gs.stage_hunk, "Stage Hunk")
-                map("v", "<leader>hs", function()
+                map("n", "<leader>ga", gs.stage_hunk, "Stage Hunk")
+                map("v", "<leader>ga", function()
                     gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
                 end, "Stage Selection")
 
-                map("n", "<leader>hu", gs.undo_stage_hunk, "Undo Stage Hunk")
-                map("n", "<leader>hr", gs.reset_hunk, "Reset Hunk")
-                map("v", "<leader>hr", function()
+                map("n", "<leader>gu", gs.undo_stage_hunk, "Undo Stage Hunk")
+                map("n", "<leader>gr", gs.reset_hunk, "Reset Hunk")
+                map("v", "<leader>gr", function()
                     gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
                 end, "Reset Selection")
 
-                map("n", "<leader>hR", gs.reset_buffer, "Reset Buffer")
+                map("n", "<leader>gR", gs.reset_buffer, "Reset Buffer")
 
                 -- Preview
-                map("n", "<leader>hp", gs.preview_hunk, "Preview Hunk")
-                map("n", "<leader>hi", gs.preview_hunk_inline, "Inline Preview")
+                map("n", "<leader>gp", gs.preview_hunk, "Preview Hunk")
+                map("n", "<leader>gP", gs.preview_hunk_inline, "Inline Preview")
 
                 -- Blame
-                map("n", "<leader>hb", function()
-                    gs.blame_line({ full = true })
-                end, "Blame Line")
-
-                map("n", "<leader>hB", gs.toggle_current_line_blame, "Toggle Line Blame")
-
-                -- Diff
-                map("n", "<leader>hd", gs.diffthis, "Diff")
-                map("n", "<leader>hD", function()
-                    gs.diffthis("~")
-                end, "Diff Against HEAD~")
+                map("n", "<leader>gB", gs.toggle_current_line_blame, "Toggle Line Blame")
 
                 -- Text object
                 map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "Select Hunk")

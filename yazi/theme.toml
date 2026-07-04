@@ -139,9 +139,10 @@ dirs = [
   { name = ".config", text = "", fg = "#cba6f7" },
   { name = ".git", text = "", fg = "#cba6f7" },
   { name = ".github", text = "", fg = "#cba6f7" },
+  { name = "github", text = "", fg = "#cba6f7" },
   { name = ".npm", text = "", fg = "#cba6f7" },
   { name = "Desktop", text = "", fg = "#cba6f7" },
-  { name = "Development", text = "", fg = "#cba6f7" },
+  { name = "Development", text = "", fg = "#cba6f7" },
   { name = "Documents", text = "", fg = "#cba6f7" },
   { name = "Downloads", text = "", fg = "#cba6f7" },
   { name = "Library", text = "", fg = "#cba6f7" },
@@ -150,6 +151,7 @@ dirs = [
   { name = "Pictures", text = "", fg = "#cba6f7" },
   { name = "Public", text = "", fg = "#cba6f7" },
   { name = "Videos", text = "", fg = "#cba6f7" },
+  { name = "Developer", text = "", fg = "#cba6f7" },
 ]
 conds = [
   # Special files

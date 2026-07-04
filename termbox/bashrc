@@ -1,8 +1,8 @@
 ##=================================================##
 #                                                   #
-# Termbox zshrc file.                               #
+# Termbox bashrc file.                              #
 #                                                   #
-# contains zsh config, alias and functions          #
+# contains bash config, alias and functions         #
 # managed and owned by termbox                      #
 #                                                   #
 ##=================================================##

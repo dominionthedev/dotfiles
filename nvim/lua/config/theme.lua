@@ -1,6 +1,6 @@
 local M = {}
 
-M.transparent = false
+M.transparent = true
 M.flavour = "mocha"
 
 function M.is_transparent()
@@ -57,6 +57,7 @@ end
 function M.set_flavour(flavour)
     M.flavour = flavour
     apply()
+    return M.flavour
 end
 
 return M

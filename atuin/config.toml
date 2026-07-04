@@ -12,7 +12,6 @@ style = "compact"
 inline_height = 20
 invert = false
 
-enter_accept = true
 show_help = true
 
 update_check = false
@@ -23,7 +22,10 @@ keymap_mode = "auto"
 # Complete after &&, || and |
 command_chaining = true
 
-history_filter = ["^ls$", "^cd$", "^pwd$"]
+history_filter = ["^ls$", "^cd$", "^pwd$", "^clear$", "^reset$"]
+
+[dotfiles]
+enabled = true
 
 [stats]
 common_subcommands = [
@@ -39,7 +41,7 @@ common_subcommands = [
 ]
 
 common_prefix = ["sudo"]
-ignored_commands = ["cd", "ls", "pwd", "clear"]
+ignored_commands = ["cd", "ls", "pwd", "clear", "reset"]
 
 [tmux]
 enabled = true

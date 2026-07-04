@@ -138,6 +138,7 @@ return {
         config = true,
     },
 
+
     {
         "milanglacier/minuet-ai.nvim",
         event        = "InsertEnter",
@@ -173,4 +174,5 @@ return {
             },
         },
     }
+    ,
 }
