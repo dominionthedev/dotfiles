@@ -1,0 +1,24 @@
+[display]
+compact = false
+use_pager = true
+show_title = false
+
+[style.command_name]
+foreground = "red"
+
+[style.example_text]
+foreground = "green"
+
+[style.example_code]
+foreground = "blue"
+
+[style.example_variable]
+foreground = "blue"
+underline = true
+
+[updates]
+auto_update = true
+
+[directories]
+cache_dir = "/Users/appleplay/.local/share/tealdeer/"
+custom_pages_dir = "/Users/appleplay/.local/share/tealdeer/custom-tldr-pages/"
