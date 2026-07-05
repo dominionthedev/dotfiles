@@ -1,9 +1,10 @@
 #!/bin/bash
 # temp.sh — reactive temperature indicator for tmux status bar
 # Shows icon + temp, turns red when ≥ 80°C, yellow when ≥ 60°C
+raw=$(osx-cpu-temp)
 
-raw=$(temp 2>/dev/null)
 # Extract the integer part for bash comparisons (e.g., "63" from "63.0°C")
+# you might want to change this, if the real osx-cpu-temp output is different
 t_int=$(echo "$raw" | grep -Eo '[0-9]+' | head -1)
 raw="${t_int}°"
 
@@ -23,7 +24,6 @@ else
   icon=""
 fi
 
-# Reactive colour — red when ≥ 80, yellow when ≥ 60, sapphire otherwise
 if [ "$t_int" -ge 80 ]; then
   echo "#[fg=#{@thm_red}]#[bg=#{@thm_red},fg=#{@thm_bg}]${icon} #[fg=#{@thm_fg},bg=#{@thm_surface_0},bold] ${raw} "
 elif [ "$t_int" -ge 60 ]; then

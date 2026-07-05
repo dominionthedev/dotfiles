@@ -1,0 +1,23 @@
+[mgr]
+prepend_keymap = [
+  { on = [
+    "g",
+    "n",
+  ], run = "cd ~/Developer/notes", desc = "Go to notes" },
+  { on = [
+    "g",
+    "v",
+  ], run = "cd ~/Developer/vault", desc = "Go to notes vault" },
+  { on = [
+    "g",
+    "V",
+  ], run = "cd /Volumes/vault", desc = "Go to external vault drive" },
+  { on = [
+    "g",
+    "l",
+  ], run = "cd ~/Developer/leraniode", desc = "Go to Leraniode workspace" },
+  { on = [
+    "g",
+    "p",
+  ], run = "cd ~/Developer/projects", desc = "Go to personal projects" },
+]
