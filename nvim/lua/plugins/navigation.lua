@@ -1,15 +1,5 @@
 return {
     {
-        "dominionthedev/neobar",
-        dependencies = {
-            "MunifTanjim/nui.nvim",
-        },
-        opts = {
-            edgy = false
-        },
-    },
-
-    {
         "ThePrimeagen/harpoon",
         event = "BufReadPre",
         branch = "harpoon2",
