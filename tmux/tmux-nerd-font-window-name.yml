@@ -1,8 +1,0 @@
-config:
-  fallback-icon: "❯"
-  show-name: true
-
-icons:
-  tv: " "
-  zoxide: ""
-  fzf: ""

@@ -3,15 +3,15 @@ local act = wezterm.action
 local config = {}
 
 -- ── Font ─────────────────────────────────────────────────────────────────────
-config.font = wezterm.font("FiraCode Nerd Font")
-config.font_size = 8
+config.font = wezterm.font("Maple Mono NF")
+config.font_size = 9
 config.harfbuzz_features = { "calt=1", "liga=1", "clig=1" }
 
 -- ── Color ────────────────────────────────────────────────────────────────────
 config.color_scheme = "Catppuccin Mocha"
 
 -- ── Window ───────────────────────────────────────────────────────────────────
-config.window_background_opacity = 0.7
+config.window_background_opacity = 0.5
 
 config.macos_window_background_blur = 5
 

@@ -1,6 +1,14 @@
-# zmodload zsh/zprof
+if [[ -z "$TMUX" ]] && [[ "$SHLVL" -eq 1 ]]; then
+    source "${XDG_DATA_HOME}/zsh/catppuccin.zsh"
+    # toilet -f slant --gay "$USERNAME"
+fi
+
 # ── Plugins ────────────────────────────────────────────────────────────────
 ZINIT_HOME="${XDG_DATA_HOME}/zinit/zinit.git"
+if [[ ! -d "$ZINIT_HOME" ]]; then
+    mkdir -p "$(dirname "$ZINIT_HOME")"
+    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
 source "${ZINIT_HOME}/zinit.zsh"
 
 zinit ice wait"1" lucid atload"_zsh_autosuggest_start"
@@ -65,14 +73,6 @@ fi
 zstyle ':fzf-tab:*' continuous-trigger '/'
 zstyle ':fzf-tab:*' fzf-flags --height=50% --layout=reverse --border
 
-# catppuccin/fzf mocha
-export FZF_DEFAULT_OPTS=" \
---color=bg+:#313244,bg:#1E1E2E,spinner:#F5E0DC,hl:#F38BA8 \
---color=fg:#CDD6F4,header:#F38BA8,info:#CBA6F7,pointer:#F5E0DC \
---color=marker:#B4BEFE,fg+:#CDD6F4,prompt:#CBA6F7,hl+:#F38BA8 \
---color=selected-bg:#45475A \
---color=border:#6C7086,label:#CDD6F4"
-
 # ── Tool integrations ──────────────────────────────────────────────────────────
 eval "$(starship init zsh)"
 unalias zi
@@ -95,14 +95,11 @@ function dir_enter() {
     [[ -d .venv ]] && source .venv/bin/activate
     [[ -d .runbox ]] && runbox shell
 }
-
 add-zsh-hook chpwd dir_enter
 
 # ── Widgets ─────────────────────────────────────────────────────────────────────
-# edit target
 edit-target() {
     local target="$BUFFER"
-
     [[ -z "$target" ]] && target="."
 
     if [[ -f "$target" || -d "$target" ]]; then
@@ -113,14 +110,11 @@ edit-target() {
         zle beep
     fi
 }
-
 zle -N edit-target
 bindkey '^O' edit-target
 
-# prepend/remove sudo from buffer
 sudo-command() {
     [[ -z $BUFFER ]] && return
-
     if [[ "$BUFFER" == sudo\ * ]]; then
         BUFFER="${BUFFER#sudo }"
     else
@@ -129,11 +123,9 @@ sudo-command() {
 
     CURSOR=${#BUFFER}
 }
-
 zle -N sudo-command
 bindkey '^S' sudo-command
 
-# edit buffer
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey '^V' edit-command-line
@@ -156,10 +148,3 @@ alias ta='tmux attach-session -t'
 alias tk='tmux kill-server'
 alias reload='source ~/.zshrc'
 alias myip='curl -s https://api.ipify.org && echo'
-alias pgstart='sudo -u postgres pg_ctl -D $PGDATA start'
-alias pgstop='sudo -u postgres pg_ctl -D $PGDATA stop'
-
-# added by termbox
-source $HOME/.config/termbox/zshrc
-
-# zprof
