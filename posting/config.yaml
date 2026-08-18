@@ -1,0 +1,19 @@
+theme: hacker
+layout: horizontal
+animation: none
+
+response:
+  prettify_json: true
+
+heading:
+  visible: true
+  show_host: true
+
+url_bar:
+  show_value_preview: true
+
+use_host_environment: false
+
+editor: nvim
+pager: bat
+pager_json: bat
