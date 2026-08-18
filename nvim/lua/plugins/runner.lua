@@ -3,22 +3,22 @@ return {
         "stevearc/overseer.nvim",
         keys = {
             {
-                "<leader>Rr",
+                "<leader>rr",
                 "<cmd>OverseerRun<cr>",
                 desc = "Run task",
             },
             {
-                "<leader>Rt",
+                "<leader>rt",
                 "<cmd>OverseerToggle<cr>",
                 desc = "Toggle task list",
             },
             {
-                "<leader>Ra",
+                "<leader>ra",
                 "<cmd>OverseerTaskAction<cr>",
                 desc = "Task action",
             },
             {
-                "<leader>Rs",
+                "<leader>rs",
                 "<cmd>OverseerShell<cr>",
                 desc = "Run shell command as task",
             },

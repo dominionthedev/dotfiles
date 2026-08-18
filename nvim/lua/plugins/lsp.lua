@@ -31,7 +31,7 @@ return {
                     return
                 end
 
-                local group = vim.api.nvim_create_augroup("dominion_lsp_highlight_" .. bufnr, { clear = true })
+                local group = vim.api.nvim_create_augroup("lsp_highlight_" .. bufnr, { clear = true })
 
                 vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
                     group = group,
@@ -95,9 +95,7 @@ return {
                 end
             end
 
-            -- Diagnostic display config lives in config/diagnostics.lua,
-            -- loaded before this plugin. No need to re-call it here.
-
+            -- Python, Go, Rust
             vim.lsp.config("ty", {
                 cmd = { "ty", "server" },
                 filetypes = { "python" },
@@ -119,48 +117,27 @@ return {
             })
             vim.lsp.enable("ruff")
 
-            vim.lsp.config("lua_ls", {
-                cmd = { "lua-language-server" },
+            vim.lsp.config("gopls", {
                 capabilities = capabilities,
                 on_attach = on_attach,
                 settings = {
-                    Lua = {
-                        runtime = {
-                            version = "LuaJIT",
-                        },
-                        completion = {
-                            callSnippet = "Replace",
-                        },
-                        diagnostics = {
-                            globals = { "vim" },
-                        },
-                        workspace = {
-                            checkThirdParty = false,
-                            library = vim.api.nvim_get_runtime_file("", true),
-                        },
-                        hint = {
-                            enable = true,
+                    gopls = {
+                        gofumpt = true,
+                        usePlaceholders = true,
+                        staticcheck = true,
+                        hints = {
+                            assignVariableTypes = true,
+                            compositeLiteralFields = true,
+                            compositeLiteralTypes = true,
+                            constantValues = true,
+                            functionTypeParameters = true,
+                            parameterNames = true,
+                            rangeVariableTypes = true,
                         },
                     },
                 },
             })
-            vim.lsp.enable("lua_ls")
-
-            vim.lsp.config("ts_ls", {
-                cmd = { "typescript-language-server", "--stdio" },
-                filetypes = {
-                    "javascript",
-                    "javascriptreact",
-                    "javascript.jsx",
-                    "typescript",
-                    "typescriptreact",
-                    "typescript.tsx",
-                },
-                capabilities = capabilities,
-                on_attach = on_attach,
-                single_file_support = true,
-            })
-            vim.lsp.enable("ts_ls")
+            vim.lsp.enable("gopls")
 
             vim.lsp.config("rust_analyzer", {
                 capabilities = capabilities,
@@ -192,33 +169,107 @@ return {
             })
             vim.lsp.enable("rust_analyzer")
 
-            vim.lsp.config("gopls", {
+            -- Website development
+            vim.lsp.config("ts_ls", {
+                cmd = { "typescript-language-server", "--stdio" },
+                filetypes = {
+                    "javascript",
+                    "javascriptreact",
+                    "javascript.jsx",
+                    "typescript",
+                    "typescriptreact",
+                    "typescript.tsx",
+                },
+                capabilities = capabilities,
+                on_attach = on_attach,
+                single_file_support = true,
+            })
+            vim.lsp.enable("ts_ls")
+
+            vim.lsp.config("html", {
+                cmd = { "vscode-html-language-server", "--stdio" },
+
+                filetypes = {
+                    "html",
+                    "templ",
+                },
+
+                init_options = {
+                    provideFormatter = true,
+                },
+            })
+            vim.lsp.enable("html")
+
+            vim.lsp.config("cssls", {
+                cmd = { "vscode-css-language-server", "--stdio" },
+
+                filetypes = {
+                    "css",
+                    "scss",
+                    "less",
+                },
+
+                settings = {
+                    css = {
+                        validate = true,
+                    },
+                    scss = {
+                        validate = true,
+                    },
+                    less = {
+                        validate = true,
+                    },
+                },
+            })
+            vim.lsp.enable("cssls")
+
+            vim.lsp.config("astro", {
+                cmd = { "astro-ls", "--stdio" },
+                filetypes = { "astro" },
+                root_markers = {
+                    "package.json",
+                    "astro.config.js",
+                    "astro.config.mjs",
+                    "astro.config.ts",
+                    "astro.config.mts",
+                    ".git",
+                },
+                init_options = {
+                    typescript = {
+                        tsdk = vim.fn.expand(
+                        "$HOME/.local/share/nvm/versions/node/v22.23.2/lib/node_modules/typescript/lib"),
+                    },
+                },
+            })
+            vim.lsp.enable("astro")
+
+            -- Lua, Yaml, Toml and JSON
+            vim.lsp.config("lua_ls", {
+                cmd = { "lua-language-server" },
                 capabilities = capabilities,
                 on_attach = on_attach,
                 settings = {
-                    gopls = {
-                        gofumpt = true,
-                        usePlaceholders = true,
-                        staticcheck = true,
-                        hints = {
-                            assignVariableTypes = true,
-                            compositeLiteralFields = true,
-                            compositeLiteralTypes = true,
-                            constantValues = true,
-                            functionTypeParameters = true,
-                            parameterNames = true,
-                            rangeVariableTypes = true,
+                    Lua = {
+                        runtime = {
+                            version = "LuaJIT",
+                        },
+                        completion = {
+                            callSnippet = "Replace",
+                        },
+                        diagnostics = {
+                            globals = { "vim" },
+                        },
+                        workspace = {
+                            checkThirdParty = false,
+                            library = vim.api.nvim_get_runtime_file("", true),
+                        },
+                        hint = {
+                            enable = true,
                         },
                     },
                 },
             })
-            vim.lsp.enable("gopls")
-
-            vim.lsp.config("taplo", {
-                capabilities = capabilities,
-                on_attach = on_attach,
-            })
-            vim.lsp.enable("taplo")
+            vim.lsp.enable("lua_ls")
 
             vim.lsp.config("yamlls", {
                 cmd = { "yaml-language-server", "--stdio" },
@@ -239,11 +290,65 @@ return {
             })
             vim.lsp.enable("yamlls")
 
+            vim.lsp.config("taplo", {
+                capabilities = capabilities,
+                on_attach = on_attach,
+            })
+            vim.lsp.enable("taplo")
+
+            vim.lsp.config("jsonls", {
+                cmd = { "vscode-json-language-server", "--stdio" },
+
+                filetypes = {
+                    "json",
+                    "jsonc",
+                },
+
+                init_options = {
+                    provideFormatter = true,
+                },
+
+                settings = {
+                    json = {
+                        validate = {
+                            enable = true,
+                        },
+                        schemaDownload = {
+                            enable = true,
+                        },
+                        format = {
+                            enable = true,
+                        },
+                    },
+                },
+            })
+
+            vim.lsp.enable("jsonls")
+
+            -- Markdown
             vim.lsp.config("marksman", {
                 capabilities = capabilities,
                 on_attach = on_attach,
             })
             vim.lsp.enable("marksman")
+
+
+            -- Graphics
+            vim.lsp.config('svg_language_server', {
+                cmd = { 'svg-language-server' },
+                filetypes = { 'svg' },
+                root_markers = { '.git' },
+                init_options = {
+                    svg = {
+                        profile = 'svg2draft',
+                        force_profile = false,
+                        runtime_compat = true,
+                        svgwg_drift_check = false,
+                    },
+                },
+            })
+
+            vim.lsp.enable('svg_language_server')
         end,
     },
 }
