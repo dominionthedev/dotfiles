@@ -1,5 +1,5 @@
 if [[ -z "$TMUX" ]] && [[ "$SHLVL" -eq 1 ]]; then
-    source "${XDG_DATA_HOME}/zsh/catppuccin.zsh"
+    source "${XDG_DATA_HOME}/zsh/themes/catppuccin.zsh"
     # toilet -f slant --gay "$USERNAME"
 fi
 eval "$(starship init zsh)"

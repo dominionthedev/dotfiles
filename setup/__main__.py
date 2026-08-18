@@ -6,7 +6,6 @@ from pathlib import Path
 from .config import CONFIGS
 from .install import InstallError, install
 
-
 ROOT = Path(__file__).resolve().parent.parent
 
 

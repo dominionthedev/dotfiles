@@ -17,9 +17,7 @@ def _backup_path(target: Path) -> Path:
     counter = 1
 
     while candidate.exists() or candidate.is_symlink():
-        candidate = target.with_name(
-            f"{target.name}.backup-{stamp}-{counter}"
-        )
+        candidate = target.with_name(f"{target.name}.backup-{stamp}-{counter}")
         counter += 1
 
     return candidate
