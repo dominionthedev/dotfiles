@@ -13,11 +13,15 @@ export MANPAGER="bat -l man -p"
 
 # go
 export GOROOT="/usr/local/go"
-export GO111MODULE=auto
+export GO111MODULE=on
 export GOPATH="$HOME/go"
 export GOBIN=$HOME/go/bin
 export GOTOOLCHAIN=local
 
+# nvm
+export NVM_DIR="$HOME/.local/share/nvm"
+
 # terminal
 export COLORTERM=truecolor
 export EZA_CONFIG_DIR="$HOME/.config/eza"
+

@@ -5,6 +5,7 @@
 typeset -gU path PATH
 
 path=(
+  $HOME/.local/share/nvm/versions/node/v22.23.2/bin
   /opt/local/bin
   /opt/local/sbin
   $HOME/.local/bin
