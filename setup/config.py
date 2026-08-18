@@ -19,7 +19,9 @@ CONFIGS = (
     Config("bat", "bat", "~/.config/bat"),
     Config("delta", "delta", "~/.config/delta"),
     Config("eza", "eza", "~/.config/eza"),
-    Config("tealdeer", "tealdeer", "~/.config/tealdeer"),
-    Config("television", "television", "~/.config/television"),
     Config("atuin", "atuin", "~/.config/atuin"),
+    Config("zshrc", "zsh/.zshrc", "~/.zshrc"),
+    Config("zshenv", "zsh/.zshenv", "~/.zshenv"),
+    Config("zprofile", "zsh/.zprofile", "~/.zprofile"),
+    Config("zshthemes", "zsh/themes", "~/.local/share/zsh/themes"),
 )
