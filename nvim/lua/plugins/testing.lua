@@ -6,6 +6,7 @@ return {
             "nvim-lua/plenary.nvim",
             "nvim-neotest/neotest-python",
             "nvim-neotest/neotest-go",
+            "nvim-neotest/neotest-jest",
 
             -- "rouge8/neotest-rust",
             -- "alfaix/neotest-zig",
@@ -84,6 +85,15 @@ return {
 
                     require("neotest-go"),
 
+                    require("neotest-jest")({
+                        jestCommand = "npx jest",
+                        jestConfigFile = "jest.config.js",
+                        env = { CI = true },
+                        cwd = function(path)
+                            return vim.fn.getcwd()
+                        end,
+                    }),
+
                     -- require("neotest-rust"),
                     -- require("neotest-zig"),
                 },
@@ -108,8 +118,8 @@ return {
                 },
 
                 icons = {
-                    passed = "",
-                    failed = "",
+                    passed = "",
+                    failed = "",
                     running = "󰑮",
                     skipped = "󰒭",
                     unknown = "?",
@@ -118,3 +128,4 @@ return {
         end,
     },
 }
+

@@ -39,8 +39,8 @@ map("n", "<leader>fr", function() Snacks.picker.recent() end, "Recent files")
 map("n", "<leader>fk", function() Snacks.picker.keymaps() end, "Find keymaps")
 map("n", "<leader>fh", function() Snacks.picker.help() end, "Find help")
 map("n", "<leader>fd", function() Snacks.picker.diagnostics() end, "Find diagnostics")
-map("n", "<leader>fs", function() Snacks.picker.lsp_symbols() end, "Find LSP symbols (buffer)")
-map("n", "<leader>fS", function() Snacks.picker.workspace_symbols() end, "Find LSP symbols (workspace)")
+map("n", "<leader>fs", function() Snacks.picker.lsp_symbols() end, "Find LSP symbols")
+map("n", "<leader>fa", function() Snacks.picker.autocmds() end, "Find autocmds")
 map("n", "<leader>fm", function() Snacks.picker.marks() end, "Find marks")
 map("n", "<leader>p", function() Snacks.picker.commands() end, "Command palette")
 
@@ -63,15 +63,7 @@ map("n", "gi", function() Snacks.picker.lsp_implementations() end, "Go to implem
 map("n", "gt", function() Snacks.picker.lsp_type_definitions() end, "Go to type definition")
 
 -- ── Diagnostics ────────────────────────────────────────────────────
-map("n", "[d", vim.diagnostic.goto_prev, "Previous diagnostic")
-map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
 map("n", "<leader>vd", vim.diagnostic.open_float, "Line diagnostics float")
-map("n", "<leader>ie", function()
-    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
-    vim.cmd("normal! zz")
-    vim.cmd("startinsert")
-end, "Next error and insert")
-
 map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", "Diagnostics (buffer)")
 map("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", "Diagnostics (workspace)")
 map("n", "<leader>xq", "<cmd>Trouble qflist toggle<cr>", "Quickfix list")
@@ -97,8 +89,6 @@ map("n", "<leader>H", function()
 end, "Open dashboard")
 map("n", "?", function() require("which-key").show({ global = true }) end, "Show all keymaps")
 map("n", "g?", function() require("which-key").show({ global = false }) end, "Show buffer keymaps")
-map("n", "<leader>vb", function() Snacks.debug.backtrace() end, "Lua backtrace")
-map("n", "<leader>N", function() require("neobar.window").open() end, "Open neobar")
 
 -- ── Word reference jump (Snacks.words, LSP document highlight) ────
 map("n", "[[", function() Snacks.words.jump(-1) end, "Prev reference")

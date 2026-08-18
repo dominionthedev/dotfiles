@@ -1,46 +1,5 @@
 return {
     {
-        "ThePrimeagen/harpoon",
-        event = "BufReadPre",
-        branch = "harpoon2",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
-
-        config = function()
-            local harpoon = require("harpoon")
-
-            harpoon:setup()
-
-            local list = harpoon:list()
-
-            vim.keymap.set("n", "<leader>ha", function()
-                list:add()
-            end, { desc = "Harpoon: Add file" })
-
-            vim.keymap.set("n", "<leader>hh", function()
-                harpoon.ui:toggle_quick_menu(list)
-            end, { desc = "Harpoon: Menu" })
-
-            vim.keymap.set("n", "<leader>hn", function()
-                list:next()
-            end, { desc = "Harpoon: Next file" })
-
-            vim.keymap.set("n", "<leader>hp", function()
-                list:prev()
-            end, { desc = "Harpoon: Previous file" })
-
-            for i = 1, 9 do
-                vim.keymap.set("n", "<leader>" .. i, function()
-                    list:select(i)
-                end, {
-                    desc = "Harpoon " .. i,
-                })
-            end
-        end,
-    },
-
-    {
         "folke/flash.nvim",
         event = "VeryLazy",
 
