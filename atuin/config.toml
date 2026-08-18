@@ -53,7 +53,7 @@ height = "70%"
 columns = ["duration", "time", "command"]
 
 [theme]
-name = "catppuccin-mocha-mauve"
+name = "catppuccin"
 
 [ai]
 enabled = true
