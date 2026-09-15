@@ -51,7 +51,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     group = augroup,
     desc = "Highlight yanked text",
     callback = function()
-        vim.highlight.on_yank({
+        vim.hl.on_yank({
             higroup = "IncSearch",
             timeout = 150,
         })

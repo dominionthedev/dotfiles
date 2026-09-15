@@ -237,7 +237,7 @@ return {
                 init_options = {
                     typescript = {
                         tsdk = vim.fn.expand(
-                        "$HOME/.local/share/nvm/versions/node/v22.23.2/lib/node_modules/typescript/lib"),
+                            "$HOME/.local/share/nvm/versions/node/v22.23.2/lib/node_modules/typescript/lib"),
                     },
                 },
             })

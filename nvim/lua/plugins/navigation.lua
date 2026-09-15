@@ -51,7 +51,7 @@ return {
         "stevearc/aerial.nvim",
         keys = {
             {
-                "<leader>a",
+                "<leader>y",
                 "<cmd>AerialToggle<cr>",
                 desc = "Toggle symbols outline (Aerial)",
             },
@@ -64,6 +64,37 @@ return {
                 width = 30,
             },
         },
+    },
+
+    {
+        "dominionthedev/neobar",
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            "folke/edgy.nvim",
+        },
+        opts = {
+            -- defaults: edgy = true, position = "left", width = 3
+        },
+    },
+
+    {
+        "folke/edgy.nvim",
+        event = "VeryLazy",
+        init = function()
+            vim.opt.laststatus = 3
+            vim.opt.splitkeep = "screen"
+        end,
+        opts = function()
+            local neobar_edgy = require("neobar.edgy")
+            return {
+                left = {
+                    neobar_edgy.view(),
+                },
+                options = {
+                    left = neobar_edgy.options(),
+                },
+            }
+        end,
     },
 
     {

@@ -114,27 +114,7 @@ return {
             local dap = require("dap")
             local dapui = require("dapui")
             dapui.setup({
-                layouts = {
-                    {
-                        position = "left",
-                        size = 45,
-                        elements = {
-                            "scopes",
-                            "stacks",
-                            "breakpoints",
-                            "watches",
-                        },
-                    },
-                    {
-                        position = "bottom",
-                        size = 12,
-                        elements = {
-                            "repl",
-                            "console",
-                        },
-                    },
-                },
-
+                layouts = require("neobar.dapui").layouts(),
                 floating = {
                     border = "rounded",
                     mappings = {

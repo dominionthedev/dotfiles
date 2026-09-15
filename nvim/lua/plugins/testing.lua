@@ -118,8 +118,8 @@ return {
                 },
 
                 icons = {
-                    passed = "",
-                    failed = "",
+                    passed = "",
+                    failed = "",
                     running = "󰑮",
                     skipped = "󰒭",
                     unknown = "?",
@@ -128,4 +128,3 @@ return {
         end,
     },
 }
-
