@@ -7,6 +7,7 @@
 [user]
 	name = DominionDev
     email = dominionthedeveloper@gmail.com
+	signingkey = C8F1034CFE23B50D
 
 [init]
     defaultBranch = main
@@ -73,3 +74,10 @@
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !/usr/local/bin/gh auth git-credential
+[pull]
+	rebase = true
+[gpg]
+	format = openpgp
+	program = gpg
+[commit]
+	gpgsign = true
