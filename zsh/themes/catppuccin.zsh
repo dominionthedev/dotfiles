@@ -1,9 +1,6 @@
 # An unoffical Custom catppuccin theme for zsh and the terminal emulator
 # Catppuccin flavour: Mocha
-#
-# You may not want to apply this if you run a subshell
-# or tmux in an already themed shell
-
+export THEME_NAME="catppuccin-mocha"
 # ── Palette ────────────────────────────────────────────────
 export THEME_ROSEWATER="#f5e0dc"
 export THEME_FLAMINGO="#f2cdcd"
@@ -57,7 +54,6 @@ export THEME_BRIGHT_CYAN="$THEME_SKY"
 export THEME_BRIGHT_WHITE="$THEME_TEXT"
 
 # zsh highlighting
-# if you use fsh(fast-syntax-highlighting), use the theme at ../fsh/catppuccin-mocha.ini
 typeset -A ZSH_HIGHLIGHT_STYLES 2>/dev/null || true
 ZSH_HIGHLIGHT_STYLES[command]="fg=$THEME_GREEN"
 ZSH_HIGHLIGHT_STYLES[builtin]="fg=$THEME_PEACH"
@@ -85,10 +81,6 @@ export FZF_DEFAULT_OPTS=" \
 --color=border:#6C7086,label:#CDD6F4"
 
 # Terminal styling (OSC-based)
-#
-# This may look like it wasn't applied if your terminal(e.g wezterm)
-# uses same theme(catppuccin mocha) as this, but it works and is noticable.
-# You can comment/reove this block if any issue occurs in you terminal emulator/tmux
 printf "\033]10;$THEME_TEXT\007"
 printf "\033]11;$THEME_BASE\007"
 printf "\033]12;$THEME_LAVENDER\007"

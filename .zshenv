@@ -6,9 +6,10 @@ export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 
 # Editor
 export BAT_THEME="Catppuccin-mocha"
-export EDITOR="${EDITOR:-nvim}"
-export VISUAL="${VISUAL:-nvim}"
-export PAGER="${PAGER:-bat}"
+export BAT_STYLE="changes,numbers"
+export EDITOR="nvim"
+export VISUAL="nvim"
+export PAGER="bat"
 export MANPAGER="bat -l man -p"
 
 # go
