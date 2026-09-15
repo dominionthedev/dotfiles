@@ -1,0 +1,18 @@
+[metadata]
+name = "boxs"
+description = "Projects containing box.toml"
+requirements = ["runbox", "bat", "fd"]
+
+[source]
+command = "fd --hidden --no-ignore --type f '^box\\.toml$' ~/Developer --exclude .git | xargs -n1 dirname | sort -u"
+
+[preview]
+command = "bat --color=always --style=numbers '{}/box.toml'"
+
+[keybindings]
+enter = "actions:runbox"
+
+[actions.runbox]
+description = "Enter runbox shell"
+command = "cd '{}' && runbox shell"
+mode = "execute"

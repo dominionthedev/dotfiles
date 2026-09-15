@@ -1,0 +1,25 @@
+[metadata]
+name = "man-pages"
+description = "Browse and preview system manual pages"
+requirements = ["apropos", "man"]
+
+[source]
+# List all man pages using apropos
+command = "apropos ."
+
+[preview]
+# Show the man page for the selected entry
+command = "target='{0}'; section=$(printf '%s' \"$target\" | sed -E 's/.*\\(([0-9A-Za-z]+)\\)$/\\1/'); name=$(printf '%s' \"$target\" | sed -E 's/\\s*\\([0-9A-Za-z]+\\)$//'); man \"$section\" \"$name\""
+env = { "MANWIDTH" = "80" }
+
+[keybindings]
+enter = "actions:open"
+
+[actions.open]
+description = "Open the selected man page in the system pager"
+command = "target='{0}'; section=$(printf '%s' \"$target\" | sed -E 's/.*\\(([0-9A-Za-z]+)\\)$/\\1/'); name=$(printf '%s' \"$target\" | sed -E 's/\\s*\\([0-9A-Za-z]+\\)$//'); man \"$section\" \"$name\""
+mode = "execute"
+
+[ui]
+layout = "portrait"
+preview_panel = { header = "{0}" }

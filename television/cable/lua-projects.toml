@@ -1,0 +1,17 @@
+[metadata]
+name = "lua-projects"
+description = "Projects containing a lua directory"
+
+[source]
+command = "fd --hidden --no-ignore --type d '^lua$' ~/Developer --exclude .git --exclude node_modules | xargs -n1 dirname | sort -u"
+
+[preview]
+command = "fd --hidden --no-ignore --type f . '{}' --exclude .git | head -80"
+
+[keybindings]
+enter = "actions:cd"
+
+[actions.cd]
+description = "Enter project directory"
+command = "cd '{}'"
+mode = "execute"

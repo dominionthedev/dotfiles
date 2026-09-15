@@ -1,0 +1,28 @@
+[metadata]
+name = "go-projects"
+description = "Go projects containing go.mod"
+
+[source]
+command = "fd --hidden --no-ignore --type f '^go\\.mod$' ~/Developer --exclude .git | xargs -n1 dirname | sort -u"
+
+[preview]
+command = "bat --color=always --style=numbers '{}/go.mod'"
+
+[keybindings]
+enter = "actions:cd"
+ctrl-e = "actions:edit"
+
+[actions.cd]
+description = "Enter project directory"
+command = "cd '{}' && $SHELL"
+mode = "execute"
+
+[actions.edit]
+description = "Open the repository in editor"
+command = "${EDITOR:-vim} {}"
+mode = "execute"
+
+[actions.test]
+description = "Run Go tests"
+command = "cd '{}' && go test ./..."
+mode = "execute"

@@ -1,0 +1,28 @@
+[metadata]
+name = "node-projects"
+description = "Node.js projects containing package.json"
+
+[source]
+command = "fd --hidden --no-ignore --type f '^package\\.json$' ~/Developer --exclude .git --exclude node_modules | xargs -n1 dirname | sort -u"
+
+[preview]
+command = "bat --color=always --style=numbers '{}/package.json'"
+
+[keybindings]
+enter = "actions:cd"
+ctrl-e = "actions:edit"
+
+[actions.run]
+description = "Run npm scripts"
+command = "cd '{}' && npm run"
+mode = "execute"
+
+[actions.edit]
+description = "Open the repository in editor"
+command = "${EDITOR:-vim} {}"
+mode = "execute"
+
+[actions.cd]
+description = "Enter project directory"
+command = "cd '{}'"
+mode = "execute"
