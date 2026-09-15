@@ -4,7 +4,7 @@ local config = {}
 
 -- ── Font ─────────────────────────────────────────────────────────────────────
 config.font = wezterm.font("Maple Mono NF")
-config.font_size = 9
+config.font_size = 10
 config.harfbuzz_features = { "calt=1", "liga=1", "clig=1" }
 
 -- ── Color ────────────────────────────────────────────────────────────────────

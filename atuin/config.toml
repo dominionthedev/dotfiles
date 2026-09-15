@@ -12,18 +12,10 @@ exit_mode = "return-query"
 style = "compact"
 inline_height = 20
 invert = false
-
 show_help = true
-
 update_check = false
-
-# Automatically use the shell's keymap (vim/emacs)
 keymap_mode = "auto"
-
-# Complete after &&, || and |
 command_chaining = true
-
-history_filter = ["^ls$", "^cd$", "^pwd$", "^clear$", "^reset$"]
 
 [dotfiles]
 enabled = true
@@ -43,11 +35,6 @@ common_subcommands = [
 
 common_prefix = ["sudo"]
 ignored_commands = ["cd", "ls", "pwd", "clear", "reset"]
-
-[tmux]
-enabled = true
-width = "85%"
-height = "70%"
 
 [ui]
 columns = ["duration", "time", "command"]

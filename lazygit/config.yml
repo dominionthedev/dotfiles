@@ -58,7 +58,7 @@ git:
   skipHookPrefix: "WIP"
   autoFetch: true
   autoRefresh: true
-  overrideGpg: false
+  overrideGpg: true
   fetchAll: true
   parseEmoji: true
   branchLogCmd: "git log --graph --color=always --abbrev-commit --decorate --date=relative --pretty=medium {{branchName}} --"
