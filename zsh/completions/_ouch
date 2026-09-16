@@ -1,0 +1,44 @@
+#compdef ouch
+
+# Custom completion for ouch (https://github.com/ouch-org/ouch)
+#   ouch d|decompress <TAB>        -> archives under ~/Downloads and ~/Developer (via fd)
+#   ouch c|compress <file> <TAB>   -> suggests ~/Downloads/<file>.tar.gz as the output
+#
+# Naive on purpose: the compress-output suggestion assumes you're compressing
+# a single file/dir (your stated use case). Pass more inputs and it still
+# falls through to normal file completion, it just won't guess the output name.
+
+local -a subcmds archives
+
+subcmds=(
+  'compress:Compress files into an archive'
+  'c:Compress files into an archive'
+  'decompress:Decompress an archive'
+  'd:Decompress an archive'
+  'list:List archive contents'
+  'l:List archive contents'
+)
+
+if (( CURRENT == 2 )); then
+  _describe -t commands 'ouch subcommand' subcmds
+  return
+fi
+
+case ${words[2]} in
+  d|decompress|l|list)
+    archives=(${(f)"$(fd --type f \
+      -e zip -e tar -e tgz -e gz -e tbz2 -e bz2 -e txz -e xz -e zst -e 7z -e rar \
+      . ~/Downloads ~/Developer 2>/dev/null)"})
+    _describe -t archives 'archive' archives
+    ;;
+  c|compress)
+    if (( CURRENT == 4 )); then
+      local input="${${words[3]:t}%/}"
+      [[ -n $input ]] && compadd -Q -- "${HOME}/Downloads/${input}.tar.gz"
+    fi
+    _files
+    ;;
+  *)
+    _files
+    ;;
+esac

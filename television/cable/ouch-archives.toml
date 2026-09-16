@@ -1,0 +1,18 @@
+[metadata]
+name = "ouch-archives"
+description = "Archives under ~/Downloads and ~/Developer"
+requirements = ["fd", "ouch"]
+
+[source]
+command = "fd --type f -e zip -e tar -e tgz -e gz -e tbz2 -e bz2 -e txz -e xz -e zst -e 7z -e rar . ~/Downloads ~/Developer"
+
+[preview]
+command = "ouch list '{}' 2>/dev/null"
+
+[keybindings]
+enter = "actions:decompress"
+
+[actions.decompress]
+description = "Decompress into the current directory"
+command = "ouch d '{}'"
+mode = "execute"

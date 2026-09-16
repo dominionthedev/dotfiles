@@ -1,0 +1,10 @@
+#compdef tplate
+
+# Lists scripts under ~/.local/share/tmux/templates/ for `tplate <TAB>`.
+# Works whether `tplate` itself is a function or a script on your $PATH —
+# completion binding doesn't care which.
+
+local -a templates
+templates=(${HOME}/.local/share/tmux/templates/*(N.))
+templates=(${templates:t})
+_describe -t templates 'tmux template' templates

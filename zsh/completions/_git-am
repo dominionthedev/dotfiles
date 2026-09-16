@@ -1,0 +1,15 @@
+#compdef git-am
+
+# Offers .patch files from ~/Downloads and ~/Developer when completing `git am`.
+#
+# NOTE: this relies on _git's convention of dispatching to a `_git-<subcommand>`
+# function when one exists. That's true for the stock git-completion.zsh and most
+# distro packages, but if `git am <TAB>` still shows plain file completion after
+# you rebuild your zcompdump, force the binding by adding this line to
+# completions.zsh (after compinit):
+#   compdef _git-am git-am 2>/dev/null
+
+local -a patches
+patches=(${(f)"$(fd --type f -e patch . ~/Downloads ~/Developer 2>/dev/null)"})
+_describe -t patches 'patch file' patches
+_files

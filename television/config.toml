@@ -5,7 +5,6 @@ history_size = 200
 global_history = true
 
 [ui]
-# How much space to allocate for the UI (in percentage of the screen)
 ui_scale = 100
 orientation = "landscape"
 theme = "catppuccin"
@@ -27,7 +26,6 @@ border_type = "rounded"
 # padding = {"left": 0, "right": 0, "top": 0, "bottom": 0}
 
 [ui.preview_panel]
-# Preview panel size (percentage of screen width/height)
 size = 50
 #header = ""
 #footer = ""
@@ -44,7 +42,6 @@ hidden = true
 show_channel_descriptions = true
 sort_alphabetically = true
 
-# Keybindings and Events
 [keybindings]
 # Application control
 esc = "quit"
@@ -97,3 +94,6 @@ home = "go_to_input_start"
 ctrl-a = "go_to_input_start"
 end = "go_to_input_end"
 ctrl-e = "go_to_input_end"
+
+[shell_integration.channel_triggers]
+"ouch-archives" = ["ouch d"]
