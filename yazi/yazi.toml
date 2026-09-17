@@ -24,3 +24,21 @@ reveal = [{ run = 'open -R "$1"' }]
 play = [{ run = 'open "$@"', orphan = true }]
 extract = [{ run = 'ouch decompress "$@"', block = true }]
 compress = [{ run = 'ouch compress "$@"', block = true }]
+# Experimental: forces an iCloud placeholder to actually download.
+# `brctl` is Apple's undocumented internal iCloud sync tool (bird daemon) —
+# it works today but isn't a public API, so it could change or need Full
+# Disk Access granted to your terminal in System Settings. Try it before you
+# rely on it; if it flakes, that's genuinely a Finder-only task.
+icloud-download = [{ run = 'brctl download "$@"', block = true }]
+
+# Required for masaki39/git (or yazi-rs/plugins:git) to actually populate
+# the linemode column — this is what makes require("git"):setup() do anything.
+[[plugin.prepend_fetchers]]
+id  = "git"
+url = "*"
+run = "git"
+
+[[plugin.prepend_fetchers]]
+id  = "git"
+url = "*/"
+run = "git"

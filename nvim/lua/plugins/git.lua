@@ -82,4 +82,49 @@ return {
             end,
         },
     },
+
+    {
+        "sindrets/diffview.nvim",
+
+        cmd = {
+            "DiffviewOpen",
+            "DiffviewFileHistory",
+            "DiffviewClose",
+        },
+
+        keys = {
+            {
+                "<leader>gd",
+                "<cmd>DiffviewOpen<CR>",
+                desc = "Git diff",
+            },
+            {
+                "<leader>gh",
+                "<cmd>DiffviewFileHistory %<CR>",
+                desc = "File history",
+            },
+            {
+                "<leader>gH",
+                "<cmd>DiffviewFileHistory<CR>",
+                desc = "Project history",
+            },
+        },
+
+        opts = {
+            enhanced_diff_hl = true,
+
+            file_panel = {
+                listing_style = "tree",
+                win_config = {
+                    width = 35,
+                },
+            },
+
+            view = {
+                merge_tool = {
+                    layout = "diff3_mixed",
+                },
+            },
+        },
+    },
 }

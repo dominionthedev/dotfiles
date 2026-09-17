@@ -6,8 +6,13 @@ return {
         config = function()
             require("catppuccin").setup({
                 flavour = "mocha",
+                background = {
+                    light = "latte",
+                    dark = "mocha",
+                },
                 transparent_background = require("config.theme").is_transparent(),
                 term_colors = true,
+                auto_integrations = true,
                 integrations = {
                     cmp = true,
                     gitsigns = true,
@@ -39,7 +44,11 @@ return {
                         NoiceMiniProgress = { bg = colors.mantle },
                     }
                 end,
-
+                dim_inactive = {
+                    enabled = true,
+                    shade = "dark",
+                    percentage = 0.15,
+                }
             })
             vim.cmd.colorscheme("catppuccin")
         end,
@@ -59,46 +68,19 @@ return {
     },
 
     {
-        "sindrets/diffview.nvim",
-
-        cmd = {
-            "DiffviewOpen",
-            "DiffviewFileHistory",
-            "DiffviewClose",
-        },
-
-        keys = {
-            {
-                "<leader>gd",
-                "<cmd>DiffviewOpen<CR>",
-                desc = "Git diff",
-            },
-            {
-                "<leader>gh",
-                "<cmd>DiffviewFileHistory %<CR>",
-                desc = "File history",
-            },
-            {
-                "<leader>gH",
-                "<cmd>DiffviewFileHistory<CR>",
-                desc = "Project history",
-            },
-        },
+        "rasulomaroff/reactive.nvim",
+        event = "VeryLazy",
 
         opts = {
-            enhanced_diff_hl = true,
-
-            file_panel = {
-                listing_style = "tree",
-                win_config = {
-                    width = 35,
-                },
+            load = {
+                "catppuccin-mocha-cursor",
+                "catppuccin-mocha-cursorline",
             },
 
-            view = {
-                merge_tool = {
-                    layout = "diff3_mixed",
-                },
+            builtin = {
+                cursorline = true,
+                cursor = true,
+                modemsg = true,
             },
         },
     },

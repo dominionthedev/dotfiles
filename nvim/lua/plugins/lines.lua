@@ -216,6 +216,7 @@ return {
                             lsp_clients,
                             color = { fg = mocha.sapphire, bg = mocha.mantle },
                         },
+                        "aerial"
                     },
 
                     lualine_y = {

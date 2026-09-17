@@ -36,9 +36,20 @@ prepend_keymap = [
     "g",
     "D",
   ], run = "cd ~/Downloads", desc = "Go to Downloads" },
+  { on = [
+    "g",
+    "i",
+  ], run = "cd '~/Library/Mobile Documents/com~apple~CloudDocs'", desc = "Go to iCloud Drive" },
 
   # ── File operations ─────────────────────────────────────────
   { on = [
     "m",
   ], run = "yank --cut", desc = "Move selected files" },
+
+  # ── Plugins ─────────────────────────────────────────────────
+  # ya pkg add yazi-rs/plugins:smart-enter (setup already default, README-verified)
+  { on = "l", run = "plugin smart-enter", desc = "Enter dir, or open file" },
+  # ya pkg add yazi-rs/plugins:mount
+  { on = "M", run = "plugin mount", desc = "Mount / unmount / eject volumes (verify args)" },
+  { on = "!", run = 'shell "$SHELL" --block', desc = "Open $SHELL here", for = "unix" },
 ]

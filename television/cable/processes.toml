@@ -1,0 +1,25 @@
+[metadata]
+name = "processes"
+description = "Running processes, for killing"
+requirements = ["ps", "awk"]
+
+[source]
+# macOS/BSD ps syntax (no --sort flag, unlike GNU ps) — header stripped.
+command = "ps -axo pid,pcpu,pmem,comm | tail -n +2"
+
+[preview]
+command = "ps -p $(echo '{}' | awk '{print $1}') -o pid,ppid,%cpu,%mem,etime,command 2>/dev/null"
+
+[keybindings]
+enter = "actions:kill"
+ctrl-r = "actions:kill9"
+
+[actions.kill]
+description = "Kill the selected process (SIGTERM)"
+command = "kill $(echo '{}' | awk '{print $1}')"
+mode = "execute"
+
+[actions.kill9]
+description = "Force-kill the selected process (SIGKILL)"
+command = "kill -9 $(echo '{}' | awk '{print $1}')"
+mode = "execute"

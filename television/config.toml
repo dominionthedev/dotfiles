@@ -17,8 +17,8 @@ prompt = ">"
 border_type = "rounded"
 
 [ui.status_bar]
-separator_open = ""
-separator_close = ""
+separator_open = ""
+separator_close = ""
 hidden = false
 
 [ui.results_panel]
@@ -97,3 +97,5 @@ ctrl-e = "go_to_input_end"
 
 [shell_integration.channel_triggers]
 "ouch-archives" = ["ouch d"]
+"git-branches" = ["git checkout", "git switch"]
+"processes" = ["kill", "kill -9", "pkill"]
