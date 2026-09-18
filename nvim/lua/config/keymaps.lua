@@ -1,12 +1,18 @@
 -- Keymaps
 
 local custom = require("config.custom")
+local go = require("config.go")
+local lsp_control = require("config.lsp_control")
 local keymap = vim.keymap.set
 
 local function map(mode, lhs, rhs, desc, extra)
-    local o = vim.tbl_extend("force", { noremap = true, silent = true, desc = desc }, extra or {})
-    keymap(mode, lhs, rhs, o)
+  local o = vim.tbl_extend("force", { noremap = true, silent = true, desc = desc }, extra or {})
+  keymap(mode, lhs, rhs, o)
 end
+
+map("n", "<leader>ls", lsp_control.list, "LSPs: stop/restart/info")
+map("n", "<leader>la", lsp_control.stop_all, "LSPs: stop all")
+map("n", "<leader>lr", lsp_control.restart_all, "LSPs: restart all")
 
 -- ── Window navigation ─────────────────────────────────────────────
 map("n", "<C-h>", "<C-w>h", "Go to left window")
@@ -70,23 +76,23 @@ map("n", "<leader>xq", "<cmd>Trouble qflist toggle<cr>", "Quickfix list")
 map("n", "<leader>xl", "<cmd>Trouble loclist toggle<cr>", "Location list")
 map("n", "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>", "Symbols outline")
 map("n", "<leader>cl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-    "LSP references/definitions/etc (Trouble)")
+  "LSP references/definitions/etc (Trouble)")
 
 -- ── Formatting ─────────────────────────────────────────────────────
 map("n", "<leader>cf", function()
-    require("conform").format({ async = true, lsp_fallback = true })
+  require("conform").format({ async = true, lsp_fallback = true })
 end, "Format buffer")
 
 -- ── UI toggles ─────────────────────────────────────────────────────
 map("n", "<leader>o", function()
-    local transparent = require("config.theme").toggle()
-    vim.notify("Transparent mode " .. tostring(transparent))
+  local transparent = require("config.theme").toggle()
+  vim.notify("Transparent mode " .. tostring(transparent))
 end, "Toggle transparent background")
 map("n", "<leader>a", "<cmd>NeobarFocus<cr>", "Focus on Neobar")
 map("n", "<leader>z", function() Snacks.zen() end, "Zen mode")
 map("n", "<leader>H", function()
-    vim.cmd("enew")
-    Snacks.dashboard.open()
+  vim.cmd("enew")
+  Snacks.dashboard.open()
 end, "Open dashboard")
 map("n", "?", function() require("which-key").show({ global = true }) end, "Show all keymaps")
 map("n", "g?", function() require("which-key").show({ global = false }) end, "Show buffer keymaps")
@@ -121,6 +127,12 @@ map("n", "N", "Nzzzv", "Previous search result (centered)")
 map("n", "<C-d>", "<C-d>zz", "Scroll down (centered)")
 map("n", "<C-u>", "<C-u>zz", "Scroll up (centered)")
 
+-- Go tooling
+map("n", "<leader>im", go.impl, "Generate interface methods")
+map("n", "<leader>ig", go.tests, "Generate Go tests")
+map("n", "<leader>ip", go.play, "Send Go file to Playground")
+map("v", "<leader>ip", go.play_selection, "Send selection to Playground")
+
 -- ── Editing ─────────────────────────────────────────────────────────
 map("v", "<", "<gv", "Indent left (stay in visual)")
 map("v", ">", ">gv", "Indent right (stay in visual)")
@@ -136,7 +148,7 @@ map("i", ".", ".<C-g>u", "Period (undo breakpoint)")
 map("i", ";", ";<C-g>u", "Semicolon (undo breakpoint)")
 
 keymap({ "i", "s" }, "<C-e>", function()
-    if require("luasnip").choice_active() then
-        require("luasnip").change_choice(1)
-    end
+  if require("luasnip").choice_active() then
+    require("luasnip").change_choice(1)
+  end
 end, { desc = "Next snippet choice", noremap = true, silent = true })
