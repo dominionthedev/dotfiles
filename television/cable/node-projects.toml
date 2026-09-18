@@ -9,7 +9,6 @@ command = "fd --hidden --no-ignore --type f '^package\\.json$' ~/Developer --exc
 command = "bat --color=always --style=numbers '{}/package.json'"
 
 [keybindings]
-enter = "actions:cd"
 ctrl-e = "actions:edit"
 
 [actions.run]

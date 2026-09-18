@@ -28,7 +28,7 @@ return {
 
             local blame_cache = {}
 
-            local MAX_SUBJECT_LEN = 40
+            local MAX_SUBJECT_LEN = 20
 
             local function truncate(text, max_len)
                 if vim.fn.strdisplaywidth(text) <= max_len then

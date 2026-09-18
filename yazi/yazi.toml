@@ -34,11 +34,11 @@ icloud-download = [{ run = 'brctl download "$@"', block = true }]
 # Required for masaki39/git (or yazi-rs/plugins:git) to actually populate
 # the linemode column — this is what makes require("git"):setup() do anything.
 [[plugin.prepend_fetchers]]
-id  = "git"
-url = "*"
-run = "git"
+url   = "*"
+run   = "git"
+group = "git"
 
 [[plugin.prepend_fetchers]]
-id  = "git"
-url = "*/"
-run = "git"
+url   = "*/"
+run   = "git"
+group = "git"

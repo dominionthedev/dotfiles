@@ -5,36 +5,36 @@ return {
         priority = 1000,
         config = function()
             require("catppuccin").setup({
-                flavour = "mocha",
+                flavour = "auto",
                 background = {
                     light = "latte",
                     dark = "mocha",
                 },
                 transparent_background = require("config.theme").is_transparent(),
                 term_colors = true,
+                default_integrations = true,
                 auto_integrations = true,
                 integrations = {
-                    cmp = true,
-                    gitsigns = true,
-                    treesitter = true,
-                    bufferline = true,
-                    lualine = true,
-                    which_key = true,
-                    snacks = true,
-                    noice = true,
                     native_lsp = {
                         enabled = true,
                         virtual_text = {
-                            errors = { "italic" },
-                            warnings = { "italic" },
+                            errors = { "bold" },
+                            warnings = { "undercurl" },
                             hints = { "italic" },
                             information = { "italic" },
                         },
                     },
-
                     mini = {
                         enabled = true,
+                        indentscope_color = "overlay2",
                     },
+                },
+                styles = {
+                    comments = { "italic" },
+                    conditionals = { "italic" },
+                    functions = { "bold" },
+                    strings = { "italic" },
+                    types = { "underline" },
                 },
                 custom_highlights = function(colors)
                     return {
@@ -44,11 +44,6 @@ return {
                         NoiceMiniProgress = { bg = colors.mantle },
                     }
                 end,
-                dim_inactive = {
-                    enabled = true,
-                    shade = "dark",
-                    percentage = 0.15,
-                }
             })
             vim.cmd.colorscheme("catppuccin")
         end,
@@ -70,13 +65,11 @@ return {
     {
         "rasulomaroff/reactive.nvim",
         event = "VeryLazy",
-
         opts = {
             load = {
                 "catppuccin-mocha-cursor",
                 "catppuccin-mocha-cursorline",
             },
-
             builtin = {
                 cursorline = true,
                 cursor = true,
@@ -87,16 +80,13 @@ return {
 
     {
         "numToStr/Comment.nvim",
-
         event = {
             "BufReadPre",
             "BufNewFile",
         },
-
         dependencies = {
             "JoosepAlviste/nvim-ts-context-commentstring",
         },
-
         opts = {
             padding = true,
             sticky = true,
@@ -108,35 +98,28 @@ return {
         "OXY2DEV/markview.nvim",
         event = "VeryLazy",
         ft = { "markdown" },
-
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
         },
-
         opts = {
             preview = {
                 enable = false,
                 hybrid_modes = { "n" },
             },
-
             markdown = {
                 headings = {
                     shift_width = 1,
                 },
             },
-
             code_blocks = {
                 style = "block",
             },
-
             tables = {
                 enable = true,
             },
-
             checkboxes = {
                 enable = true,
             },
-
             links = {
                 enable = true,
             },
@@ -149,13 +132,5 @@ return {
         config = function()
             require("colorizer").setup()
         end,
-    },
-
-    {
-        "folke/which-key.nvim",
-        event = "VeryLazy",
-        opts = {
-            preset = "modern",
-        },
     },
 }

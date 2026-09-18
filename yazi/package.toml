@@ -1,12 +1,17 @@
 [[plugin.deps]]
-use = "masaki39/git"
-rev = "2f72da1"
-hash = "ab9df3b5436af53de798d9d887bdadcd"
+use = "yazi-rs/plugins:mount"
+rev = "58c4f4e"
+hash = "b95f898e6dc60b52edbc415952e14395"
 
 [[plugin.deps]]
-use = "yazi-rs/plugins:full-border"
+use = "yazi-rs/plugins:smart-enter"
 rev = "58c4f4e"
-hash = "f281261ff04ad7ec867c3f802a50835f"
+hash = "187cc58ba7ac3befd49c342129e6f1b6"
+
+[[plugin.deps]]
+use = "dominionthedev/git"
+rev = "e745fd3"
+hash = "e511bf7a79040569ebf8f24cfc048470"
 
 [flavor]
 deps = []

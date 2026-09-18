@@ -36,4 +36,3 @@ My config files
 - dust
 - fd
 - htop
-

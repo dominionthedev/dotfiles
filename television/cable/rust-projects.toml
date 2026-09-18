@@ -9,7 +9,6 @@ command = "fd --hidden --no-ignore --type f '^Cargo\\.toml$' ~/Developer --exclu
 command = "bat --color=always --style=numbers '{}/Cargo.toml'"
 
 [keybindings]
-enter = "actions:cd"
 ctrl-e = "actions:edit"
 
 [actions.cd]

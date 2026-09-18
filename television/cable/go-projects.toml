@@ -9,7 +9,6 @@ command = "fd --hidden --no-ignore --type f '^go\\.mod$' ~/Developer --exclude .
 command = "bat --color=always --style=numbers '{}/go.mod'"
 
 [keybindings]
-enter = "actions:cd"
 ctrl-e = "actions:edit"
 
 [actions.cd]

@@ -8,9 +8,6 @@ command = "fd --hidden --no-ignore --type d '^lua$' ~/Developer --exclude .git -
 [preview]
 command = "fd --hidden --no-ignore --type f . '{}' --exclude .git | head -80"
 
-[keybindings]
-enter = "actions:cd"
-
 [actions.cd]
 description = "Enter project directory"
 command = "cd '{}'"

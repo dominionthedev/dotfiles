@@ -16,9 +16,12 @@ display = "{split:/:-1}"
 command = "cd '{}'; git log -n 200 --pretty=medium --all --graph --color"
 
 [keybindings]
-enter = "actions:cd"
 ctrl-e = "actions:edit"
 
+# Enter now falls through to the default confirm_selection (plain stdout),
+# so `cd "$(tv git-repos)"` works without nesting a shell. The old
+# spawn-a-shell behavior is still there if you want it occasionally — just
+# not on plain Enter anymore.
 [actions.cd]
 description = "Open a new shell in the selected repository"
 command = "cd {} && $SHELL"

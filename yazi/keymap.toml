@@ -52,4 +52,10 @@ prepend_keymap = [
   # ya pkg add yazi-rs/plugins:mount
   { on = "M", run = "plugin mount", desc = "Mount / unmount / eject volumes (verify args)" },
   { on = "!", run = 'shell "$SHELL" --block', desc = "Open $SHELL here", for = "unix" },
+
+  # Custom, local plugin — yazi/plugins/ouch.yazi/main.lua. Nearly every other
+  # letter is already spoken for by yazi's defaults (checked against the
+  # shipped keymap-default.toml); C and U were the two free ones in [mgr].
+  { on = "C", run = "plugin ouch compress", desc = "Compress selection (via ouch)" },
+  { on = "U", run = "plugin ouch decompress", desc = "Decompress selection (via ouch)" },
 ]

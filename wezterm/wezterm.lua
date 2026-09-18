@@ -11,7 +11,7 @@ config.harfbuzz_features = { "calt=1", "liga=1", "clig=1" }
 config.color_scheme = "Catppuccin Mocha"
 
 -- ── Window ───────────────────────────────────────────────────────────────────
-config.window_background_opacity = 0.5
+config.window_background_opacity = 0.7
 
 config.macos_window_background_blur = 5
 
