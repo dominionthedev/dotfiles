@@ -1,11 +1,17 @@
 # ── Aliases ───────────────────────────────────────────────────────────────────
+alias c="clear"
+alias cl="clear"
+alias n="nvim"
+alias nv="nvim"
+alias t="tplate"
+alias tp="tplate"
 alias cd="z"
 alias ..='cd ..'
 alias ~='cd ~'
 alias -- -='cd -'
 alias realrm='/bin/rm -i'
 alias rm='trash'
-alias du='dust'
+alias du='dua'
 alias cat='bat --color=always'
 alias ls="eza --long --icons --group-directories-first"
 alias ll="ls --all"
