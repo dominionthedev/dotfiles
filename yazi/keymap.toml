@@ -41,11 +41,6 @@ prepend_keymap = [
     "i",
   ], run = "cd '~/Library/Mobile Documents/com~apple~CloudDocs'", desc = "Go to iCloud Drive" },
 
-  # ── File operations ─────────────────────────────────────────
-  { on = [
-    "m",
-  ], run = "yank --cut", desc = "Move selected files" },
-
   # ── Plugins ─────────────────────────────────────────────────
   { on = "l", run = "plugin smart-enter", desc = "Enter dir, or open file" },
   { on = "M", run = "plugin mount", desc = "Mount / unmount / eject volumes (verify args)" },
@@ -53,4 +48,21 @@ prepend_keymap = [
   { on = "C", run = "plugin ouch compress", desc = "Compress selection (via ouch)" },
   { on = "U", run = "plugin ouch decompress", desc = "Decompress selection (via ouch)" },
   { on = "T", run = "plugin empty-trash", desc = "Empty the trash (via `trash -ey`)" },
+  { on = "p", run = "plugin smart-paste", desc = "Paste into hovered directory or CWD" },
+  { on = [
+    "c",
+    "m",
+  ], run = "plugin chmod", desc = "Chmod selected files" },
+  { on = [
+    "m",
+    "f",
+  ], run = "plugin diff", desc = "Diff selected with hovered file" },
+  { on = [
+    "m",
+    "m",
+  ], run = "plugin toggle-pane max-current", desc = "Maximize current pane" },
+  { on = [
+    "m",
+    "p",
+  ], run = "plugin toggle-pane max-preview", desc = "Max preview pane" },
 ]

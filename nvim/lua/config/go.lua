@@ -291,11 +291,15 @@ function M.play_selection()
   end
 
   -- Trim the first line to the beginning of the selection.
+  local same_line = start_row == end_row
   lines[1] = lines[1]:sub(start_col + 1)
 
-  -- Trim the last line to the end of the selection.
-  if end_col < #lines[#lines] then
-    lines[#lines] = lines[#lines]:sub(1, end_col + 1)
+  -- Trim the last line to the end of the selection. If it's the same line as
+  -- above, end_col needs shifting by start_col since that line has already
+  -- been trimmed from the front.
+  local last_end_col = same_line and (end_col - start_col) or end_col
+  if last_end_col < #lines[#lines] then
+    lines[#lines] = lines[#lines]:sub(1, last_end_col + 1)
   end
 
   local temp = vim.fn.tempname() .. ".go"

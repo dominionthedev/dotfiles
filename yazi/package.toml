@@ -13,5 +13,25 @@ use = "dominionthedev/git"
 rev = "e745fd3"
 hash = "e511bf7a79040569ebf8f24cfc048470"
 
+[[plugin.deps]]
+use = "yazi-rs/plugins:toggle-pane"
+rev = "f703392"
+hash = "5b2fbef7d1513ce38ff72623a071a5e"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:smart-paste"
+rev = "f703392"
+hash = "5be02722d97561b6f7aec22429aa00be"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:chmod"
+rev = "f703392"
+hash = "87472b05a8c420100f6a2b9cde1e7746"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:diff"
+rev = "f703392"
+hash = "14558d2829c0aa05e99c57de8f74d199"
+
 [flavor]
 deps = []
