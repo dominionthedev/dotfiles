@@ -4,18 +4,18 @@
 
 ---@type overseer.TemplateFileDefinition
 return {
-    name = "go run",
-    builder = function()
-        return {
-            cmd = { "go", "run", "." },
-            cwd = vim.fn.expand("%:p:h"),
-            components = {
-                { "on_output_quickfix", open = true, set_diagnostics = true },
-                "default",
-            },
-        }
-    end,
-    condition = {
-        filetype = { "go" },
-    },
+  name = "go run",
+  builder = function()
+    return {
+      cmd = { "go", "run", "." },
+      cwd = vim.fn.expand("%:p:h"),
+      components = {
+        { "on_output_quickfix", open = true, set_diagnostics = true },
+        "default",
+      },
+    }
+  end,
+  condition = {
+    filetype = { "go" },
+  },
 }

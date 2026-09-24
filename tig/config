@@ -1,0 +1,90 @@
+# General
+
+set main-view = date:relative author:abbreviated commit-title:graph=v2,refs=yes
+
+bind generic j next
+bind generic k previous
+bind generic J next
+bind generic K previous
+
+# Navigation
+
+bind generic <PageDown> move-page-down
+bind generic <PageUp> move-page-up
+bind generic <Home> move-first-line
+bind generic <End> move-last-line
+
+# View switching
+
+bind generic m view-main
+bind generic d view-diff
+bind generic l view-log
+bind generic r view-refs
+bind generic s view-status
+bind generic c view-stage
+bind generic t view-tree
+bind generic b view-blame
+bind generic h view-help
+
+# View manipulation
+
+bind generic <Enter> enter
+bind generic <Tab> view-next
+bind generic <LessThan> back
+bind generic R refresh
+bind generic q view-close
+bind generic Q quit
+bind generic o options
+bind generic e edit
+bind generic : prompt
+bind generic v show-version
+
+# Search
+
+bind generic / search
+bind generic ? search-back
+bind generic n find-next
+bind generic N find-prev
+
+# Diff navigation
+
+bind diff @ :/^@@
+bind diff [ :toggle diff-context -1
+bind diff ] :toggle diff-context +1
+
+# Stage navigation
+
+bind stage @ :/^@@
+bind stage [ :toggle diff-context -1
+bind stage ] :toggle diff-context +1
+
+# Git operations
+
+bind generic F !git fetch --all --prune
+
+# Theme
+
+color default 189 default
+color cursor 189 61 bold
+color title-focus 189 61 bold
+color title-blur 189 default
+color status 189 default
+color line-number 103 default
+color id 139 default
+color date 245 default
+color author 117 default
+color committer 117 default
+color main-commit 189 default
+color main-head 212 default bold
+color main-ref 111 default
+color main-remote 180 default
+color main-tag 223 default bold
+color diff-header 111 default bold
+color diff-index 139 default
+color diff-chunk 141 default bold
+color "@@" 141 default bold
+color "---" 180 default
+color "+++" 114 default
+color "Good signature" 114 default bold
+color "Bad signature" 167 default bold
+color "Unknown signature" 223 default

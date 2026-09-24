@@ -1,36 +1,36 @@
 return {
-    {
-        "stevearc/conform.nvim",
+  {
+    "stevearc/conform.nvim",
 
-        event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPre", "BufNewFile" },
 
-        opts = {
-            formatters_by_ft = {
-                python = { "ruff_format" },
+    opts = {
+      formatters_by_ft = {
+        python = { "ruff_format" },
 
-                javascript = { "prettier" },
-                typescript = { "prettier" },
+        javascript = { "prettier" },
+        typescript = { "prettier" },
 
-                html = { "prettier" },
-                css = { "prettier" },
+        html = { "prettier" },
+        css = { "prettier" },
 
-                json = { "prettier" },
-                yaml = { "prettier" },
+        json = { "prettier" },
+        yaml = { "prettier" },
 
-                markdown = { "prettier" },
+        markdown = { "prettier" },
 
-                go = { "gofmt" },
-                rust = { "rustfmt" },
+        go = { "gofmt" },
+        rust = { "rustfmt" },
 
-                toml = { "taplo" },
+        toml = { "taplo" },
+        lua = { "stylua" },
 
-                -- zig = { "zigfmt" },
-            },
+        -- zig = { "zigfmt" },
+      },
 
-            format_on_save = {
-                timeout_ms = 5000,
-                lsp_fallback = true,
-            },
-        },
+      format_on_save = {
+        timeout_ms = 5000,
+      },
     },
+  },
 }

@@ -14,11 +14,7 @@ function M.list()
   local clients = clients_for_buffer()
 
   if #clients == 0 then
-    vim.notify(
-      "No LSP clients attached to this buffer",
-      vim.log.levels.INFO,
-      { title = "LSP" }
-    )
+    vim.notify("No LSP clients attached to this buffer", vim.log.levels.INFO, { title = "LSP" })
     return
   end
 
@@ -51,11 +47,7 @@ function M.client_menu(client)
     elseif action == "Stop" then
       client:stop()
 
-      vim.notify(
-        ("Stopped LSP: %s"):format(client.name),
-        vim.log.levels.INFO,
-        { title = "LSP" }
-      )
+      vim.notify(("Stopped LSP: %s"):format(client.name), vim.log.levels.INFO, { title = "LSP" })
     elseif action == "Info" then
       M.info(client)
     end
@@ -64,11 +56,7 @@ end
 
 function M.stop_all()
   if #clients_for_buffer() == 0 then
-    vim.notify(
-      "No LSP clients attached to this buffer",
-      vim.log.levels.INFO,
-      { title = "LSP" }
-    )
+    vim.notify("No LSP clients attached to this buffer", vim.log.levels.INFO, { title = "LSP" })
     return
   end
 
@@ -77,11 +65,7 @@ end
 
 function M.restart_all()
   if #clients_for_buffer() == 0 then
-    vim.notify(
-      "No LSP clients attached to this buffer",
-      vim.log.levels.INFO,
-      { title = "LSP" }
-    )
+    vim.notify("No LSP clients attached to this buffer", vim.log.levels.INFO, { title = "LSP" })
     return
   end
 
@@ -116,14 +100,10 @@ function M.info(client)
     end
   end
 
-  vim.notify(
-    table.concat(lines, "\n"),
-    vim.log.levels.INFO,
-    {
-      title = "LSP: " .. client.name,
-      timeout = 10000,
-    }
-  )
+  vim.notify(table.concat(lines, "\n"), vim.log.levels.INFO, {
+    title = "LSP: " .. client.name,
+    timeout = 10000,
+  })
 end
 
 return M

@@ -17,9 +17,6 @@ update_check = false
 keymap_mode = "auto"
 command_chaining = true
 
-[dotfiles]
-enabled = true
-
 [stats]
 common_subcommands = [
   "cargo",

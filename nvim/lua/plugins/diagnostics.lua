@@ -33,14 +33,16 @@ return {
             modes = {
                 diagnostics = {
                     mode = "diagnostics",
+                    -- Was `any = { buf = 0, {severity=ERROR}, ... }` — an OR,
+                    -- not an AND. Every diagnostic has some severity, so that
+                    -- clause alone made the filter always true and `buf = 0`
+                    -- never actually restricted anything: this mode was
+                    -- silently showing workspace-wide results under a
+                    -- "buffer" label. No need for the severity checks at
+                    -- all — not filtering by severity already means every
+                    -- severity is included.
                     filter = {
-                        any = {
-                            buf = 0,
-                            { severity = vim.diagnostic.severity.ERROR },
-                            { severity = vim.diagnostic.severity.WARN },
-                            { severity = vim.diagnostic.severity.INFO },
-                            { severity = vim.diagnostic.severity.HINT },
-                        },
+                        buf = 0,
                     },
                 },
 

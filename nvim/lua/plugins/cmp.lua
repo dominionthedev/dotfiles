@@ -61,9 +61,9 @@ return {
 
         sources = cmp.config.sources({
           { name = "nvim_lsp", priority = 600 },
-          { name = "luasnip",  priority = 700 },
-          { name = "buffer",   priority = 250 },
-          { name = "path",     priority = 200 },
+          { name = "luasnip", priority = 700 },
+          { name = "buffer", priority = 250 },
+          { name = "path", priority = 200 },
         }),
 
         sorting = { priority_weight = 2 },
