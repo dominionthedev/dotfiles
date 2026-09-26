@@ -72,6 +72,93 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
+-- Save file buffers before they leave their final window. This covers
+-- :q, :bdelete, BufferLine close actions, and other buffer/window
+-- deletion paths without saving unrelated buffers at VimLeave.
+vim.api.nvim_create_autocmd("BufWinLeave", {
+  group = augroup,
+  desc = "Save modified file before closing its window",
+  callback = function(event)
+    local buf = event.buf
+
+    if vim.bo[buf].buftype ~= "" or vim.api.nvim_buf_get_name(buf) == "" then
+      return
+    end
+
+    if not vim.bo[buf].modified then
+      return
+    end
+
+    vim.api.nvim_buf_call(buf, function()
+      vim.cmd("silent update")
+    end)
+  end,
+})
+
+-- Format files that do not have a configured external formatter.
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = augroup,
+  desc = "Fallback format files without a formatter",
+  callback = function(event)
+    local buf = event.buf
+
+    if vim.bo[buf].buftype ~= "" or vim.api.nvim_buf_get_name(buf) == "" then
+      return
+    end
+
+    local conform_ok, conform = pcall(require, "conform")
+    if conform_ok then
+      local formatters = conform.list_formatters(buf)
+      if #formatters > 0 then
+        return
+      end
+    end
+
+    local view = vim.api.nvim_win_get_cursor(0)
+    vim.api.nvim_buf_call(buf, function()
+      -- Respect the buffer's current expandtab/tabstop/shiftwidth settings.
+      vim.cmd("silent retab")
+
+      -- Treesitter supplies indentexpr for the configured languages.
+      if vim.bo[buf].indentexpr ~= "" then
+        vim.cmd("silent normal! gg=G")
+      end
+
+      -- Do not leave empty lines at the end of the file.
+      local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+      local last = #lines
+      while last > 1 and lines[last] == "" do
+        last = last - 1
+      end
+      if last < #lines then
+        vim.api.nvim_buf_set_lines(buf, last, -1, false, {})
+      end
+    end)
+    pcall(vim.api.nvim_win_set_cursor, 0, view)
+  end,
+})
+
+-- Restore normal file-window characteristics after a UI buffer has occupied
+-- the window. Snacks intentionally uses UI-local options such as number=false,
+-- signcolumn=no, and winhighlight for its own windows.
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+  group = augroup,
+  desc = "Restore normal file window options",
+  callback = function(event)
+    local buf = event.buf
+
+    if vim.bo[buf].buftype ~= "" or vim.api.nvim_buf_get_name(buf) == "" then
+      return
+    end
+
+    vim.wo.number = true
+    vim.wo.relativenumber = true
+    vim.wo.signcolumn = "yes"
+    vim.wo.winhighlight = ""
+    vim.wo.cursorline = true
+  end,
+})
+
 -- Close some temporary windows with q
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup,
