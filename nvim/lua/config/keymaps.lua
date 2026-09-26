@@ -30,7 +30,59 @@ map("n", "<leader>e", function()
   Snacks.explorer()
 end, "File explorer")
 map("n", "<leader>w", "<cmd>w<cr>", "Save file")
-map("n", "<leader>q", "<cmd>q<cr>", "Quit window")
+
+local function home()
+  vim.cmd("enew")
+  Snacks.dashboard.open()
+end
+
+local function next_file_buffer(current)
+  local buffers = vim.fn.getbufinfo({ buflisted = 1 })
+  table.sort(buffers, function(a, b)
+    return a.bufnr < b.bufnr
+  end)
+
+  local current_index
+  for i, info in ipairs(buffers) do
+    if info.bufnr == current then
+      current_index = i
+      break
+    end
+  end
+
+  if not current_index then
+    return nil
+  end
+
+  for offset = 1, #buffers - 1 do
+    local info = buffers[(current_index - 1 + offset) % #buffers + 1]
+    if info.bufnr ~= current
+      and vim.bo[info.bufnr].buftype == ""
+      and vim.api.nvim_buf_get_name(info.bufnr) ~= "" then
+      return info.bufnr
+    end
+  end
+end
+
+local function quit_file()
+  if vim.bo.buftype ~= "" or vim.api.nvim_buf_get_name(0) == "" then
+    vim.cmd("q")
+    return
+  end
+
+  local current = vim.api.nvim_get_current_buf()
+  local next_buf = next_file_buffer(current)
+
+  vim.api.nvim_buf_delete(current, { unload = false })
+
+  if next_buf and vim.api.nvim_buf_is_valid(next_buf) then
+    vim.api.nvim_set_current_buf(next_buf)
+  else
+    home()
+  end
+end
+
+map("n", "<leader>q", quit_file, "Quit file")
 map("n", "<leader>Q", "<cmd>qa<cr>", "Quit all")
 map("n", "<leader>x", "<cmd>x<cr>", "Save and quit")
 map("n", "<leader>rf", function()
