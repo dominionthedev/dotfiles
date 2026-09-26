@@ -16,7 +16,6 @@ local function apply(opts)
     },
     transparent_background = M.is_transparent(),
     term_colors = true,
-    default_integrations = true,
     auto_integrations = true,
     integrations = {
       native_lsp = {
@@ -38,7 +37,6 @@ local function apply(opts)
       conditionals = { "italic" },
       functions = { "bold" },
       strings = { "italic" },
-      types = { "underline" },
     },
     custom_highlights = function(colors)
       return {

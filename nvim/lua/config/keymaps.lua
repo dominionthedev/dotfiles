@@ -173,7 +173,6 @@ map("n", "<leader>mo", "<cmd>Markview<CR>", "Toggle markdown preview globally.")
 map("n", "<leader>mn", custom.new_note, "New note")
 map("n", "<leader>mf", custom.find_note, "Find note")
 map("n", "<leader>ms", custom.grep_notes, "Search notes")
-map("n", "<leader>mw", custom.switch_workspace, "Switch workspace")
 map("n", "<leader>mj", custom.open_jotting, "Open jotting.md")
 map("n", "<leader>ud", custom.restore_cwd, "Restore previous cwd")
 

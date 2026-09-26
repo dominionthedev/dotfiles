@@ -1,6 +1,6 @@
-theme: hacker
-layout: horizontal
-animation: none
+theme: Catppuccin Mocha
+layout: vertical
+animation: full
 
 response:
   prettify_json: true
@@ -16,4 +16,4 @@ use_host_environment: false
 
 editor: nvim
 pager: bat
-pager_json: bat
+pager_json: jq

@@ -1,4 +1,4 @@
-local augroup = vim.api.nvim_create_augroup("dominion_autocmds", { clear = true })
+local augroup = vim.api.nvim_create_augroup("config_autocmds", { clear = true })
 
 vim.api.nvim_create_autocmd("VimEnter", {
   group = augroup,
@@ -134,9 +134,10 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "WinLeave" }, {
+-- Disable cursorline in insert mode and inactive window
+vim.api.nvim_create_autocmd({ "WinLeave", "InsertEnter" }, {
   group = augroup,
-  desc = "Disable cursorline in inactive window",
+  desc = "Disable cursorline in inactive window and insert mode",
   callback = function()
     vim.wo.cursorline = false
   end,
@@ -209,9 +210,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Strip visual clutter inside dapui's own inspector panels (scopes, stacks,
--- breakpoints, watches). These are dense, narrow side panels; line numbers
--- and cursorline just add noise.
+-- Strip visual clutter inside dapui's own inspector panels.
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup,
   desc = "Declutter dapui panels",

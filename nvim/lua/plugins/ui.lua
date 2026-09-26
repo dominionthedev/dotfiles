@@ -12,7 +12,6 @@ return {
         },
         transparent_background = require("config.theme").is_transparent(),
         term_colors = true,
-        default_integrations = true,
         auto_integrations = true,
         integrations = {
           native_lsp = {
@@ -34,7 +33,6 @@ return {
           conditionals = { "italic" },
           functions = { "bold" },
           strings = { "italic" },
-          types = { "underline" },
         },
         custom_highlights = function(colors)
           return {

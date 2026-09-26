@@ -3,10 +3,6 @@
 # Custom completion for ouch (https://github.com/ouch-org/ouch)
 #   ouch d|decompress <TAB>        -> archives under ~/Downloads and ~/Developer (via fd)
 #   ouch c|compress <file> <TAB>   -> suggests ~/Downloads/<file>.tar.gz as the output
-#
-# Naive on purpose: the compress-output suggestion assumes you're compressing
-# a single file/dir (your stated use case). Pass more inputs and it still
-# falls through to normal file completion, it just won't guess the output name.
 
 local -a subcmds archives
 

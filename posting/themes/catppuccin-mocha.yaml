@@ -1,0 +1,43 @@
+name: Catppuccin Mocha
+
+primary: "#cba6f7"
+secondary: "#89b4fa"
+accent: "#89dceb"
+
+background: "#1e1e2e"
+surface: "#313244"
+
+error: "#f38ba8"
+success: "#a6e3a1"
+warning: "#f9e2af"
+
+author: Catppuccin
+description: Soothing pastel theme for Posting
+homepage: https://github.com/catppuccin/catppuccin
+
+text_area:
+  cursor: "reverse #cba6f7"
+  cursor_line: "underline #45475a"
+  selection: "reverse #74c7ec"
+  gutter: "bold #6c7086"
+  matched_bracket: "bold #f5c2e7"
+
+url:
+  base: "#b4befe"
+  protocol: "bold #89b4fa"
+
+syntax:
+  json_key: "bold #89b4fa"
+  json_number: "#fab387"
+  json_string: "#a6e3a1"
+  json_boolean: "bold #cba6f7"
+  json_null: "italic #6c7086"
+
+method:
+  GET: "bold #a6e3a1"
+  POST: "bold #89b4fa"
+  PUT: "bold #fab387"
+  PATCH: "bold #f9e2af"
+  DELETE: "bold #f38ba8"
+  HEAD: "bold #cba6f7"
+  OPTIONS: "bold #94e2d5"

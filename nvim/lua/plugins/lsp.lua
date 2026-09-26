@@ -95,7 +95,7 @@ return {
         end
       end
 
-      -- Python, Go, Rust
+      -- Python, Go, Rust, Zig
       vim.lsp.config("ty", {
         cmd = { "ty", "server" },
         filetypes = { "python" },
@@ -168,6 +168,12 @@ return {
         },
       })
       vim.lsp.enable("rust_analyzer")
+
+      vim.lsp.config("zls", {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      })
+      vim.lsp.enable("zls")
 
       -- Website development
       vim.lsp.config("ts_ls", {

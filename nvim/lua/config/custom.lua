@@ -1,7 +1,6 @@
 local M = {}
 
-local active_workspace = nil
-
+local notes_dir = "~/Developer/notes"
 local cwd_history = {}
 
 ---@param path string
@@ -28,81 +27,42 @@ function M.restore_cwd()
   vim.notify("cwd: " .. previous)
 end
 
-local function workspace_dir(choice)
-  return choice == "Notes" and vim.fn.expand("~/Developer/notes")
-    or vim.fn.expand("~/Developer/vault")
-end
+function M.new_note()
+  vim.fn.mkdir(notes_dir, "p")
 
-local function workspace_picker(callback)
-  if active_workspace then
-    callback(active_workspace)
-    return
-  end
-
-  vim.ui.select({ "Notes", "Vault" }, { prompt = "Workspace" }, function(choice)
-    if not choice then
+  vim.ui.input({ prompt = "Note title: " }, function(title)
+    if not title or title == "" then
       return
     end
 
-    active_workspace = choice
-    callback(choice)
-  end)
-end
+    local filename = title:gsub("%s+", "-"):lower() .. ".md"
+    local path = notes_dir .. "/" .. filename
 
-function M.new_note()
-  workspace_picker(function(choice)
-    local dir = workspace_dir(choice)
-    vim.fn.mkdir(dir, "p")
-
-    vim.ui.input({ prompt = "Note title: " }, function(title)
-      if not title or title == "" then
-        return
-      end
-
-      local filename = title:gsub("%s+", "-"):lower() .. ".md"
-      local path = dir .. "/" .. filename
-
-      if vim.fn.filereadable(path) == 1 then
-        vim.notify("Note already exists: " .. filename, vim.log.levels.WARN)
-        vim.cmd("edit " .. vim.fn.fnameescape(path))
-        return
-      end
-
-      vim.fn.writefile({}, path)
+    if vim.fn.filereadable(path) == 1 then
+      vim.notify("Note already exists: " .. filename, vim.log.levels.WARN)
       vim.cmd("edit " .. vim.fn.fnameescape(path))
-    end)
+      return
+    end
+
+    vim.fn.writefile({}, path)
+    vim.cmd("edit " .. vim.fn.fnameescape(path))
   end)
 end
 
 function M.find_note()
-  workspace_picker(function(choice)
-    Snacks.picker.files({
-      cwd = workspace_dir(choice),
-    })
-  end)
+  Snacks.picker.files({
+    cwd = vim.fn.expand(notes_dir),
+  })
 end
 
 function M.grep_notes()
-  workspace_picker(function(choice)
-    Snacks.picker.grep({
-      dirs = { workspace_dir(choice) },
-    })
-  end)
-end
-
-function M.switch_workspace()
-  vim.ui.select({ "Notes", "Vault" }, { prompt = "Workspace" }, function(choice)
-    if not choice then
-      return
-    end
-
-    active_workspace = choice
-    vim.notify("Active workspace: " .. choice)
-  end)
+  Snacks.picker.grep({
+    dirs = { vim.fn.expand(notes_dir) },
+  })
 end
 
 function M.open_jotting()
-  vim.cmd.edit(vim.fn.expand("~/Developer/vault/jotting.md"))
+  vim.cmd.edit(vim.fn.expand(notes_dir .. "/jotting.md"))
 end
 
 return M
