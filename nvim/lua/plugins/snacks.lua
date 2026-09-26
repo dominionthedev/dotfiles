@@ -21,6 +21,9 @@ return {
         layout = {
           preset = "default",
           cycle = false,
+          layout = {
+            max_width = 160,
+          },
         },
 
         matcher = {
@@ -63,6 +66,11 @@ return {
             layout = {
               preset = "sidebar",
               preview = false,
+              layout = {
+                width = 40,
+                min_width = 40,
+                max_width = 40,
+              },
             },
 
             -- "." over a directory sets nvim's GLOBAL cwd to
@@ -192,6 +200,10 @@ return {
           inlay_hints = false,
         },
       },
+      win = {
+        max_width = 160,
+      },
+
       styles = {
         notification = {
           wo = { wrap = true },
