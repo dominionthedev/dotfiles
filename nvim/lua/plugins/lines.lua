@@ -274,6 +274,8 @@ return {
           themable = true,
           separator_style = "slope",
           always_show_bufferline = true,
+          close_command = "bdelete",
+          right_mouse_command = "bdelete",
           diagnostics = "nvim_lsp",
           show_close_icon = false,
           color_icons = true,
