@@ -72,12 +72,12 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
--- Save file buffers before they leave their final window. This covers
--- :q, :bdelete, BufferLine close actions, and other buffer/window
--- deletion paths without saving unrelated buffers at VimLeave.
-vim.api.nvim_create_autocmd("BufWinLeave", {
+-- Save modified file buffers immediately before they are deleted.
+-- This catches :bdelete, BufferLine close actions, and other buffer
+-- deletion paths without saving merely because a window was left.
+vim.api.nvim_create_autocmd("BufDelete", {
   group = augroup,
-  desc = "Save modified file before closing its window",
+  desc = "Save modified file before buffer deletion",
   callback = function(event)
     local buf = event.buf
 
@@ -85,13 +85,11 @@ vim.api.nvim_create_autocmd("BufWinLeave", {
       return
     end
 
-    if not vim.bo[buf].modified then
-      return
+    if vim.bo[buf].modified then
+      vim.api.nvim_buf_call(buf, function()
+        vim.cmd("silent update")
+      end)
     end
-
-    vim.api.nvim_buf_call(buf, function()
-      vim.cmd("silent update")
-    end)
   end,
 })
 
