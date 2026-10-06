@@ -101,37 +101,37 @@ return {
         normal = {
           a = { bg = mocha.blue, fg = mocha.base, gui = "bold" },
           b = { bg = mocha.surface0, fg = mocha.text },
-          c = { bg = mocha.mantle, fg = mocha.text },
+          c = { fg = mocha.text, bg = mocha.base },
         },
         insert = {
           a = { bg = mocha.green, fg = mocha.base, gui = "bold" },
           b = { bg = mocha.surface0, fg = mocha.text },
-          c = { bg = mocha.mantle, fg = mocha.text },
+          c = { fg = mocha.text, bg = mocha.base },
         },
         visual = {
           a = { bg = mocha.mauve, fg = mocha.base, gui = "bold" },
           b = { bg = mocha.surface0, fg = mocha.text },
-          c = { bg = mocha.mantle, fg = mocha.text },
+          c = { fg = mocha.text, bg = mocha.base },
         },
         replace = {
           a = { bg = mocha.red, fg = mocha.base, gui = "bold" },
           b = { bg = mocha.surface0, fg = mocha.text },
-          c = { bg = mocha.mantle, fg = mocha.text },
+          c = { fg = mocha.text, bg = mocha.base },
         },
         command = {
           a = { bg = mocha.peach, fg = mocha.base, gui = "bold" },
           b = { bg = mocha.surface0, fg = mocha.text },
-          c = { bg = mocha.mantle, fg = mocha.text },
+          c = { fg = mocha.text, bg = mocha.base },
         },
         inactive = {
           a = { bg = mocha.surface0, fg = mocha.overlay1, gui = "bold" },
           b = { bg = mocha.mantle, fg = mocha.overlay1 },
-          c = { bg = mocha.mantle, fg = mocha.overlay1 },
+          c = { fg = mocha.overlay1, bg = mocha.base },
         },
         terminal = {
           a = { bg = mocha.sapphire, fg = mocha.base, gui = "bold" },
           b = { bg = mocha.surface0, fg = mocha.text },
-          c = { bg = mocha.mantle, fg = mocha.text },
+          c = { fg = mocha.text, bg = mocha.base },
         },
       }
 
@@ -140,14 +140,6 @@ return {
           theme = theme,
           globalstatus = true,
           icons_enabled = true,
-
-          component_separators = {
-            left = "•",
-            right = "•",
-          },
-
-          section_separators = { left = "", right = "" },
-
           always_divide_middle = true,
         },
 
@@ -192,7 +184,7 @@ return {
           lualine_x = {
             {
               git_blame,
-              color = { fg = mocha.overlay1, bg = mocha.mantle },
+              color = { fg = mocha.overlay1, bg = mocha.base },
               cond = function()
                 return git_blame() ~= ""
               end,
@@ -214,7 +206,7 @@ return {
             "aerial",
             {
               lsp_clients,
-              color = { fg = mocha.sapphire, bg = mocha.mantle },
+              color = { fg = mocha.sapphire, bg = mocha.base },
             },
           },
 
@@ -292,17 +284,17 @@ return {
 
         highlights = {
           fill = {
-            bg = mocha.crust,
+            bg = mocha.base,
           },
 
           background = {
             fg = mocha.overlay1,
-            bg = mocha.mantle,
+            bg = mocha.base,
           },
 
           buffer_visible = {
             fg = mocha.subtext1,
-            bg = mocha.mantle,
+            bg = mocha.base,
           },
 
           buffer_selected = {
@@ -313,28 +305,28 @@ return {
           },
 
           separator = {
-            fg = mocha.crust,
-            bg = mocha.mantle,
+            fg = mocha.base,
+            bg = mocha.base,
           },
 
           separator_visible = {
-            fg = mocha.crust,
-            bg = mocha.mantle,
+            fg = mocha.base,
+            bg = mocha.base,
           },
 
           separator_selected = {
-            fg = mocha.crust,
+            fg = mocha.base,
             bg = mocha.surface0,
           },
 
           modified = {
             fg = mocha.peach,
-            bg = mocha.mantle,
+            bg = mocha.base,
           },
 
           modified_visible = {
             fg = mocha.peach,
-            bg = mocha.mantle,
+            bg = mocha.base,
           },
 
           modified_selected = {
@@ -343,11 +335,11 @@ return {
           },
 
           diagnostic = {
-            bg = mocha.mantle,
+            bg = mocha.base,
           },
 
           diagnostic_visible = {
-            bg = mocha.mantle,
+            bg = mocha.base,
           },
 
           diagnostic_selected = {
@@ -356,12 +348,12 @@ return {
 
           hint = {
             fg = mocha.teal,
-            bg = mocha.mantle,
+            bg = mocha.base,
           },
 
           hint_visible = {
             fg = mocha.teal,
-            bg = mocha.mantle,
+            bg = mocha.base,
           },
 
           hint_selected = {
@@ -371,12 +363,12 @@ return {
 
           info = {
             fg = mocha.sky,
-            bg = mocha.mantle,
+            bg = mocha.base,
           },
 
           info_visible = {
             fg = mocha.sky,
-            bg = mocha.mantle,
+            bg = mocha.base,
           },
 
           info_selected = {
@@ -386,12 +378,12 @@ return {
 
           warning = {
             fg = mocha.yellow,
-            bg = mocha.mantle,
+            bg = mocha.base,
           },
 
           warning_visible = {
             fg = mocha.yellow,
-            bg = mocha.mantle,
+            bg = mocha.base,
           },
 
           warning_selected = {
@@ -401,12 +393,12 @@ return {
 
           error = {
             fg = mocha.red,
-            bg = mocha.mantle,
+            bg = mocha.base,
           },
 
           error_visible = {
             fg = mocha.red,
-            bg = mocha.mantle,
+            bg = mocha.base,
           },
 
           error_selected = {
@@ -416,13 +408,13 @@ return {
 
           duplicate = {
             fg = mocha.overlay1,
-            bg = mocha.mantle,
+            bg = mocha.base,
             italic = true,
           },
 
           duplicate_visible = {
             fg = mocha.overlay1,
-            bg = mocha.mantle,
+            bg = mocha.base,
             italic = true,
           },
 
@@ -434,12 +426,12 @@ return {
 
           close_button = {
             fg = mocha.overlay1,
-            bg = mocha.mantle,
+            bg = mocha.base,
           },
 
           close_button_visible = {
             fg = mocha.overlay1,
-            bg = mocha.mantle,
+            bg = mocha.base,
           },
 
           close_button_selected = {

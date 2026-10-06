@@ -10,7 +10,7 @@ return {
           light = "latte",
           dark = "mocha",
         },
-        transparent_background = require("config.theme").is_transparent(),
+        transparent_background = true,
         term_colors = true,
         auto_integrations = true,
         integrations = {
@@ -34,14 +34,6 @@ return {
           functions = { "bold" },
           strings = { "italic" },
         },
-        custom_highlights = function(colors)
-          return {
-            NoiceMini = { bg = colors.mantle },
-            NoiceMiniIcon = { bg = colors.mantle },
-            NoiceMiniTitle = { bg = colors.mantle },
-            NoiceMiniProgress = { bg = colors.mantle },
-          }
-        end,
       })
       vim.cmd.colorscheme("catppuccin")
     end,

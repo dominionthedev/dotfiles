@@ -1,7 +1,7 @@
 # ── Completions ───────────────────────────────────────────────────────────────
 mkdir -p "${XDG_CACHE_HOME}/zsh"
 
-# Custom completion functions (ouch, git-am, tplate, and whatever comes next)
+# Custom completion functions (ouch, git-am, git-apply and whatever comes next)
 fpath=("${XDG_CONFIG_HOME}/zsh/completions" $fpath)
 
 autoload -Uz compinit
@@ -15,6 +15,7 @@ fi
 # `_git-<subcommand>` function. It's autoloaded from fpath above, but if your
 # particular git-completion setup doesn't pick it up, this forces it.
 compdef _git-am git-am 2>/dev/null
+compdef _git-apply git-apply 2>/dev/null
 
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' group-name ''

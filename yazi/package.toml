@@ -33,5 +33,10 @@ use = "yazi-rs/plugins:diff"
 rev = "f703392"
 hash = "14558d2829c0aa05e99c57de8f74d199"
 
+[[plugin.deps]]
+use = "Rolv-Apneseth/starship"
+rev = "ea92cf4"
+hash = "9776f378459072b6c2875eae5addc49d"
+
 [flavor]
 deps = []

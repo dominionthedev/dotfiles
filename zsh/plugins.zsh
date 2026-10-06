@@ -14,4 +14,6 @@ zinit ice wait"1" lucid
 zinit light zsh-users/zsh-completions
 zinit ice wait"1" lucid
 zinit light Aloxaf/fzf-tab
-unalias zi
+if alias zi >/dev/null 2>&1; then
+  unalias zi
+fi

@@ -1,0 +1,8 @@
+#compdef git-apply
+
+# Offers .patch files from ~/Downloads and ~/Developer when completing `git apply`.
+
+local -a patches
+patches=(${(f)"$(fd --type f -e patch . ~/Downloads ~/Developer 2>/dev/null)"})
+_describe -t patches 'patch file' patches
+_files

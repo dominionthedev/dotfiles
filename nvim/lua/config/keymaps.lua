@@ -1,7 +1,6 @@
 -- Keymaps
 
 local custom = require("config.custom")
-local go = require("config.go")
 local lsp_control = require("config.lsp_control")
 local keymap = vim.keymap.set
 
@@ -14,10 +13,6 @@ end
 map("n", "<leader>ls", lsp_control.list, "LSPs: stop/restart/info")
 map("n", "<leader>la", lsp_control.stop_all, "LSPs: stop all")
 map("n", "<leader>lr", lsp_control.restart_all, "LSPs: restart all")
-
--- Go tooling
-map("n", "<leader>cm", go.impl, "Generate interface methods")
-map("n", "<leader>cg", go.tests, "Generate Go tests")
 
 -- ── Window navigation ─────────────────────────────────────────────
 map("n", "<C-h>", "<C-w>h", "Go to left window")
@@ -42,8 +37,6 @@ map("n", "<S-l>", "<cmd>bnext<cr>", "Next buffer")
 map("n", "<leader>bd", "<cmd>BufferLinePickClose<cr>", "Pick buffer to close")
 map("n", "<leader>ba", "<cmd>BufferLineCloseOthers<cr>", "Close other buffers")
 map("n", "<leader>bg", "<cmd>BufferLinePick<cr>", "Pick buffer")
-map("n", "<leader>bp", "<cmd>BufferLineMoveNext<cr>", "Move buffer right")
-map("n", "<leader>bn", "<cmd>BufferLineMovePrev<cr>", "Move buffer left")
 map("n", "<leader>bi", "<cmd>BufferLineTogglePin<cr>", "Toggle pin buffer")
 
 -- ── Find / picker ────────────────────────────────────────
@@ -127,10 +120,6 @@ map("n", "<leader>cf", function()
 end, "Format buffer")
 
 -- ── UI toggles ─────────────────────────────────────────────────────
-map("n", "<leader>ct", function()
-  local transparent = require("config.theme").toggle()
-  vim.notify("Transparent mode " .. tostring(transparent))
-end, "Toggle transparent background")
 map("n", "<leader>a", "<cmd>NeobarFocus<cr>", "Open/Focus Neobar")
 map("n", "<leader>cz", function()
   Snacks.zen()

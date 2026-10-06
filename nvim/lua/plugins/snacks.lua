@@ -193,11 +193,6 @@ return {
         },
       },
       styles = {
-        notification = {
-          wo = { wrap = true },
-          border = "rounded",
-        },
-
         input = {
           relative = "cursor",
           row = 1,
