@@ -14,3 +14,8 @@ eval "$(tv init zsh)"
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 eval "$(atuin init zsh)"
+
+# for now, I'll be resetting my PATH after any modification
+# made above until I actually want a tool to modify it.
+# And I'll make zprofile the source of truth(after my config loads)
+source "${HOME}/.zprofile"
