@@ -11,7 +11,7 @@ config.harfbuzz_features = { "calt=1", "liga=1", "clig=1" }
 config.color_scheme = "Catppuccin Mocha"
 
 -- ── Window ───────────────────────────────────────────────────────────────────
-config.window_background_opacity = 0.98
+config.window_background_opacity = 0.7
 
 config.macos_window_background_blur = 9
 
@@ -48,7 +48,7 @@ config.term = "xterm-256color"
 config.enable_kitty_graphics = true
 
 -- ── Alt key (macOS option key) ───────────────────────────────────────────────
-config.send_composed_key_when_left_alt_is_pressed = true
+config.send_composed_key_when_left_alt_is_pressed = false
 config.send_composed_key_when_right_alt_is_pressed = true
 
 -- ── Reload ───────────────────────────────────────────────────────────────────
@@ -67,9 +67,7 @@ config.keys = {
 	{ key = "Backspace", mods = "CMD", action = act.SendString("\x15") },
 	{ key = "LeftArrow", mods = "CMD", action = act.SendString("\x01") },
 	{ key = "RightArrow", mods = "CMD", action = act.SendString("\x05") },
-	{ key = "LeftArrow", mods = "OPT", action = act.SendString("\x1bb") },
-	{ key = "RightArrow", mods = "OPT", action = act.SendString("\x1bf") },
-	{ key = "Backspace", mods = "OPT", action = act.SendString("\x1b\x7f") },
+
 	-- Copy/paste
 	{ key = "c", mods = "CMD", action = act.CopyTo("Clipboard") },
 	{ key = "v", mods = "CMD", action = act.PasteFrom("Clipboard") },
@@ -104,7 +102,7 @@ end)
 config.default_prog = {
 	"/bin/zsh",
 	"-lc",
-	"exec tmux new-session -A -s main 'tuios'",
+	"exec tmux new-session -A -s main",
 }
 
 return config
