@@ -1,0 +1,14 @@
+# vim:ft=toml
+
+[defaults.setup]
+provision = [{ src = "/Users/appleplay/.zshrc", dest = ".zshrc" }]
+commands = ["git config --global user.name 'DominionDev'"]
+
+[doctor]
+after_destroy = true
+scheduled = false
+interval = "24h"
+
+[hooks]
+on_enter = "echo entering a runbox"
+on_exit = "echo leaving a runbox"
