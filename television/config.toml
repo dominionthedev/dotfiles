@@ -11,9 +11,8 @@ theme = "catppuccin"
 
 [ui.input_bar]
 position = "bottom"
-prompt = ">"
-# header = "{}"
-# padding = {"left": 0, "right": 0, "top": 0, "bottom": 0}
+prompt = "  "
+header = "input"
 border_type = "rounded"
 
 [ui.status_bar]
@@ -23,15 +22,12 @@ hidden = false
 
 [ui.results_panel]
 border_type = "rounded"
-# padding = {"left": 0, "right": 0, "top": 0, "bottom": 0}
 
 [ui.preview_panel]
 size = 50
-#header = ""
-#footer = ""
+footer = "preview"
 scrollbar = true
 border_type = "rounded"
-# padding = {"left": 0, "right": 0, "top": 0, "bottom": 0}
 hidden = false
 
 [ui.help_panel]
