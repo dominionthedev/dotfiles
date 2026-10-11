@@ -20,8 +20,8 @@ config.initial_rows = 60
 
 config.window_padding = {
 	left = 2,
-	right = 2,
-	top = 3,
+	right = 1,
+	top = 2,
 	bottom = 1,
 }
 
