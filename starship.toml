@@ -1,9 +1,8 @@
 # Enjoying starship default for a bit of time
-#
-# "$schema" = 'https://starship.rs/config-schema.json'
+"$schema" = 'https://starship.rs/config-schema.json'
 
-# command_timeout = 10000
-# scan_timeout = 2000
+command_timeout = 10000
+scan_timeout = 2000
 # add_newline = true
 
 # format = """
