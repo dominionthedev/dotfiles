@@ -18,15 +18,27 @@ workspace:
   default: null
   routes: []
 project:
-  overrides: []
+  overrides:
+    # aven-managed project path mapping
+    - workspace_id: "0000000000000000"
+      workspace: developer
+      project: drop
+      paths:
+        - /Users/appleplay/Developer/projects/drop
+    # aven-managed project path mapping
+    - workspace_id: "0000000000000000"
+      workspace: developer
+      project: lean
+      paths:
+        - /Users/appleplay/Developer/projects/lean
 agent:
   task_intake:
     command: null
     args:
-    - -p
-    - --no-session-persistence
-    - --bare
-    - '{prompt}'
+      - -p
+      - --no-session-persistence
+      - --bare
+      - "{prompt}"
     timeout_seconds: 45
     system_prompt: null
 update:
@@ -34,49 +46,43 @@ update:
 tui:
   table:
     columns:
-    - ref
-    - title
-    - labels
-    - metadata
-    - project
-    - status
-    - priority
-    - time
+      - ref
+      - title
+      - labels
+      - metadata
+      - project
+      - status
+      - priority
+      - time
     compact_status: false
   sidebar:
     views:
-    - queue
-    - ready
-    - blocked
-    - overdue
-    - all
-    - open
-    - inbox
-    - active
-    - backlog
-    - todo
-    - upcoming
-    - done
-    - conflicts
-    - epics
-    - recurring
-    - recent_actions
-    - search
+      - queue
+      - ready
+      - blocked
+      - overdue
+      - inbox
+      - active
+      - backlog
+      - upcoming
+      - done
+      - epics
+      - recent_actions
   columns:
-  - name: Inbox
-    statuses:
-    - inbox
-  - name: Backlog
-    statuses:
-    - backlog
-  - name: Todo
-    statuses:
-    - todo
-  - name: Active
-    statuses:
-    - active
-  - name: Done
-    statuses:
-    - done
-    - canceled
+    - name: Inbox
+      statuses:
+        - inbox
+    - name: Backlog
+      statuses:
+        - backlog
+    - name: Todo
+      statuses:
+        - todo
+    - name: Active
+      statuses:
+        - active
+    - name: Done
+      statuses:
+        - done
+        - canceled
   commands: []
