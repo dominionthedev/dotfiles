@@ -49,6 +49,7 @@ return {
 
   {
     "dominionthedev/neobar",
+    event = { "BufEnter", "WinEnter" },
     dependencies = {
       "MunifTanjim/nui.nvim",
       "folke/edgy.nvim",

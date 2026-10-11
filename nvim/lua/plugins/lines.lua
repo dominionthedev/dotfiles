@@ -101,37 +101,37 @@ return {
         normal = {
           a = { bg = mocha.blue, fg = mocha.base, gui = "bold" },
           b = { bg = mocha.surface0, fg = mocha.text },
-          c = { fg = mocha.text, bg = mocha.base },
+          c = { bg = mocha.mantle, fg = mocha.text },
         },
         insert = {
           a = { bg = mocha.green, fg = mocha.base, gui = "bold" },
           b = { bg = mocha.surface0, fg = mocha.text },
-          c = { fg = mocha.text, bg = mocha.base },
+          c = { bg = mocha.mantle, fg = mocha.text },
         },
         visual = {
           a = { bg = mocha.mauve, fg = mocha.base, gui = "bold" },
           b = { bg = mocha.surface0, fg = mocha.text },
-          c = { fg = mocha.text, bg = mocha.base },
+          c = { bg = mocha.mantle, fg = mocha.text },
         },
         replace = {
           a = { bg = mocha.red, fg = mocha.base, gui = "bold" },
           b = { bg = mocha.surface0, fg = mocha.text },
-          c = { fg = mocha.text, bg = mocha.base },
+          c = { bg = mocha.mantle, fg = mocha.text },
         },
         command = {
           a = { bg = mocha.peach, fg = mocha.base, gui = "bold" },
           b = { bg = mocha.surface0, fg = mocha.text },
-          c = { fg = mocha.text, bg = mocha.base },
+          c = { bg = mocha.mantle, fg = mocha.text },
         },
         inactive = {
           a = { bg = mocha.surface0, fg = mocha.overlay1, gui = "bold" },
           b = { bg = mocha.mantle, fg = mocha.overlay1 },
-          c = { fg = mocha.overlay1, bg = mocha.base },
+          c = { bg = mocha.mantle, fg = mocha.overlay1 },
         },
         terminal = {
           a = { bg = mocha.sapphire, fg = mocha.base, gui = "bold" },
           b = { bg = mocha.surface0, fg = mocha.text },
-          c = { fg = mocha.text, bg = mocha.base },
+          c = { bg = mocha.mantle, fg = mocha.text },
         },
       }
 
@@ -184,7 +184,7 @@ return {
           lualine_x = {
             {
               git_blame,
-              color = { fg = mocha.overlay1, bg = mocha.base },
+              color = { fg = mocha.overlay1, bg = mocha.mantle },
               cond = function()
                 return git_blame() ~= ""
               end,
@@ -206,7 +206,7 @@ return {
             "aerial",
             {
               lsp_clients,
-              color = { fg = mocha.sapphire, bg = mocha.base },
+              color = { fg = mocha.sapphire, bg = mocha.mantle },
             },
           },
 
@@ -284,17 +284,17 @@ return {
 
         highlights = {
           fill = {
-            bg = mocha.base,
+            bg = mocha.mantle,
           },
 
           background = {
             fg = mocha.overlay1,
-            bg = mocha.base,
+            bg = mocha.mantle,
           },
 
           buffer_visible = {
             fg = mocha.subtext1,
-            bg = mocha.base,
+            bg = mocha.mantle,
           },
 
           buffer_selected = {
@@ -305,28 +305,28 @@ return {
           },
 
           separator = {
-            fg = mocha.base,
-            bg = mocha.base,
+            fg = mocha.crust,
+            bg = mocha.mantle,
           },
 
           separator_visible = {
-            fg = mocha.base,
-            bg = mocha.base,
+            fg = mocha.crust,
+            bg = mocha.mantle,
           },
 
           separator_selected = {
-            fg = mocha.base,
+            fg = mocha.crust,
             bg = mocha.surface0,
           },
 
           modified = {
             fg = mocha.peach,
-            bg = mocha.base,
+            bg = mocha.mantle,
           },
 
           modified_visible = {
             fg = mocha.peach,
-            bg = mocha.base,
+            bg = mocha.mantle,
           },
 
           modified_selected = {
@@ -335,11 +335,11 @@ return {
           },
 
           diagnostic = {
-            bg = mocha.base,
+            bg = mocha.mantle,
           },
 
           diagnostic_visible = {
-            bg = mocha.base,
+            bg = mocha.mantle,
           },
 
           diagnostic_selected = {
@@ -348,12 +348,12 @@ return {
 
           hint = {
             fg = mocha.teal,
-            bg = mocha.base,
+            bg = mocha.mantle,
           },
 
           hint_visible = {
             fg = mocha.teal,
-            bg = mocha.base,
+            bg = mocha.mantle,
           },
 
           hint_selected = {
@@ -363,12 +363,12 @@ return {
 
           info = {
             fg = mocha.sky,
-            bg = mocha.base,
+            bg = mocha.mantle,
           },
 
           info_visible = {
             fg = mocha.sky,
-            bg = mocha.base,
+            bg = mocha.mantle,
           },
 
           info_selected = {
@@ -378,12 +378,12 @@ return {
 
           warning = {
             fg = mocha.yellow,
-            bg = mocha.base,
+            bg = mocha.mantle,
           },
 
           warning_visible = {
             fg = mocha.yellow,
-            bg = mocha.base,
+            bg = mocha.mantle,
           },
 
           warning_selected = {
@@ -393,12 +393,12 @@ return {
 
           error = {
             fg = mocha.red,
-            bg = mocha.base,
+            bg = mocha.mantle,
           },
 
           error_visible = {
             fg = mocha.red,
-            bg = mocha.base,
+            bg = mocha.mantle,
           },
 
           error_selected = {
@@ -408,13 +408,13 @@ return {
 
           duplicate = {
             fg = mocha.overlay1,
-            bg = mocha.base,
+            bg = mocha.mantle,
             italic = true,
           },
 
           duplicate_visible = {
             fg = mocha.overlay1,
-            bg = mocha.base,
+            bg = mocha.mantle,
             italic = true,
           },
 
@@ -426,12 +426,12 @@ return {
 
           close_button = {
             fg = mocha.overlay1,
-            bg = mocha.base,
+            bg = mocha.mantle,
           },
 
           close_button_visible = {
             fg = mocha.overlay1,
-            bg = mocha.base,
+            bg = mocha.mantle,
           },
 
           close_button_selected = {

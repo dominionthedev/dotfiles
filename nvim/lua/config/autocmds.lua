@@ -143,6 +143,14 @@ vim.api.nvim_create_autocmd({ "WinLeave", "InsertEnter" }, {
   end,
 })
 
+-- Disable cursorline in non-file buffers
+vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter", "VimEnter" }, {
+  callback = function()
+    local buftype = vim.bo.buftype
+    vim.opt_local.cursorline = buftype == ""
+  end,
+})
+
 -- Wrap + spell for text-like buffers
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup,
