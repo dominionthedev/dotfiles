@@ -5,7 +5,6 @@
 typeset -gU path PATH
 
 path=(
-  $HOME/.local/share/nvm/versions/node/v22.23.2/bin
   /opt/local/bin
   /opt/local/sbin
   $HOME/.local/bin
@@ -18,6 +17,7 @@ path=(
   $HOME/.cargo/bin
   /usr/local/go/bin
   /opt/local/lib/postgresql18/bin
+  $HOME/.local/share/nvm/versions/node/v22.23.2/bin
 )
 
 export PATH
@@ -31,5 +31,5 @@ fpath=(
 )
 
 # manpath
-export MANPATH="/opt/local/share/man:$MANPATH"
+export MANPATH="/opt/local/share/man:/Users/appleplay/.local/share/man:$MANPATH"
 
