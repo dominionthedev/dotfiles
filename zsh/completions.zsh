@@ -1,7 +1,7 @@
 # ── Completions ───────────────────────────────────────────────────────────────
 mkdir -p "${XDG_CACHE_HOME}/zsh"
 
-# Custom completion functions (ouch, git-am, git-apply and whatever comes next)
+# Custom completion functions (ouch, git-am, git-apply, and whatever comes next)
 fpath=("${XDG_CONFIG_HOME}/zsh/completions" $fpath)
 
 autoload -Uz compinit

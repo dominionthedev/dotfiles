@@ -3,7 +3,12 @@ alias c="clear"
 alias cl="clear"
 alias n="nvim"
 alias nv="nvim"
+alias v="nvim"
+alias vi"nvim"
+alias vim"nvim"
 alias t="tmux"
+alias av="aven"
+alias explorer="yazi"
 alias cd="z"
 alias ..='cd ..'
 alias ~='cd ~'
