@@ -1,0 +1,42 @@
+[metadata]
+name = "macports-installed"
+description = "Browse installed MacPorts ports and manage them"
+requirements = ["port"]
+
+[source]
+command = "port -q installed | awk '$2 ~ /^@/ { print $1 }' | sort -u"
+
+[preview]
+command = "echo '--- Port information ---'; port info '{}' 2>&1; echo; echo '--- Installed versions ---'; port installed '{}'; echo; echo '--- Variants ---'; port variants '{}' 2>&1"
+
+[keybindings]
+enter = "actions:info"
+ctrl-u = "actions:uninstall"
+ctrl-v = "actions:install-variant"
+ctrl-a = "actions:activate"
+ctrl-d = "actions:deactivate"
+
+[actions.info]
+description = "Show detailed information for the selected port"
+command = "port info '{}'; port installed '{}'; port variants '{}'"
+mode = "execute"
+
+[actions.uninstall]
+description = "Uninstall the selected port"
+command = "sudo port uninstall '{}'"
+mode = "execute"
+
+[actions.install-variant]
+description = "Install the selected port with chosen variants"
+command = "bash -c 'port variants \"$1\"; printf \"\\nVariants to apply (for example: +x11 -quartz): \"; read -r -a variant_args; sudo port install \"$1\" \"${variant_args[@]}\"' _ '{}'"
+mode = "execute"
+
+[actions.activate]
+description = "Activate an installed version of the selected port"
+command = "sudo port activate '{}'"
+mode = "execute"
+
+[actions.deactivate]
+description = "Deactivate the selected port"
+command = "sudo port deactivate '{}'"
+mode = "execute"

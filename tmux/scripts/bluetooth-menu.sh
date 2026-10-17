@@ -4,7 +4,7 @@
 # Needs blueutil and jq.
 set -euo pipefail
 
-SCRIPT="$HOME/.config/tmux/custom/bluetooth-menu.sh"
+SCRIPT="$HOME/.config/tmux/scripts/bluetooth-menu.sh"
 
 display_error() {
     tmux display-message "Bluetooth: $*"

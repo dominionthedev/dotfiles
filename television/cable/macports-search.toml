@@ -1,0 +1,30 @@
+[metadata]
+name = "macports-search"
+description = "Search the MacPorts port tree and install ports"
+requirements = ["port"]
+
+[source]
+command = "port -q list | awk 'NF >= 2 && $2 ~ /^@/ { print $1 }' | sort -u"
+
+[preview]
+command = "echo '--- Port information ---'; port info '{}' 2>&1; echo; echo '--- Available variants ---'; port variants '{}' 2>&1"
+
+[keybindings]
+enter = "actions:install"
+ctrl-v = "actions:install-variant"
+ctrl-i = "actions:info"
+
+[actions.install]
+description = "Install the selected port"
+command = "sudo port install '{}'"
+mode = "execute"
+
+[actions.install-variant]
+description = "Install the selected port with chosen variants"
+command = "bash -c 'port variants \"$1\"; printf \"\\nVariants to apply (for example: +x11 -quartz): \"; read -r -a variant_args; sudo port install \"$1\" \"${variant_args[@]}\"' _ '{}'"
+mode = "execute"
+
+[actions.info]
+description = "Show detailed information and variants for the selected port"
+command = "port info '{}'; port variants '{}'"
+mode = "execute"

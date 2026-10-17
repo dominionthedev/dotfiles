@@ -22,7 +22,7 @@ set -uo pipefail
 
 AIRPORT="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
 NEW_CACHE="/tmp/tmux-wifi-new.tsv"
-SELF="~/.config/tmux/custom/wifi-menu.sh"
+SELF="~/.config/tmux/scripts/wifi-menu.sh"
 
 DEV=$(networksetup -listallhardwareports 2>/dev/null | awk '/Hardware Port: Wi-Fi/{getline; print $2}')
 [ -z "$DEV" ] && DEV="en0"

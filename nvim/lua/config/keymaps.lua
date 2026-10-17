@@ -114,6 +114,8 @@ map("n", "<leader>xX", "<cmd>Trouble diagnostics_all toggle<cr>", "Diagnostics (
 map("n", "<leader>xq", "<cmd>Trouble qflist toggle<cr>", "Quickfix list")
 map("n", "<leader>xl", "<cmd>Trouble loclist toggle<cr>", "Location list")
 
+map("n", "<leader>cl", "<cmd>ALELint<cr>", "Lint current buffer")
+
 -- ── Formatting ─────────────────────────────────────────────────────
 map("n", "<leader>cf", function()
   require("conform").format({ async = true, lsp_fallback = true })
@@ -157,8 +159,8 @@ map("n", "<leader>tt", function()
 end, "Toggle terminal")
 
 -- ── Markdown & notes ──────────
-map("n", "<leader>mp", "<cmd>Markview splitToggle<CR>", "Toggle markdown preview split")
-map("n", "<leader>mo", "<cmd>Markview<CR>", "Toggle markdown preview globally.")
+map("n", "<leader>mp", "<cmd>RenderMarkdown buf_toggle<CR>", "Toggle Markdown rendering for buffer")
+map("n", "<leader>mo", "<cmd>RenderMarkdown toggle<CR>", "Toggle Markdown rendering globally")
 map("n", "<leader>mn", custom.new_note, "New note")
 map("n", "<leader>mf", custom.find_note, "Find note")
 map("n", "<leader>ms", custom.grep_notes, "Search notes")

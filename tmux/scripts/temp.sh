@@ -4,9 +4,7 @@
 raw=$(osx-cpu-temp)
 
 # Extract the integer part for bash comparisons (e.g., "63" from "63.0°C")
-# you might want to change this, if the real osx-cpu-temp output is different
 t_int=$(echo "$raw" | grep -Eo '[0-9]+' | head -1)
-raw="${t_int}°"
 
 # No temp data — show nothing
 [ -z "$t_int" ] && exit 0
@@ -25,9 +23,9 @@ else
 fi
 
 if [ "$t_int" -ge 80 ]; then
-  echo "#[fg=#{@thm_red}]#[bg=#{@thm_red},fg=#{@thm_bg}]${icon} #[fg=#{@thm_fg},bg=#{@thm_surface_0},bold] ${raw} "
+  echo "#[fg=#{@thm_red},bold]${icon} ${raw}#[none]"
 elif [ "$t_int" -ge 60 ]; then
-  echo "#[fg=#{@thm_yellow}]#[bg=#{@thm_yellow},fg=#{@thm_bg}]${icon} #[fg=#{@thm_fg},bg=#{@thm_surface_0}] ${raw} "
+  echo "#[fg=#{@thm_yellow}]${icon} ${raw}"
 else
-  echo "#[fg=#{@thm_sky}]#[bg=#{@thm_sky},fg=#{@thm_bg}]${icon} #[fg=#{@thm_fg},bg=#{@thm_surface_0}] ${raw} "
+  echo "#[fg=#{@thm_teal}]${icon} ${raw}"
 fi

@@ -85,35 +85,13 @@ return {
   },
 
   {
-    "OXY2DEV/markview.nvim",
-    event = "VeryLazy",
+    "MeanderingProgrammer/render-markdown.nvim",
     ft = { "markdown" },
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
+      "echasnovski/mini.icons",
     },
-    opts = {
-      preview = {
-        enable = false,
-        hybrid_modes = { "n" },
-      },
-      markdown = {
-        headings = {
-          shift_width = 1,
-        },
-      },
-      code_blocks = {
-        style = "block",
-      },
-      tables = {
-        enable = true,
-      },
-      checkboxes = {
-        enable = true,
-      },
-      links = {
-        enable = true,
-      },
-    },
+    opts = {},
   },
 
   {

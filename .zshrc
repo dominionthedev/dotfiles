@@ -1,7 +1,8 @@
 if [[ -z "$TMUX" ]] && [[ "$SHLVL" -eq 1 ]]; then
     source "${HOME}/.config/zsh/themes/catppuccin.zsh"
-    toilet -f slant --gay "DOMINIONDEV"
 fi
+
+toilet -f slant --gay "DOMINIONDEV"
 
 source "${HOME}/.config/zsh/aliases.zsh"
 source "${HOME}/.config/zsh/completions.zsh"
@@ -14,8 +15,10 @@ eval "$(tv init zsh)"
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 eval "$(atuin init zsh)"
+eval "$(wt config shell init zsh)"
+eval "$(just --completions zsh)"
 
 # for now, I'll be resetting my PATH after any modification
-# made above until I actually want a tool to modify it.
-# And I'll make zprofile the source of truth(after my config loads)
+# made above until I actually want a tool to modify it,
+# making zprofile the source of truth(after my config loads)
 source "${HOME}/.zprofile"
